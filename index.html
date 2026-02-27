@@ -284,14 +284,21 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--tx)
   height:56px;display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.3);flex-shrink:0}
 .ap-logo{font-family:var(--fh);font-size:16px;font-weight:800}
+@media(max-width:400px){.ap-logo{font-size:14px}.ap-logo span{display:none}}
 .ap-logo em{color:#FFB800;font-style:normal}
 .ap-logo span{opacity:.55;font-size:11px;font-weight:400;margin-left:6px}
 .ap-hdr-rt{display:flex;align-items:center;gap:8px}
+@media(max-width:400px){
+  .ap-hdr-rt{gap:4px}
+  .ap-hdr-rt .btn{padding:5px 8px;font-size:11px}
+}
 .ap-body{max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:20px;padding-bottom:40px}
+@media(max-width:400px){.ap-body{padding:12px;gap:14px;padding-bottom:30px}}
 .ap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media(max-width:860px){.ap-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:400px){.ap-grid{grid-template-columns:1fr 1fr;gap:10px}}
 .ap-stat{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--sh);border-top:4px solid var(--bl)}
+@media(max-width:400px){.ap-stat{padding:14px 12px;border-radius:10px}}
 .ap-stat.g{border-top-color:var(--gn)}.ap-stat.o{border-top-color:var(--sf)}.ap-stat.p{border-top-color:var(--pur)}
 .ap-sv{font-family:var(--fh);font-size:30px;font-weight:800;color:var(--tx)}
 @media(max-width:400px){.ap-sv{font-size:24px}}
@@ -319,13 +326,21 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--tx)
 .q-msg{font-size:12px;margin-top:5px;min-height:18px;font-weight:600}
 .q-msg.ok{color:var(--gn)}.q-msg.bad{color:#EF4444}
 .q-acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-@media(max-width:400px){.q-acts .btn{padding:10px 12px;font-size:12px}}
+@media(max-width:400px){
+  .q-acts{flex-direction:column}
+  .q-acts .btn{padding:12px;font-size:13px;justify-content:center;width:100%}
+}
 .tbl-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+@media(max-width:400px){
+  .tbl-bar{flex-direction:column;align-items:stretch}
+  .srch{width:100%;min-width:0}
+  .srt{width:100%}
+}
 .srch{padding:9px 12px;border:2px solid var(--bd);border-radius:9px;font-family:var(--fb);font-size:13px;outline:none;transition:.2s;flex:1;min-width:120px}
 .srch:focus{border-color:var(--bl)}
 .srt{padding:9px 10px;border:2px solid var(--bd);border-radius:9px;font-family:var(--fb);font-size:13px;outline:none;background:#fff;cursor:pointer}
 .tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--bd);-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
+table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;padding:10px 10px;background:var(--bg);font-weight:700;font-size:11px;
   text-transform:uppercase;letter-spacing:.4px;color:var(--mt);border-bottom:2px solid var(--bd);white-space:nowrap}
 td{padding:10px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
@@ -334,6 +349,19 @@ tr:hover td{background:#f9fafb}
 .sb{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
 .sb-hi{background:#D1FAE5;color:#065F46}.sb-md{background:#FEF3C7;color:#92400E}.sb-lo{background:#FEE2E2;color:#991B1B}
 .tbl-empty{text-align:center;padding:28px;color:var(--mt);font-size:14px}
+
+/* ══ MOBILE TABLE → CARD LAYOUT ══ */
+@media(max-width:600px){
+  .tbl-wrap{border:none;overflow:visible}
+  table,thead,tbody,th,td,tr{display:block}
+  thead{display:none}
+  tr{background:#fff;border:1px solid var(--bd);border-radius:12px;margin-bottom:12px;padding:14px;box-shadow:var(--sh)}
+  tr:hover td{background:transparent}
+  td{padding:6px 0;border:none;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+  td::before{content:attr(data-label);font-weight:700;color:var(--mt);font-size:11px;text-transform:uppercase;flex-shrink:0;margin-right:10px}
+  td:first-child{display:none}
+  .sb{margin-left:auto}
+}
 .set-row{display:flex;align-items:center;justify-content:space-between;
   padding:14px 0;border-bottom:1px solid var(--bd);gap:14px}
 .set-row:last-child{border-bottom:none}
@@ -344,6 +372,7 @@ tr:hover td{background:#f9fafb}
 .set-inp{padding:10px 12px;border:2px solid var(--bd);border-radius:8px;font-family:var(--fb);
   font-size:15px;outline:none;transition:.2s;width:70px;text-align:center;flex-shrink:0;
   -webkit-appearance:none;background:#fff;color:var(--tx)}
+@media(max-width:400px){.set-inp{width:60px;padding:8px 6px;font-size:14px}}
 .set-inp:focus{border-color:var(--bl)}
 .tog{width:46px;height:26px;background:var(--bd);border-radius:13px;cursor:pointer;
   position:relative;transition:.2s;border:none;flex-shrink:0;-webkit-tap-highlight-color:transparent}
@@ -358,6 +387,12 @@ tr:hover td{background:#f9fafb}
   .set-row{flex-wrap:wrap}
   .pw-change-row{width:100%;margin-top:8px}
   .pw-change-row input{flex:1;width:auto}
+}
+@media(max-width:360px){
+  .set-row{flex-direction:column;align-items:flex-start;gap:10px}
+  .set-row>div:first-child{width:100%}
+  .set-inp{width:100%}
+  .tog{align-self:flex-start}
 }
 
 /* ══════════════════════════════════════
@@ -516,7 +551,7 @@ tr:hover td{background:#f9fafb}
 <!-- ═══ SPLASH ═══ -->
 <div id="splash">
   <div class="sp-wh">☸️</div>
-  <div class="sp-br">Nishu<em>Abhyasi</em></div>
+  <div class="sp-br">Nishu<em>Abhyasi 2.0</em></div>
   <div class="sp-su">Bihar B.Ed CET – Online Mock Test Portal</div>
   <div class="sp-bw"><div class="sp-bf" id="sp-bf" style="width:0%"></div></div>
   <div class="sp-mg" id="sp-mg">Connecting to database…</div>
@@ -562,7 +597,7 @@ tr:hover td{background:#f9fafb}
   <div class="auth-out">
     <div class="auth-card">
       <div class="auth-logo">Nishu<em>Abhyasi</em></div>
-      <div class="auth-sub">Bihar B.Ed CET – Mock Test Portal</div>
+      <div class="auth-sub">Bihar B.Ed CET – Free Mock Test Portal</div>
       <div class="auth-tabs">
         <button class="auth-tab on" id="tab-si" onclick="switchAuthTab('si')">Sign In</button>
         <button class="auth-tab" id="tab-su" onclick="switchAuthTab('su')">Register</button>
@@ -1531,15 +1566,15 @@ function renderTbl(){
   tbody.innerHTML=rows.map((r,i)=>{
     const cls=r.pct>=60?'sb-hi':r.pct>=40?'sb-md':'sb-lo';
     return `<tr>
-      <td style="color:var(--mt);font-size:12px">${i+1}</td>
-      <td style="font-weight:600">${esc(r.name||'—')}</td>
-      <td style="font-size:12px;color:var(--mt)">${esc(r.email||r.roll||'—')}</td>
-      <td><span class="sb ${cls}">${r.score}/${r.total}</span></td>
-      <td><b>${r.pct}%</b></td>
-      <td style="color:var(--gn);font-weight:700">${r.correct}</td>
-      <td style="color:var(--c-no);font-weight:700">${r.wrong}</td>
-      <td style="color:var(--mt)">${r.skipped}</td>
-      <td style="font-size:12px;color:var(--mt)">${fmtDate(r.timestamp)}</td>
+      <td data-label="#">${i+1}</td>
+      <td data-label="Name" style="font-weight:600">${esc(r.name||'—')}</td>
+      <td data-label="Email" style="font-size:12px;color:var(--mt)">${esc(r.email||r.roll||'—')}</td>
+      <td data-label="Score"><span class="sb ${cls}">${r.score}/${r.total}</span></td>
+      <td data-label="Percent"><b>${r.pct}%</b></td>
+      <td data-label="Correct" style="color:var(--gn);font-weight:700">${r.correct}</td>
+      <td data-label="Wrong" style="color:var(--c-no);font-weight:700">${r.wrong}</td>
+      <td data-label="Skipped" style="color:var(--mt)">${r.skipped}</td>
+      <td data-label="Date" style="font-size:12px;color:var(--mt)">${fmtDate(r.timestamp)}</td>
     </tr>`;
   }).join('');
 }

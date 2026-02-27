@@ -1025,6 +1025,9 @@ window.addEventListener('dbready',async()=>{
   finishBoot();
 });
 
+/* ══ BOOT ══ */
+let _bootLoaded = false; // ← ADD THIS FLAG
+
 async function bootLoad(){
   try{
     const s=await fbGet('config/settings');
@@ -1034,6 +1037,7 @@ async function bootLoad(){
     if(qd&&Array.isArray(qd.data)&&qd.data.length)
       Q=settings.shuffle?shuffle([...qd.data]):qd.data;
   }catch(e){console.warn('Boot error:',e.message);}
+  _bootLoaded = true; // ← MARK AS DONE
 }
 
 function finishBoot(){
@@ -1050,9 +1054,15 @@ function finishBoot(){
 
 function setupAuthListener(hasSession){
   const {onAuthStateChanged}=fa();
-  onAuthStateChanged(auth(),(user)=>{
+  onAuthStateChanged(auth(), async (user)=>{  // ← ADD async
     curUser=user;
     isGuest=false;
+
+    // ══ FIX: Wait for questions to finish loading ══
+    if(!_bootLoaded){
+      await waitForBoot();
+    }
+
     if(hasSession){
       showRefreshGuard();
       return;
@@ -1064,6 +1074,18 @@ function setupAuthListener(hasSession){
       if(wasGuest==='1'){isGuest=true;showLanding();}
       else showScreen('auth');
     }
+  });
+}
+
+// ══ NEW: Helper to wait until bootLoad finishes ══
+function waitForBoot(){
+  return new Promise(resolve=>{
+    if(_bootLoaded){ resolve(); return; }
+    const check = setInterval(()=>{
+      if(_bootLoaded){ clearInterval(check); resolve(); }
+    }, 50);
+    // Safety timeout — don't wait forever
+    setTimeout(()=>{ clearInterval(check); resolve(); }, 5000);
   });
 }
 

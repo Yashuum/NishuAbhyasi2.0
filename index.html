@@ -416,9 +416,14 @@ tr:hover td{background:#f9fafb}
 .th-roll{font-size:10px;opacity:.6}
 .btn-fs{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
   color:#fff;font-size:15px;cursor:pointer;padding:5px 9px;border-radius:7px;transition:.2s}
-.rv-ban{background:var(--pur);color:#fff;text-align:center;padding:7px;
-  font-size:13px;font-weight:700;display:none;flex-shrink:0}
-.rv-ban.on{display:block}
+.rv-ban{background:var(--pur);color:#fff;text-align:center;padding:7px 12px;
+  font-size:13px;font-weight:700;display:none;flex-shrink:0;
+  align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.rv-ban.on{display:flex}
+.rv-ban-back{background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.5);color:#fff;
+  border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:.15s;font-family:var(--fb)}
+.rv-ban-back:hover{background:rgba(255,255,255,0.35)}
 .pb-w{height:4px;background:rgba(0,87,168,.12);flex-shrink:0}
 .pb{height:100%;background:linear-gradient(90deg,#FFB800,var(--sf));transition:width .35s;border-radius:0 3px 3px 0}
 .st-wrap{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--bd);
@@ -486,6 +491,10 @@ tr:hover td{background:#f9fafb}
 .qb.cur{outline:3px solid var(--bl);outline-offset:2px}
 .qb.ans{background:var(--c-ans)}.qb.no{background:var(--c-no)}
 .qb.mk{background:var(--pur)}.qb.mka{background:var(--amb)}
+/* Review mode palette states */
+.qb.rev-cor{background:#16a34a;color:#fff;box-shadow:0 0 0 2px #bbf7d0}
+.qb.rev-err{background:#dc2626;color:#fff;box-shadow:0 0 0 2px #fecaca}
+.qb.rev-skip{background:#94a3b8;color:#fff}
 .sb-lg{padding:10px 14px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:6px}
 .sbl{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--mt)}
 .sbl-b{width:18px;height:18px;border-radius:4px;flex-shrink:0}
@@ -544,6 +553,30 @@ tr:hover td{background:#f9fafb}
 .rc-btn{flex:1;padding:13px;border:none;border-radius:11px;font-family:var(--fh);font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
 .rcb-rv{background:var(--bl);color:#fff}
 .rcb-rs{background:var(--gn);color:#fff}
+
+/* ══ SUBJECT-WISE GRAPH ══ */
+.sg-wrap{background:#fff;border-radius:22px;width:100%;box-shadow:var(--sh2);overflow:hidden;animation:fadeUp .5s ease .1s both}
+.sg-hd{background:linear-gradient(135deg,#1e3a8a,#1e40af);padding:18px 22px;color:#fff}
+.sg-hd h3{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:2px}
+.sg-hd p{font-size:12px;opacity:.8}
+.sg-body{padding:18px 20px;display:flex;flex-direction:column;gap:16px}
+.sg-item{display:flex;flex-direction:column;gap:6px}
+.sg-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sg-name{font-size:13px;font-weight:700;color:var(--tx);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.sg-badge.strong{background:#dcfce7;color:#15803d}
+.sg-badge.moderate{background:#fef9c3;color:#a16207}
+.sg-badge.weak{background:#fee2e2;color:#b91c1c}
+.sg-bar-wrap{width:100%;height:10px;background:#f1f5f9;border-radius:10px;overflow:hidden;display:flex;gap:1px}
+.sg-bar-cor{height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:10px 0 0 10px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.sg-bar-err{height:100%;background:linear-gradient(90deg,#f87171,#dc2626);transition:width .9s cubic-bezier(.4,0,.2,1)}
+.sg-bar-skip{height:100%;background:#cbd5e1;border-radius:0 10px 10px 0;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.sg-counts{display:flex;gap:14px}
+.sg-count{font-size:11px;color:var(--mt);display:flex;align-items:center;gap:4px}
+.sg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sg-dot-c{background:#22c55e}.sg-dot-e{background:#dc2626}.sg-dot-s{background:#cbd5e1}
+.sg-footer{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.sg-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mt)}
 </style>
 </head>
 <body>
@@ -870,7 +903,7 @@ tr:hover td{background:#f9fafb}
       <button class="btn-fs" onclick="toggleFS()">⛶</button>
     </div>
   </div>
-  <div class="rv-ban" id="rv-ban">🔍 REVIEW MODE — Correct answers in green</div>
+  <div class="rv-ban" id="rv-ban">🔍 REVIEW MODE — Correct answers in green &nbsp;<button class="rv-ban-back" onclick="backToResult()">📋 Back to Results</button></div>
   <div class="pb-w"><div class="pb" id="pb" style="width:0%"></div></div>
   <div class="st-wrap" id="st-wrap"></div>
   <div class="tb">
@@ -956,6 +989,23 @@ tr:hover td{background:#f9fafb}
         <button class="rc-btn rcb-rs" onclick="doFresh()">🔄 New Test</button>
       </div>
     </div>
+
+    <!-- Subject-wise Performance Graph -->
+    <div class="sg-wrap" id="sg-wrap" style="display:none">
+      <div class="sg-hd">
+        <h3>📊 Subject-wise Analysis</h3>
+        <p>Your preparation strength across each subject</p>
+      </div>
+      <div class="sg-body" id="sg-body">
+        <!-- Dynamically populated by renderSubjectGraph() -->
+      </div>
+      <div class="sg-footer">
+        <div class="sg-legend"><div class="sg-dot sg-dot-c"></div> Correct</div>
+        <div class="sg-legend"><div class="sg-dot sg-dot-e"></div> Wrong</div>
+        <div class="sg-legend"><div class="sg-dot sg-dot-s"></div> Skipped</div>
+      </div>
+    </div>
+
     <footer class="ft">
       <span class="ft-br">Nishu<em>Abhyasi</em></span>
       An app by <strong style="color:#fff">Yashwant</strong> &nbsp;|&nbsp; © 2025
@@ -1369,10 +1419,16 @@ function refGrid(){
     const b=document.getElementById('qb'+i);if(!b)return;
     b.className='qb';
     if(i===curQ)b.classList.add('cur');
-    if(mkd[i]&&ans[i]!==null)b.classList.add('mka');
-    else if(mkd[i])b.classList.add('mk');
-    else if(ans[i]!==null)b.classList.add('ans');
-    else if(vis[i])b.classList.add('no');
+    if(isRev){
+      if(ans[i]===null)b.classList.add('rev-skip');
+      else if(ans[i]===Q[i].correct)b.classList.add('rev-cor');
+      else b.classList.add('rev-err');
+    } else {
+      if(mkd[i]&&ans[i]!==null)b.classList.add('mka');
+      else if(mkd[i])b.classList.add('mk');
+      else if(ans[i]!==null)b.classList.add('ans');
+      else if(vis[i])b.classList.add('no');
+    }
   });
   refStats();
 }
@@ -1457,6 +1513,7 @@ async function doSubmit(){
   document.getElementById('res-msg').textContent=msg;
   const circ=351.86,off=circ-(circ*pct/100);
   setTimeout(()=>{const r=document.getElementById('sr');r.style.strokeDashoffset=off;r.style.stroke=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';},250);
+  renderSubjectGraph();
   showScreen('result');
 }
 function reviewTest(){
@@ -1464,6 +1521,62 @@ function reviewTest(){
   document.getElementById('timer').textContent='00:00:00';
   document.querySelectorAll('.ab .btn').forEach(b=>{if(b.getAttribute('onclick')&&['saveNxt','markRev','clearR'].some(f=>b.getAttribute('onclick').includes(f)))b.style.display='none';});
   renderQ(0);
+}
+function backToResult(){
+  showScreen('result');
+}
+function renderSubjectGraph(){
+  const wrap=document.getElementById('sg-wrap');
+  const body=document.getElementById('sg-body');
+  if(!wrap||!body)return;
+  // Only show if there are sections defined
+  if(!secs||secs.length===0){wrap.style.display='none';return;}
+  body.innerHTML='';
+  secs.forEach(sec=>{
+    if(!sec.ix||sec.ix.length===0)return;
+    let cor=0,err=0,skp=0;
+    sec.ix.forEach(i=>{
+      if(ans[i]===null)skp++;
+      else if(ans[i]===Q[i].correct)cor++;
+      else err++;
+    });
+    const total=sec.ix.length;
+    const pct=total>0?Math.round(cor/total*100):0;
+    const corW=Math.round(cor/total*100);
+    const errW=Math.round(err/total*100);
+    const skpW=100-corW-errW;
+    let badgeCls,badgeTx;
+    if(pct>=70){badgeCls='strong';badgeTx='💪 Strong';}
+    else if(pct>=40){badgeCls='moderate';badgeTx='⚠️ Needs Work';}
+    else{badgeCls='weak';badgeTx='❌ Weak';}
+    const item=document.createElement('div');
+    item.className='sg-item';
+    item.innerHTML=`
+      <div class="sg-top">
+        <div class="sg-name">${sec.n||'Section '+(secs.indexOf(sec)+1)}</div>
+        <div class="sg-badge ${badgeCls}">${badgeTx} &nbsp;${pct}%</div>
+      </div>
+      <div class="sg-bar-wrap">
+        <div class="sg-bar-cor" style="width:${corW}%"></div>
+        <div class="sg-bar-err" style="width:${errW}%"></div>
+        <div class="sg-bar-skip" style="width:${Math.max(skpW,0)}%"></div>
+      </div>
+      <div class="sg-counts">
+        <div class="sg-count"><div class="sg-dot sg-dot-c"></div>${cor} Correct</div>
+        <div class="sg-count"><div class="sg-dot sg-dot-e"></div>${err} Wrong</div>
+        <div class="sg-count"><div class="sg-dot sg-dot-s"></div>${skp} Skipped</div>
+        <div class="sg-count" style="margin-left:auto;font-weight:600;color:var(--tx)">${total} Qs</div>
+      </div>`;
+    body.appendChild(item);
+  });
+  // Animate bars after paint
+  wrap.style.display='';
+  setTimeout(()=>{
+    body.querySelectorAll('.sg-bar-cor,.sg-bar-err,.sg-bar-skip').forEach(el=>{
+      const w=el.style.width;el.style.width='0%';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.width=w;}));
+    });
+  },300);
 }
 function togSB(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sb-ov').classList.toggle('on');}
 function toggleFS(){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{});}

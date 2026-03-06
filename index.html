@@ -526,33 +526,82 @@ tr:hover td{background:#f9fafb}
 
 /* ══ RESULT SCREEN ══ */
 #result{background:linear-gradient(135deg,var(--bl),var(--bl-dk));align-items:center;justify-content:flex-start;padding:20px;overflow-y:auto}
-.rc-out{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:640px;margin:0 auto}
+.rc-out{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:680px;margin:0 auto}
 .rc{background:#fff;border-radius:22px;width:100%;box-shadow:var(--sh2);overflow:hidden;animation:fadeUp .4s ease}
-.rc-hd{background:linear-gradient(135deg,var(--sf),var(--sf-dk));padding:24px;text-align:center;color:#fff}
-.rc-hd h2{font-family:var(--fh);font-size:24px;font-weight:800;margin-bottom:3px}
-.rc-hd p{opacity:.85;font-size:14px}
-.rc-sa{padding:22px 22px 0;display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap}
-.sr-w{width:140px;height:140px;position:relative;flex-shrink:0}
-.sr-svg{width:140px;height:140px;transform:rotate(-90deg)}
-.sr-bg{fill:none;stroke:#f0f0f0;stroke-width:12}
-.sr-f{fill:none;stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}
+
+/* Header */
+.rc-hd{padding:24px 24px 20px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.rc-hd-pass{background:linear-gradient(135deg,#16a34a,#15803d)}
+.rc-hd-fail{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+.rc-hd::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.15),transparent 60%);pointer-events:none}
+.rc-hd-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);
+  border:1.5px solid rgba(255,255,255,.35);border-radius:30px;padding:5px 14px;
+  font-size:12px;font-weight:800;letter-spacing:.5px;margin-bottom:10px}
+.rc-hd h2{font-family:var(--fh);font-size:26px;font-weight:800;margin-bottom:4px}
+.rc-hd-sub{font-size:13px;opacity:.85;margin-bottom:6px}
+.rc-hd-meta{font-size:11.5px;opacity:.6;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.rc-hd-meta span{display:flex;align-items:center;gap:4px}
+
+/* Score circle + breakdown */
+.rc-sa{padding:24px 24px 0;display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center}
+@media(max-width:440px){.rc-sa{grid-template-columns:1fr;justify-items:center}}
+.sr-w{width:150px;height:150px;position:relative;flex-shrink:0}
+.sr-svg{width:150px;height:150px;transform:rotate(-90deg)}
+.sr-bg{fill:none;stroke:#f0f0f0;stroke-width:13}
+.sr-f{fill:none;stroke-width:13;stroke-linecap:round;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}
 .sr-tx{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.sr-pct{font-family:var(--fh);font-size:32px;font-weight:800;color:var(--bl);line-height:1}
-.sr-lb{font-size:11px;color:var(--mt);margin-top:2px}
-.sd{display:flex;flex-direction:column;gap:8px}
-.sd-tot{font-family:var(--fh);font-size:26px;font-weight:800;color:var(--tx)}
-.sd-row{font-size:13px;color:var(--mt)}.sd-row b{color:var(--bl)}
-.rc-st{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);
-  margin-top:18px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
-.rs{background:#fff;padding:16px 6px;text-align:center}
-.rs .rv{font-family:var(--fh);font-size:22px;font-weight:800}
-.rs .rl{font-size:11px;color:var(--mt);margin-top:2px;font-weight:600}
-.rs-c .rv{color:var(--gn)}.rs-w .rv{color:var(--c-no)}.rs-s .rv{color:var(--mt)}
-.rc-msg{padding:14px 22px;text-align:center;font-size:14px;font-weight:600;color:var(--mt);background:var(--bg)}
-.rc-act{padding:20px;display:flex;gap:10px}
-.rc-btn{flex:1;padding:13px;border:none;border-radius:11px;font-family:var(--fh);font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.sr-pct{font-family:var(--fh);font-size:34px;font-weight:800;color:var(--bl);line-height:1}
+.sr-lb{font-size:10px;color:var(--mt);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.sd{display:flex;flex-direction:column;gap:7px;min-width:160px}
+.sd-tot{font-family:var(--fh);font-size:28px;font-weight:800;color:var(--tx);line-height:1;margin-bottom:4px}
+.sd-sub{font-size:11px;color:var(--mt);margin-top:-2px;margin-bottom:6px}
+
+/* Marks breakdown pill rows */
+.mk-row{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--bg);border-radius:8px;padding:7px 10px;font-size:12px}
+.mk-row-label{color:var(--mt);font-weight:600;display:flex;align-items:center;gap:5px}
+.mk-row-val{font-family:var(--fh);font-size:14px;font-weight:800}
+.mk-cor .mk-row-val{color:var(--gn)}
+.mk-pen .mk-row-val{color:var(--c-no)}
+.mk-pen{background:#fff5f5;border:1px solid #fecaca}
+.mk-net{background:#eff6ff;border:1px solid #bfdbfe}
+.mk-net .mk-row-val{color:var(--bl);font-size:16px}
+
+/* 4-stat grid */
+.rc-st{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);
+  margin-top:20px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.rs{background:#fff;padding:14px 6px;text-align:center}
+.rs .rv{font-family:var(--fh);font-size:20px;font-weight:800}
+.rs .rl{font-size:10px;color:var(--mt);margin-top:3px;font-weight:600;line-height:1.3}
+.rs-c .rv{color:var(--gn)}.rs-w .rv{color:var(--c-no)}.rs-s .rv{color:var(--mt)}.rs-t .rv{color:var(--bl);font-size:14px}
+
+/* Details info strip — 2 equal tiles */
+.rc-info{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.ri{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:14px 8px;text-align:center;background:var(--bg);border-right:1px solid var(--bd)}
+.ri:last-child{border-right:none}
+.ri-lbl{font-size:9.5px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;line-height:1.3}
+.ri-val{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx);line-height:1.2}
+
+@media(max-width:520px){
+  .rc-info{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Motivational message */
+.rc-msg{padding:13px 22px;text-align:center;font-size:13px;font-weight:600;color:var(--mt);background:#fff;border-bottom:1px solid var(--bd)}
+
+/* Action buttons */
+.rc-act{padding:18px 20px;display:flex;gap:8px;flex-wrap:wrap}
+.rc-btn{flex:1;min-width:120px;padding:13px 10px;border:none;border-radius:11px;font-family:var(--fh);font-size:14px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.rc-btn:hover{transform:translateY(-1px)}
 .rcb-rv{background:var(--bl);color:#fff}
 .rcb-rs{background:var(--gn);color:#fff}
+
+@media(max-width:480px){
+  .rc-st{grid-template-columns:repeat(2,1fr)}
+  .rc-act{flex-wrap:wrap}
+  .rc-btn{min-width:calc(50% - 4px)}
+  .rcb-rs{min-width:100%}
+}
 
 /* ══ SUBJECT-WISE GRAPH ══ */
 .sg-wrap{background:#fff;border-radius:22px;width:100%;box-shadow:var(--sh2);overflow:hidden;animation:fadeUp .5s ease .1s both}
@@ -854,7 +903,7 @@ tr:hover td{background:#f9fafb}
       <div class="tbl-wrap">
         <table><thead><tr>
           <th>#</th><th>Name</th><th>Email / Roll</th><th>Score</th><th>%</th>
-          <th>✅</th><th>❌</th><th>⬜</th><th>Date & Time</th>
+          <th>✅</th><th>❌</th><th>⬜</th><th>⏱ Time</th><th>Date & Time</th>
         </tr></thead><tbody id="tbl-body"></tbody></table>
       </div>
     </div>
@@ -957,35 +1006,69 @@ tr:hover td{background:#f9fafb}
 <!-- ═══════ SCREEN: RESULT ═══════ -->
 <div id="result" class="screen">
   <div class="rc-out">
-    <div class="rc">
-      <div class="rc-hd">
-        <div style="font-size:36px;margin-bottom:5px">🎓</div>
-        <h2>Test Completed!</h2>
-        <p id="res-cand">Bihar B.Ed CET</p>
+    <div class="rc" id="scorecard-card">
+
+      <!-- ── Header: Pass/Fail badge + candidate info ── -->
+      <div class="rc-hd rc-hd-pass" id="rc-hd">
+        <div class="rc-hd-badge" id="res-pf-badge">🎓 RESULT</div>
+        <h2 id="res-pf-title">Test Completed!</h2>
+        <div class="rc-hd-sub" id="res-cand">Bihar B.Ed CET</div>
+        <div class="rc-hd-meta">
+          <span>📅 <span id="res-date">—</span></span>
+          <span>⏱ Time Taken: <span id="res-time">—</span></span>
+        </div>
       </div>
+
+      <!-- ── Score circle + marks breakdown ── -->
       <div class="rc-sa">
         <div class="sr-w">
-          <svg class="sr-svg" viewBox="0 0 140 140">
-            <circle class="sr-bg" cx="70" cy="70" r="56"/>
-            <circle class="sr-f" id="sr" cx="70" cy="70" r="56" stroke-dasharray="351.86" stroke-dashoffset="351.86" stroke="var(--sf)"/>
+          <svg class="sr-svg" viewBox="0 0 150 150">
+            <circle class="sr-bg" cx="75" cy="75" r="60"/>
+            <circle class="sr-f" id="sr" cx="75" cy="75" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99" stroke="var(--sf)"/>
           </svg>
-          <div class="sr-tx"><div class="sr-pct" id="res-pct">0%</div><div class="sr-lb">Score</div></div>
+          <div class="sr-tx">
+            <div class="sr-pct" id="res-pct">0%</div>
+            <div class="sr-lb">Score %</div>
+          </div>
         </div>
         <div class="sd">
           <div class="sd-tot" id="res-sc">0 / —</div>
-          <div class="sd-row">Correct × 1 = <b id="sd-c">0</b></div>
-          <div class="sd-row">Penalty = <b id="sd-n" style="color:var(--c-no)">0</b></div>
-          <div class="sd-row">Net: <b id="sd-net">0</b></div>
+          <div class="sd-sub">Raw Score / Total Marks</div>
+          <div class="mk-row mk-cor">
+            <span class="mk-row-label">✅ Correct × 1</span>
+            <span class="mk-row-val" id="sd-c">0</span>
+          </div>
+          <div class="mk-row mk-pen" id="mk-pen-row">
+            <span class="mk-row-label">⚠️ Penalty</span>
+            <span class="mk-row-val" id="sd-n" style="color:var(--c-no)">−0</span>
+          </div>
+          <div class="mk-row mk-net">
+            <span class="mk-row-label">🏁 Net Score</span>
+            <span class="mk-row-val" id="sd-net">0</span>
+          </div>
         </div>
       </div>
+
+      <!-- ── 4-stat strip: Correct / Wrong / Skipped / Time ── -->
       <div class="rc-st">
         <div class="rs rs-c"><div class="rv" id="res-cor">0</div><div class="rl">✅ Correct</div></div>
         <div class="rs rs-w"><div class="rv" id="res-wr">0</div><div class="rl">❌ Wrong</div></div>
         <div class="rs rs-s"><div class="rv" id="res-sk">0</div><div class="rl">⬜ Skipped</div></div>
+        <div class="rs rs-t"><div class="rv" id="res-time2">—</div><div class="rl">⏱ Time<br>Taken</div></div>
       </div>
+
+      <!-- ── Detail info grid: Attempted / Accuracy ── -->
+      <div class="rc-info">
+        <div class="ri"><div class="ri-lbl">📝 Attempted</div><div class="ri-val" id="res-att">—</div></div>
+        <div class="ri" style="border-right:none"><div class="ri-lbl">🎯 Accuracy</div><div class="ri-val" id="res-acc">—</div></div>
+      </div>
+
+      <!-- ── Motivational message ── -->
       <div class="rc-msg" id="res-msg"></div>
+
+      <!-- ── Actions ── -->
       <div class="rc-act">
-        <button class="rc-btn rcb-rv" onclick="reviewTest()">🔍 Review</button>
+        <button class="rc-btn rcb-rv" onclick="reviewTest()">🔍 Review Answers</button>
         <button class="rc-btn rcb-rs" onclick="doFresh()">🔄 New Test</button>
       </div>
     </div>
@@ -996,9 +1079,7 @@ tr:hover td{background:#f9fafb}
         <h3>📊 Subject-wise Analysis</h3>
         <p>Your preparation strength across each subject</p>
       </div>
-      <div class="sg-body" id="sg-body">
-        <!-- Dynamically populated by renderSubjectGraph() -->
-      </div>
+      <div class="sg-body" id="sg-body"></div>
       <div class="sg-footer">
         <div class="sg-legend"><div class="sg-dot sg-dot-c"></div> Correct</div>
         <div class="sg-legend"><div class="sg-dot sg-dot-e"></div> Wrong</div>
@@ -1078,7 +1159,7 @@ async function sha256(s){
 
 /* ══ State ══ */
 let Q=[],secs=[],curSec=0,curQ=0;
-let ans=[],vis=[],mkd=[],tLeft=7200,tInt=null;
+let ans=[],vis=[],mkd=[],tLeft=7200,tInt=null,tStart=null,tAlloc=7200;
 let isRev=false,negM=0,cName='',cRoll='',cEmail='',active=false;
 let settings={negM:0,mpq:1,shuffle:false,showResult:true};
 let allScores=[];
@@ -1377,6 +1458,7 @@ function startTest(){
   ans=Array(Q.length).fill(null);vis=Array(Q.length).fill(false);mkd=Array(Q.length).fill(false);
   negM=settings.negM||0;isRev=false;curQ=0;curSec=0;
   tLeft=Math.round(Q.length*(settings.mpq||1)*60);active=true;
+  tStart=Date.now();tAlloc=tLeft;
   if(negM>0){document.getElementById('mk-no').classList.add('on');document.getElementById('neg-v').textContent=negM;}
   setHdr();showScreen('test');buildTabs();buildGrid();renderQ(0);startTimer();saveSession();
 }
@@ -1493,8 +1575,16 @@ async function doSubmit(){
   closeM();clearInterval(tInt);active=false;clearSess();
   let c=0,w=0,sk=0;
   Q.forEach((q,i)=>{if(ans[i]===null)sk++;else if(ans[i]===q.correct)c++;else w++;});
+  const attempted=c+w;
   const net=+(c-(negM*w)).toFixed(2),tot=Q.length,pct=Math.max(0,Math.round((net/tot)*100));
-  const record={name:cName,roll:cRoll,email:cEmail||curUser?.email||'—',score:net,total:tot,pct,correct:c,wrong:w,skipped:sk,timestamp:new Date().toISOString()};
+  const accuracy=attempted>0?Math.round((c/attempted)*100):0;
+  const elapsedSec=tStart?Math.floor((Date.now()-tStart)/1000):(tAlloc-tLeft);
+  const timeFmt=fmtDuration(elapsedSec);
+  const nowIso=new Date().toISOString();
+  const PASS_PCT=50; // Bihar B.Ed CET cutoff
+
+  const record={name:cName,roll:cRoll,email:cEmail||curUser?.email||'—',score:net,total:tot,
+    pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso};
 
   try{await fbAdd('scores',record);}catch(e){console.warn('Global score save failed:',e.message);}
   if(curUser){
@@ -1503,16 +1593,50 @@ async function doSubmit(){
 
   if(!settings.showResult){doFresh();return;}
 
-  document.getElementById('res-cand').textContent=cName+(cEmail?' | '+cEmail:'');
+  /* ── Pass / Fail ── */
+  const passed=pct>=PASS_PCT;
+  const hd=document.getElementById('rc-hd');
+  hd.className='rc-hd '+(passed?'rc-hd-pass':'rc-hd-fail');
+  document.getElementById('res-pf-badge').textContent=passed?'✅ PASSED':'❌ NOT QUALIFIED';
+  document.getElementById('res-pf-title').textContent=passed?'Congratulations! 🎉':'Better Luck Next Time!';
+
+  /* ── Header meta ── */
+  document.getElementById('res-cand').textContent=cName+(cEmail?' · '+cEmail:'');
+  document.getElementById('res-date').textContent=fmtDate(nowIso);
+  document.getElementById('res-time').textContent=timeFmt;
+
+  /* ── Score circle ── */
   document.getElementById('res-pct').textContent=pct+'%';
+  const circ=376.99,off=circ-(circ*pct/100);
+  setTimeout(()=>{const r=document.getElementById('sr');
+    r.style.strokeDashoffset=off;
+    r.style.stroke=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';},250);
+
+  /* ── Marks breakdown ── */
   document.getElementById('res-sc').textContent=`${net} / ${tot}`;
-  document.getElementById('res-cor').textContent=c;document.getElementById('res-wr').textContent=w;
-  document.getElementById('res-sk').textContent=sk;document.getElementById('sd-c').textContent=c;
-  document.getElementById('sd-n').textContent=(negM*w).toFixed(2);document.getElementById('sd-net').textContent=net;
-  const msg=pct>=80?'🌟 Outstanding performance!':pct>=60?'👍 Good job!':pct>=40?'💪 Keep practising.':'📚 More practice needed.';
+  document.getElementById('sd-c').textContent=c;
+  document.getElementById('sd-n').textContent='−'+(negM*w).toFixed(2);
+  document.getElementById('sd-net').textContent=net;
+  if(negM===0)document.getElementById('mk-pen-row').style.display='none';
+
+  /* ── 4-stat strip ── */
+  document.getElementById('res-cor').textContent=c;
+  document.getElementById('res-wr').textContent=w;
+  document.getElementById('res-sk').textContent=sk;
+  document.getElementById('res-time2').textContent=timeFmt;
+
+  /* ── Detail info grid ── */
+  document.getElementById('res-att').textContent=attempted+' / '+tot;
+  document.getElementById('res-acc').textContent=accuracy+'%';
+
+  /* ── Motivational message ── */
+  const msg=pct>=80?'🌟 Outstanding! You are well-prepared for Bihar B.Ed CET.':
+            pct>=60?'👍 Good performance! A bit more practice and you\'re there.':
+            pct>=PASS_PCT?'✅ You passed the cutoff. Keep pushing for a higher score!':
+            pct>=30?'💪 Almost there! Revise weak subjects and attempt again.':
+            '📚 Needs more practice. Focus on subject-wise weak areas below.';
   document.getElementById('res-msg').textContent=msg;
-  const circ=351.86,off=circ-(circ*pct/100);
-  setTimeout(()=>{const r=document.getElementById('sr');r.style.strokeDashoffset=off;r.style.stroke=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';},250);
+
   renderSubjectGraph();
   showScreen('result');
 }
@@ -1687,6 +1811,7 @@ function renderTbl(){
       <td data-label="Correct" style="color:var(--gn);font-weight:700">${r.correct}</td>
       <td data-label="Wrong" style="color:var(--c-no);font-weight:700">${r.wrong}</td>
       <td data-label="Skipped" style="color:var(--mt)">${r.skipped}</td>
+      <td data-label="Time" style="font-size:12px;color:var(--mt)">${fmtDuration(r.timeTaken||0)}</td>
       <td data-label="Date" style="font-size:12px;color:var(--mt)">${fmtDate(r.timestamp)}</td>
     </tr>`;
   }).join('');
@@ -1700,8 +1825,8 @@ async function clearScores(){
 }
 async function exportCSV(){
   if(!reqAdmin()||!allScores.length){toast('No records to export.');return;}
-  const h='Name,Email/Roll,Score,Total,%,Correct,Wrong,Skipped,Timestamp\n';
-  const rows=allScores.map(r=>`"${r.name}","${r.email||r.roll}",${r.score},${r.total},${r.pct}%,${r.correct},${r.wrong},${r.skipped},"${fmtDate(r.timestamp)}"`).join('\n');
+  const h='Name,Email/Roll,Score,Total,%,Correct,Wrong,Skipped,Attempted,Accuracy,TimeTaken,Timestamp\n';
+  const rows=allScores.map(r=>`"${r.name}","${r.email||r.roll}",${r.score},${r.total},${r.pct}%,${r.correct},${r.wrong},${r.skipped},${r.attempted||'—'},${r.accuracy||'—'}%,"${fmtDuration(r.timeTaken||0)}","${fmtDate(r.timestamp)}"`).join('\n');
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([h+rows],{type:'text/csv'})),download:`nishuabhyasi_${new Date().toISOString().slice(0,10)}.csv`});
   a.click();toast('CSV exported!');
 }
@@ -1782,6 +1907,8 @@ async function changePw(){
 
 /* Utils */
 function fmtDate(iso){try{const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});}catch(e){return iso;}}
+function fmtDuration(sec){if(!sec||sec<=0)return '—';const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h>0)return `${h}h ${p(m)}m ${p(s)}s`;return m>0?`${m}m ${p(s)}s`:`${s}s`;}
+
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 let _tt;
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('on'),2800);}

@@ -225,8 +225,13 @@ body.dark .dm-tog{background:#1e293b;border-color:#334155;color:#e2e8f0}
 .btn-guest:hover{background:var(--bg);border-color:var(--mt)}
 .auth-bottom-link{text-align:center;font-size:13px;color:var(--mt);margin-top:16px}
 .auth-bottom-link a{color:var(--bl);font-weight:700;cursor:pointer;text-decoration:none}
-.auth-footer{text-align:center;margin-top:auto;padding-top:16px;font-size:11px;color:var(--mt)}
-@media(max-width:700px){.auth-footer{text-align:center;padding-top:12px}}
+.auth-footer{text-align:center;margin-top:auto;padding-top:10px;font-size:11px;color:var(--mt)}
+/* Mobile-only links strip (shown when left panel is hidden) */
+.auth-mob-links{display:none;justify-content:center;align-items:center;gap:8px;padding-top:16px;flex-wrap:wrap}
+@media(max-width:700px){.auth-mob-links{display:flex}}
+.auth-mob-links a{font-size:12px;color:var(--bl);cursor:pointer;font-weight:600;text-decoration:none;transition:.2s}
+.auth-mob-links a:hover{color:var(--sf)}
+.auth-mob-links span{font-size:10px;color:var(--mt)}
 
 /* ══════════════════════════════════════
    SCREEN: LANDING — NEW DASHBOARD DESIGN
@@ -271,16 +276,34 @@ body.dark .dm-tog{background:#1e293b;border-color:#334155;color:#e2e8f0}
 .ld-card-title span{font-size:16px}
 
 /* Stats cards row */
-.ld-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-@media(max-width:500px){.ld-stats-row{grid-template-columns:1fr 1fr}}
+.ld-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+@media(max-width:900px){.ld-stats-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.ld-stats-row{grid-template-columns:1fr 1fr;gap:8px}}
 .ld-stat{background:#fff;border-radius:14px;padding:16px 14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden}
 .ld-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .ld-stat.s-bl::before{background:linear-gradient(90deg,var(--bl),#4d94ff)}
 .ld-stat.s-sf::before{background:linear-gradient(90deg,var(--sf),#FFB800)}
 .ld-stat.s-gn::before{background:linear-gradient(90deg,var(--gn),#22c55e)}
+.ld-stat.s-pur::before{background:linear-gradient(90deg,var(--pur),#c084fc)}
 .ld-stat-icon{font-size:22px;margin-bottom:4px}
 .ld-stat-val{font-family:var(--fh);font-size:26px;font-weight:800;color:var(--tx);line-height:1}
 .ld-stat-lbl{font-size:11px;color:var(--mt);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+
+/* 7-day heatmap */
+.heatmap-row{display:flex;gap:5px;align-items:flex-end;margin-top:6px;flex-wrap:nowrap}
+.hm-day{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.hm-dot{width:100%;aspect-ratio:1;border-radius:5px;transition:transform .2s}
+.hm-dot.hm-none{background:var(--bd)}
+.hm-dot.hm-low{background:#bfdbfe}
+.hm-dot.hm-mid{background:#60a5fa}
+.hm-dot.hm-high{background:var(--bl);box-shadow:0 2px 8px rgba(0,87,168,.35)}
+.hm-dot.hm-today{outline:2px solid var(--sf);outline-offset:1px}
+.hm-dot:hover{transform:scale(1.15)}
+.hm-label{font-size:9px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.3px}
+body.dark .hm-dot.hm-none{background:#1e293b}
+body.dark .hm-dot.hm-low{background:#1e3a5f}
+body.dark .hm-dot.hm-mid{background:#1d4ed8}
+body.dark .hm-dot.hm-high{background:#3b82f6}
 
 /* Score trend chart */
 .chart-area{width:100%;height:120px;position:relative;margin-top:8px}
@@ -390,25 +413,34 @@ body.dark .dm-tog{background:#1e293b;border-color:#334155;color:#e2e8f0}
 ══════════════════════════════════════ */
 #admin-panel{background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
 #admin-panel.active{height:100vh;height:100dvh}
-.ap-hdr{background:linear-gradient(90deg,var(--nv),var(--bl-dk));color:#fff;padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.3);flex-shrink:0}
-.ap-logo{font-family:var(--fh);font-size:16px;font-weight:800}
+.ap-hdr{background:linear-gradient(90deg,var(--nv),var(--bl-dk));color:#fff;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.3);flex-shrink:0;gap:8px}
+.ap-logo{font-family:var(--fh);font-size:17px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ap-logo em{color:#FFB800;font-style:normal}
 .ap-logo span{opacity:.55;font-size:11px;font-weight:400;margin-left:6px}
-.ap-hdr-rt{display:flex;align-items:center;gap:8px}
-.ap-body{max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:20px;padding-bottom:40px}
-.ap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ap-hdr-rt{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ap-body{width:100%;max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:20px;padding-bottom:40px;box-sizing:border-box}
+@media(max-width:600px){.ap-body{padding:10px 10px;gap:12px}}
+.ap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 @media(max-width:860px){.ap-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:400px){.ap-grid{grid-template-columns:1fr 1fr;gap:10px}}
-.ap-stat{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--sh);border-top:4px solid var(--bl)}
+@media(max-width:400px){.ap-grid{grid-template-columns:1fr 1fr;gap:8px}}
+.ap-stat{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--sh);border-top:4px solid var(--bl)}
 .ap-stat.g{border-top-color:var(--gn)}.ap-stat.o{border-top-color:var(--sf)}.ap-stat.p{border-top-color:var(--pur)}
-.ap-sv{font-family:var(--fh);font-size:30px;font-weight:800;color:var(--tx)}
-.ap-sl{font-size:11px;color:var(--mt);font-weight:600;margin-top:5px;text-transform:uppercase;letter-spacing:.4px}
-.ap-card{background:#fff;border-radius:14px;padding:22px;box-shadow:var(--sh)}
-.ap-card-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
-.ap-ct{font-family:var(--fh);font-size:17px;font-weight:800;color:var(--nv)}
+.ap-sv{font-family:var(--fh);font-size:26px;font-weight:800;color:var(--tx)}
+.ap-sl{font-size:11px;color:var(--mt);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
+.ap-card{background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sh);width:100%;box-sizing:border-box;overflow:hidden}
+@media(max-width:600px){.ap-card{padding:14px;border-radius:12px}}
+.ap-card-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.ap-ct{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--nv)}
 .ap-cs{font-size:12px;color:var(--mt);margin-top:2px}
 .last-upd{display:none;background:var(--gn-lt);border:1px solid var(--gn);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--gn);align-items:center;gap:5px}
 .last-upd.on{display:inline-flex}
+/* Batch tab switcher in question bank */
+.q-batch-tabs{display:flex;gap:0;margin-bottom:14px;border-radius:10px;overflow:hidden;border:2px solid var(--bd);width:fit-content}
+.q-batch-tab{padding:8px 20px;border:none;background:#fff;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;color:var(--mt);transition:.18s;white-space:nowrap}
+.q-batch-tab.on{background:var(--bl);color:#fff}
+body.dark .q-batch-tab{background:#1e293b;color:#94a3b8}
+body.dark .q-batch-tab.on{background:var(--bl);color:#fff}
+@media(max-width:480px){.q-batch-tab{padding:7px 14px;font-size:12px}}
 .q-status{display:flex;align-items:center;gap:14px;background:var(--bg);border-radius:10px;padding:12px 14px;margin-bottom:14px;flex-wrap:wrap;border:1px solid var(--bd)}
 .qs-item{font-size:13px;color:var(--mt)}.qs-item b{color:var(--tx);font-weight:700}.qs-item.ok b{color:var(--gn)}
 .q-area{width:100%;min-height:240px;max-height:360px;padding:12px;border:2px solid var(--bd);border-radius:10px;font-family:'Courier New',monospace;font-size:13px;line-height:1.6;outline:none;resize:vertical;transition:.2s;background:#FAFAFA;color:var(--tx)}
@@ -439,6 +471,42 @@ tr:hover td{background:#f9fafb}
   td::before{content:attr(data-label);font-weight:700;color:var(--mt);font-size:11px;text-transform:uppercase;flex-shrink:0;margin-right:10px}
   td:first-child{display:none}
 }
+
+/* ═══ GLOBAL MOBILE FIT — no horizontal overflow anywhere ═══ */
+html{overflow-x:hidden}
+body{overflow-x:hidden;width:100%;max-width:100vw}
+.screen{width:100%;max-width:100vw;overflow-x:hidden}
+.ap-card-hd>div:last-child{flex-wrap:wrap}
+/* Buttons in admin header stay small on mobile */
+@media(max-width:480px){
+  .ap-hdr-rt .btn{font-size:11px!important;padding:5px 9px!important}
+  .ap-hdr-rt{gap:5px}
+  .ap-logo{font-size:15px}
+  .q-acts{flex-direction:column}
+  .q-acts .btn{width:100%;justify-content:center;text-align:center}
+  .set-row{flex-wrap:wrap;gap:8px}
+  .pw-change-row{width:100%}
+  .pw-change-row input{flex:1;width:auto}
+  .ap-records-view-toggle{gap:6px}
+  .ap-rv-btn{font-size:11px;padding:6px 12px}
+  .usr-hd{padding:12px}
+  .usr-attempts{padding:8px 10px}
+  .att-row{flex-wrap:wrap;gap:6px}
+}
+/* Landing shell never overflows */
+.ld-shell{width:100%;box-sizing:border-box;padding-left:14px;padding-right:14px}
+@media(max-width:480px){
+  .ld-shell{padding-left:10px;padding-right:10px}
+  .ld-hdr{padding:14px 0}
+  .ld-banner{padding:18px 16px;gap:12px}
+  .ld-stats-row{gap:8px}
+  .ld-card{padding:16px}
+}
+/* Test screen sidebar/content fit */
+@media(max-width:700px){
+  .th{padding:0 12px}
+  .th-logo{font-size:15px}
+}
 .set-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--bd);gap:14px}
 .set-row:last-child{border-bottom:none}
 .set-lbl{font-size:14px;font-weight:600;color:var(--tx);flex:1}
@@ -455,6 +523,70 @@ tr:hover td{background:#f9fafb}
 .qotd-admin-row{display:flex;flex-direction:column;gap:6px}
 .qotd-textarea{width:100%;padding:10px 12px;border:2px solid var(--bd);border-radius:8px;font-family:var(--fb);font-size:14px;outline:none;resize:vertical;min-height:70px;transition:.2s;background:#fff;color:var(--tx)}
 .qotd-textarea:focus{border-color:var(--bl)}
+
+/* ══ GLASSMORPHISM INFO POPUPS ══ */
+.glass-ov{display:none;position:fixed;inset:0;z-index:9800;backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);background:rgba(0,8,20,.55);align-items:center;justify-content:center;padding:20px}
+.glass-ov.on{display:flex;animation:fadeIn .2s ease}
+.glass-card{background:rgba(255,255,255,.11);backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);border:1.5px solid rgba(255,255,255,.22);border-radius:28px;padding:36px 32px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18);animation:scaleIn .28s cubic-bezier(.34,1.5,.64,1);position:relative;color:#fff}
+.glass-card::-webkit-scrollbar{width:4px}.glass-card::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
+.glass-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.14);border:none;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:.2s}
+.glass-close:hover{background:rgba(255,255,255,.28);transform:scale(1.1)}
+.glass-icon{font-size:48px;margin-bottom:14px;display:block;text-align:center}
+.glass-title{font-family:var(--fh);font-size:24px;font-weight:800;text-align:center;color:#fff;margin-bottom:6px}
+.glass-sub{font-size:13px;text-align:center;color:rgba(255,255,255,.55);margin-bottom:20px}
+.glass-divider{height:1px;background:rgba(255,255,255,.14);margin:16px 0}
+.glass-body{font-size:14px;line-height:1.8;color:rgba(255,255,255,.85)}
+.glass-body strong{color:#fff;font-weight:700}
+.glass-body p{margin-bottom:12px}
+.glass-body p:last-child{margin-bottom:0}
+.glass-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.glass-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.6px}
+.glass-input{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:var(--fb);font-size:14px;color:#fff;outline:none;transition:.2s;width:100%}
+.glass-input::placeholder{color:rgba(255,255,255,.3)}
+.glass-input:focus{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.14)}
+textarea.glass-input{resize:vertical;min-height:90px}
+.glass-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--sf),var(--sf-dk));border:none;border-radius:12px;font-family:var(--fh);font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:.2s;margin-top:6px}
+.glass-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,107,0,.4)}
+.glass-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.glass-notice{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:10px 12px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;margin-top:10px}
+.priv-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.09)}
+.priv-item:last-child{border-bottom:none}
+.priv-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.priv-text strong{display:block;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.priv-text span{font-size:12.5px;color:rgba(255,255,255,.68);line-height:1.65}
+
+/* ══ ADMIN PER-USER RECORDS ══ */
+.ap-records-view-toggle{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.ap-rv-btn{padding:7px 16px;border-radius:50px;border:1.5px solid var(--bd);font-size:12px;font-weight:700;cursor:pointer;transition:.2s;background:#fff;color:var(--mt);font-family:var(--fb)}
+body.dark .ap-rv-btn{background:#1e293b;color:#94a3b8;border-color:#334155}
+.ap-rv-btn.on{background:var(--bl);color:#fff;border-color:var(--bl)}
+.usr-list{display:flex;flex-direction:column;gap:10px}
+.usr-row{background:var(--bg);border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;transition:.2s}
+body.dark .usr-row{background:#0f172a;border-color:#334155}
+.usr-hd{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;transition:.15s}
+.usr-hd:hover{background:rgba(0,87,168,.06)}
+.usr-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--bl),var(--sf));color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:17px;font-weight:800;flex-shrink:0}
+.usr-info{flex:1;min-width:0}
+.usr-name{font-weight:700;font-size:14px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.usr-email{font-size:11px;color:var(--mt);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.usr-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.usr-cnt{background:var(--bl-lt);color:var(--bl);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:800}
+.usr-chev{font-size:11px;color:var(--mt);transition:transform .2s}
+.usr-row.open>.usr-hd .usr-chev{transform:rotate(180deg)}
+.usr-attempts{display:none;border-top:1px solid var(--bd);padding:12px 16px;flex-direction:column;gap:8px}
+.usr-row.open>.usr-attempts{display:flex}
+.att-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fff;border-radius:10px;border:1px solid var(--bd);transition:.15s}
+body.dark .att-row{background:#1e293b;border-color:#334155}
+.att-row:hover{border-color:var(--bl-lt)}
+.att-row-num{font-family:var(--fh);font-size:13px;font-weight:800;color:var(--mt);min-width:22px;text-align:center}
+.att-row-info{flex:1;min-width:0}
+.att-row-score{font-family:var(--fh);font-size:15px;font-weight:800}
+.att-row-meta{font-size:11px;color:var(--mt);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.att-row-del{background:#FEE2E2;border:none;border-radius:8px;padding:6px 11px;cursor:pointer;font-size:12px;color:#b91c1c;font-weight:700;transition:.2s;flex-shrink:0;white-space:nowrap}
+.att-row-del:hover{background:#fecaca}
+.usr-del-all{margin-top:4px;width:100%;padding:9px;background:none;border:1.5px dashed #fecaca;border-radius:10px;color:#b91c1c;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;font-family:var(--fb)}
+.usr-del-all:hover{background:#FEF2F2;border-color:#ef4444}
+.usr-empty{font-size:13px;color:var(--mt);padding:20px;text-align:center}
 
 /* ══════════════════════════════════════
    SCREEN: TEST — NEW MINIMAL DESIGN
@@ -746,9 +878,9 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
         <div class="auth-left-sub">Bihar B.Ed CET – Free Mock Test Portal</div>
       </div>
       <div class="auth-left-links">
-        <a onclick="toast('Coming soon!')">About</a>
-        <a href="/cdn-cgi/l/email-protection#384b51565f5041594b504f59564c0d0d01785f55595154165b5755">Contact</a>
-        <a onclick="toast('Coming soon!')">Privacy Policy</a>
+        <a onclick="openPopup('about')">About</a>
+        <a onclick="openPopup('contact')">Contact Us</a>
+        <a onclick="openPopup('privacy')">Privacy Policy</a>
       </div>
     </div>
     <!-- Right panel -->
@@ -816,6 +948,14 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
         <button class="btn-guest" onclick="goGuest()">👤 Continue as Guest</button>
         <div class="auth-bottom-link">Already have an account? <a onclick="switchAuthTab('si')">Sign In</a></div>
       </div>
+      <!-- Mobile-only links row (visible when left panel is hidden) -->
+      <div class="auth-mob-links">
+        <a onclick="openPopup('about')">About Us</a>
+        <span>·</span>
+        <a onclick="openPopup('contact')">Contact Us</a>
+        <span>·</span>
+        <a onclick="openPopup('privacy')">Privacy Policy</a>
+      </div>
       <div class="auth-footer">NishuAbhyasi · © 2025</div>
     </div>
   </div>
@@ -871,6 +1011,16 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
         <div class="ld-stat-icon">❓</div>
         <div class="ld-stat-val" id="info-tot">—</div>
         <div class="ld-stat-lbl">Questions</div>
+      </div>
+      <!-- 4th card: 7-day practice heatmap -->
+      <div class="ld-stat s-pur" id="stat-heatmap-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+          <div style="font-size:11px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.4px">7-Day Activity</div>
+          <div style="font-size:10px;font-weight:700;color:var(--pur)" id="hm-streak-txt">—</div>
+        </div>
+        <div class="heatmap-row" id="hm-row">
+          <!-- rendered by JS -->
+        </div>
       </div>
     </div>
 
@@ -937,14 +1087,16 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
             <div class="ld-card-title" style="margin-bottom:10px"><span>🎯</span> Choose Your Test</div>
             <div style="font-size:12px;color:var(--mt);margin-bottom:12px" id="batch1-info">—</div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <button class="start-test-btn" id="btn-st" onclick="startTest()">▶ Start Test — Batch 1 (Bihar B.Ed CET)</button>
-              <div class="batch2-soon-card">
+              <button class="start-test-btn" id="btn-st" onclick="startTest(1)">▶ Start Test — Batch 1 (Bihar B.Ed CET)</button>
+              <!-- Batch 2: locked by default, unlocked after completing Batch 1 -->
+              <div id="batch2-locked" class="batch2-soon-card">
                 <div class="batch2-soon-left">
-                  <div class="batch2-soon-title">🔒 Batch 2 — Coming Soon</div>
-                  <div class="batch2-soon-desc">Dev is actively working on it. A second full-length mock test set will be available in the next update. Stay tuned! 🚀</div>
+                  <div class="batch2-soon-title">🔒 Batch 2 — Complete Batch 1 to Unlock</div>
+                  <div class="batch2-soon-desc">Attempt Batch 1 first to unlock a second full-length mock test in the same session. Your progress unlocks this automatically. 🎯</div>
                 </div>
-                <div class="batch2-soon-badge">Next<br>Update</div>
+                <div class="batch2-soon-badge">Locked</div>
               </div>
+              <button class="start-test-btn" id="btn-st2" onclick="startTest(2)" style="display:none;background:linear-gradient(135deg,#0057A8,#003d7a)">▶ Start Test — Batch 2 (Second Attempt)</button>
             </div>
           </div>
         </div>
@@ -978,6 +1130,91 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
       <span class="ft-br">Nishu<em>Abhyasi</em></span>
       An app by <strong style="color:#fff">Yashwant</strong> &nbsp;|&nbsp; © 2025 &nbsp;|&nbsp; Bihar B.Ed CET Prep
     </footer>
+  </div>
+</div>
+
+<!-- ═══ POPUP: ABOUT ═══ -->
+<div class="glass-ov" id="pop-about" onclick="closePopupBg(event,'pop-about')">
+  <div class="glass-card">
+    <button class="glass-close" onclick="closePopup('pop-about')">✕</button>
+    <span class="glass-icon">🎓</span>
+    <div class="glass-title">About NishuAbhyasi 2.0</div>
+    <div class="glass-sub">A free mock test platform — built with love</div>
+    <div class="glass-divider"></div>
+    <div class="glass-body">
+      <p>Hi! I'm <strong>Yashwant Singh</strong>, a Software Engineer by profession and a builder by passion.</p>
+      <p>This platform was originally built for <strong>my wife's Bihar B.Ed CET exam preparation</strong> — because I couldn't find any free, clean, and reliable mock test tool online without hidden paywalls or cluttered ads.</p>
+      <p>After seeing how much it helped her, and realising that <strong>thousands of students across Bihar face the same challenge</strong>, I decided to open this platform to everyone — completely free of cost.</p>
+      <p>NishuAbhyasi 2.0 runs on a fully cloud-based infrastructure with real-time question banks, adaptive scoring, and detailed analytics — all without charging students a single rupee. My goal is to keep it that way, <strong>forever, for as long as I can</strong>.</p>
+      <p style="color:rgba(255,255,255,.5);font-size:12px">No ads. No hidden fees. No data selling. Just honest preparation. 🙏</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POPUP: CONTACT ═══ -->
+<div class="glass-ov" id="pop-contact" onclick="closePopupBg(event,'pop-contact')">
+  <div class="glass-card">
+    <button class="glass-close" onclick="closePopup('pop-contact')">✕</button>
+    <span class="glass-icon">✉️</span>
+    <div class="glass-title">Get in Touch</div>
+    <div class="glass-sub">We'd love to hear from you</div>
+    <div class="glass-divider"></div>
+    <div class="glass-body">
+      <p>Whether you've found a bug, have a suggestion, want to improve this platform, or are looking for a <strong>similar custom online test portal</strong> for your tuition centre, school, or personal use — I'm just a message away.</p>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Your Name</label>
+      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Priya Sharma"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Email Address</label>
+      <input class="glass-input" id="ct-email" type="email" placeholder="your@email.com"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">WhatsApp / Contact Number</label>
+      <input class="glass-input" id="ct-phone" type="tel" placeholder="+91 98765 XXXXX (preferred WhatsApp)"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Your Message</label>
+      <textarea class="glass-input" id="ct-msg" placeholder="Feedback, issue report, scope for improvement, or inquiry for a custom test portal…"></textarea>
+    </div>
+    <button class="glass-btn" id="ct-btn" onclick="sendContactForm()">📨 Send Message</button>
+    <div class="glass-notice">Your message will be sent directly to the developer at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb8892959c93829a88938c9a958fcecec2bb9c969a9297d5989496">[email&#160;protected]</a></strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
+  </div>
+</div>
+
+<!-- ═══ POPUP: PRIVACY POLICY ═══ -->
+<div class="glass-ov" id="pop-privacy" onclick="closePopupBg(event,'pop-privacy')">
+  <div class="glass-card">
+    <button class="glass-close" onclick="closePopup('pop-privacy')">✕</button>
+    <span class="glass-icon">🔒</span>
+    <div class="glass-title">Privacy Policy</div>
+    <div class="glass-sub">We respect your data — always</div>
+    <div class="glass-divider"></div>
+    <div class="priv-item">
+      <div class="priv-icon">🛡️</div>
+      <div class="priv-text"><strong>Your Passwords Are Safe</strong><span>All account passwords are stored as industry-standard cryptographic hashes (SHA-256 + Firebase Auth). Not even the admin can see or access your password — ever. Only you hold that key.</span></div>
+    </div>
+    <div class="priv-item">
+      <div class="priv-icon">📊</div>
+      <div class="priv-text"><strong>Test Data Stays Yours</strong><span>Your score history and attempt records are stored solely to help you track your own progress. The admin can view aggregate statistics to improve the question bank, but your personal details are treated with full discretion.</span></div>
+    </div>
+    <div class="priv-item">
+      <div class="priv-icon">🍪</div>
+      <div class="priv-text"><strong>No Cookies or Tracking</strong><span>We do not use advertising cookies, tracking pixels, or analytics scripts from third parties. No browsing history, IP addresses, or behavioural data is collected or stored.</span></div>
+    </div>
+    <div class="priv-item">
+      <div class="priv-icon">📧</div>
+      <div class="priv-text"><strong>We Never Sell Your Data</strong><span>Your email address, name, and any personal information you provide will never be sold, rented, or shared with any third party, advertiser, or commercial entity. Period.</span></div>
+    </div>
+    <div class="priv-item">
+      <div class="priv-icon">🌐</div>
+      <div class="priv-text"><strong>Infrastructure</strong><span>This platform is powered by Google Firebase (Firestore + Authentication), hosted in secure cloud data centres. All data transfers are encrypted via HTTPS/TLS.</span></div>
+    </div>
+    <div class="priv-item">
+      <div class="priv-icon">🙏</div>
+      <div class="priv-text"><strong>Our Promise</strong><span>NishuAbhyasi is a student-first platform. It exists to help, not to monetise. We are committed to keeping it free, clean, and private — always.</span></div>
+    </div>
   </div>
 </div>
 
@@ -1027,8 +1264,16 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
     <!-- Questions -->
     <div class="ap-card">
       <div class="ap-card-hd">
-        <div><div class="ap-ct">📋 Question Bank</div><div class="ap-cs">Paste JSON → Save → Live for all students instantly</div></div>
+        <div>
+          <div class="ap-ct">📋 Question Bank</div>
+          <div class="ap-cs">Paste JSON → Save → Goes live for students instantly</div>
+        </div>
         <div class="last-upd" id="lu"><span>✅ </span><span id="lu-t">—</span></div>
+      </div>
+      <!-- Batch selector tabs -->
+      <div class="q-batch-tabs">
+        <button class="q-batch-tab on" id="qb-tab1" onclick="switchQBatch(1)">📦 Batch 1</button>
+        <button class="q-batch-tab" id="qb-tab2" onclick="switchQBatch(2)">📦 Batch 2</button>
       </div>
       <div class="q-status">
         <div class="qs-item ok">Loaded: <b id="qs-n">0</b> questions</div>
@@ -1039,34 +1284,49 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
       <div class="q-acts">
         <button class="btn b-prim" onclick="saveQ()">💾 Save & Publish</button>
         <button class="btn b-out"  onclick="loadQ()">🔄 Load Current</button>
-        <button class="btn b-danger" onclick="clearQ()">🗑 Clear All</button>
+        <button class="btn b-danger" onclick="clearQ()">🗑 Clear Batch</button>
       </div>
     </div>
 
     <!-- Scores -->
     <div class="ap-card">
       <div class="ap-card-hd">
-        <div><div class="ap-ct">👩‍🎓 Student Records</div><div class="ap-cs">All attempts synced from Firebase</div></div>
+        <div><div class="ap-ct">👩‍🎓 Student Records</div><div class="ap-cs">Browse by student or view all attempts</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="exportCSV()">⬇️ CSV</button>
-          <button class="btn b-danger" style="font-size:12px;padding:6px 12px" onclick="clearScores()">🗑 Clear</button>
+          <button class="btn b-blue" style="font-size:12px;padding:6px 12px" onclick="refreshScores()">↺ Refresh</button>
+          <button class="btn b-danger" style="font-size:12px;padding:6px 12px" onclick="clearScores()">🗑 Clear All</button>
         </div>
       </div>
-      <div class="tbl-bar">
-        <input class="srch" id="srch" placeholder="🔍 Search name / email…" oninput="renderTbl()"/>
-        <select class="srt" id="srt" onchange="renderTbl()">
-          <option value="time">Latest First</option>
-          <option value="hi">Highest Score</option>
-          <option value="lo">Lowest Score</option>
-          <option value="az">Name A–Z</option>
-        </select>
-        <button class="btn b-blue" style="font-size:12px;padding:6px 12px" onclick="refreshScores()">↺</button>
+      <!-- View Toggle -->
+      <div class="ap-records-view-toggle">
+        <button class="ap-rv-btn on" id="rv-by-user" onclick="setRecordsView('user')">👤 By Student</button>
+        <button class="ap-rv-btn" id="rv-all" onclick="setRecordsView('all')">📋 All Attempts</button>
       </div>
-      <div class="tbl-wrap">
-        <table><thead><tr>
-          <th>#</th><th>Name</th><th>Email / Roll</th><th>Score</th><th>%</th>
-          <th>✅</th><th>❌</th><th>⬜</th><th>⏱ Time</th><th>Date & Time</th><th>🗑</th>
-        </tr></thead><tbody id="tbl-body"></tbody></table>
+      <!-- By-User View -->
+      <div id="view-by-user">
+        <div class="tbl-bar" style="margin-bottom:12px">
+          <input class="srch" id="srch-user" placeholder="🔍 Search student name / email…" oninput="renderUserView()"/>
+        </div>
+        <div class="usr-list" id="usr-list"><div class="usr-empty">Loading…</div></div>
+      </div>
+      <!-- All Attempts flat table -->
+      <div id="view-all" style="display:none">
+        <div class="tbl-bar">
+          <input class="srch" id="srch" placeholder="🔍 Search name / email…" oninput="renderTbl()"/>
+          <select class="srt" id="srt" onchange="renderTbl()">
+            <option value="time">Latest First</option>
+            <option value="hi">Highest Score</option>
+            <option value="lo">Lowest Score</option>
+            <option value="az">Name A–Z</option>
+          </select>
+        </div>
+        <div class="tbl-wrap">
+          <table><thead><tr>
+            <th>#</th><th>Name</th><th>Email / Roll</th><th>Score</th><th>%</th>
+            <th>✅</th><th>❌</th><th>⬜</th><th>⏱ Time</th><th>Date & Time</th><th>🗑</th>
+          </tr></thead><tbody id="tbl-body"></tbody></table>
+        </div>
       </div>
     </div>
 
@@ -1279,7 +1539,7 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
 <div class="toast" id="toast"></div>
 
 <!-- ═══════════════ MAIN SCRIPT ═══════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 /* ══ Firebase helpers ══ */
@@ -1337,6 +1597,8 @@ let adminIn=false;
 let curUser=null;
 let isGuest=false;
 let userAttempts=[];
+let currentBatch=1; // which batch is currently being attempted
+let batch1CompletedThisSession=false; // unlocks batch 2
 
 const SS='na_v5';
 
@@ -1369,6 +1631,12 @@ async function bootLoad(){
     const qd=await fbGet('config/questions');
     if(qd&&Array.isArray(qd.data)&&qd.data.length)
       Q=settings.shuffle?shuffle([...qd.data]):qd.data;
+    // Also preload Batch 2
+    try{
+      const qd2=await fbGet('config/questions2');
+      if(qd2&&Array.isArray(qd2.data)&&qd2.data.length)
+        Q2=settings.shuffle?shuffle([...qd2.data]):qd2.data;
+    }catch(e2){/* Batch 2 may not exist yet */}
   }catch(e){console.warn('Boot error:',e.message);}
   _bootLoaded=true;
 }
@@ -1506,6 +1774,7 @@ function toggleEyeId(id){const i=document.getElementById(id);i.type=i.type==='pa
 /* ══ LANDING ══ */
 async function showLanding(){
   updateLandingInfo();
+  refreshBatch2UI();
 
   if(curUser){
     document.getElementById('user-badge').style.display='flex';
@@ -1535,6 +1804,7 @@ async function showLanding(){
     document.getElementById('banner-role').textContent='Bihar B.Ed CET Aspirant';
     document.getElementById('hist-section').style.display='none';
     const star=document.getElementById('name-req-star');if(star)star.style.display='';
+    renderHeatmap([]); // show empty heatmap for guests
   }
 
   showScreen('landing');
@@ -1584,11 +1854,68 @@ async function loadAttemptHistory(){
 function updateStats(attempts){
   // Total tests
   document.getElementById('stat-tests').textContent=attempts.length;
-  // Hours spent (sum of timeTaken in seconds → hours)
+  // Hours spent
   const totalSec=attempts.reduce((s,a)=>s+(a.timeTaken||0),0);
   const h=Math.floor(totalSec/3600);
   const m=Math.floor((totalSec%3600)/60);
-  document.getElementById('stat-hours').textContent=h>0?h+'h '+(m>0?m+'m':''):(m+'m');
+  document.getElementById('stat-hours').textContent=h>0?h+'h '+(m>0?m+'m':''):(m>0?m+'m':'0m');
+  // 7-day heatmap
+  renderHeatmap(attempts);
+}
+
+function renderHeatmap(attempts){
+  const row=document.getElementById('hm-row');
+  const streakTxt=document.getElementById('hm-streak-txt');
+  if(!row)return;
+
+  const DAY_LABELS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const now=new Date();
+  // Build last 7 days (today = index 6, oldest = index 0)
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);
+    d.setDate(now.getDate()-i);
+    days.push(d);
+  }
+
+  // Map attempt timestamps to date strings
+  const attemptsByDate={};
+  attempts.forEach(a=>{
+    if(!a.timestamp)return;
+    const ds=new Date(a.timestamp).toDateString();
+    attemptsByDate[ds]=(attemptsByDate[ds]||0)+1;
+  });
+
+  // Render dots
+  row.innerHTML=days.map((d,i)=>{
+    const ds=d.toDateString();
+    const count=attemptsByDate[ds]||0;
+    const isToday=i===6;
+    let dotCls='hm-dot hm-none';
+    if(count>=3)dotCls='hm-dot hm-high';
+    else if(count===2)dotCls='hm-dot hm-mid';
+    else if(count===1)dotCls='hm-dot hm-low';
+    if(isToday)dotCls+=' hm-today';
+    const label=DAY_LABELS[d.getDay()];
+    const title=`${d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})}: ${count} attempt${count!==1?'s':''}`;
+    return `<div class="hm-day" title="${title}">
+      <div class="${dotCls}"></div>
+      <div class="hm-label" style="${isToday?'color:var(--sf)':''}">${label}</div>
+    </div>`;
+  }).join('');
+
+  // Calculate current streak (consecutive days back from today with at least 1 attempt)
+  let streak=0;
+  for(let i=0;i<7;i++){
+    const d=new Date(now);
+    d.setDate(now.getDate()-i);
+    if(attemptsByDate[d.toDateString()]){streak++;}
+    else break;
+  }
+  if(streakTxt){
+    if(streak>0) streakTxt.textContent=streak+'🔥';
+    else streakTxt.textContent='Start today!';
+  }
 }
 
 function renderScoreChart(attempts){
@@ -1652,6 +1979,78 @@ function openFeedback(){
   window.location.href=`mailto:singhyashwant559@gmail.com?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
 }
 
+/* ══ GLASSMORPHISM POPUPS ══ */
+function openPopup(name){document.getElementById('pop-'+name).classList.add('on');}
+function closePopup(id){document.getElementById(id).classList.remove('on');}
+function closePopupBg(e,id){if(e.target===document.getElementById(id))closePopup(id);}
+async function sendContactForm(){
+  const name=document.getElementById('ct-name').value.trim();
+  const email=document.getElementById('ct-email').value.trim();
+  const phone=document.getElementById('ct-phone').value.trim();
+  const msg=document.getElementById('ct-msg').value.trim();
+  if(!name||!email||!msg){toast('⚠️ Please fill in name, email and message.');return;}
+
+  const subject=`NishuAbhyasi Contact: ${name}`;
+  const body=`Name: ${name}\nEmail: ${email}\nPhone/WhatsApp: ${phone||'Not provided'}\n\nMessage:\n${msg}\n\n---\nSent from NishuAbhyasi 2.0 contact form`;
+  const mailtoLink=`mailto:singhyashwant559@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // Open mail app without leaving the page
+  const a=document.createElement('a');
+  a.href=mailtoLink;
+  a.target='_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Show a confirmation state inside the popup — keep it open so user can see
+  const card=document.querySelector('#pop-contact .glass-card');
+  card.innerHTML=`
+    <button class="glass-close" onclick="closePopup('pop-contact');resetContactForm()">✕</button>
+    <span class="glass-icon" style="animation:fadeIn .4s ease">📬</span>
+    <div class="glass-title">Email Draft Ready!</div>
+    <div class="glass-sub">Your mail app should have opened with everything pre-filled</div>
+    <div class="glass-divider"></div>
+    <div class="glass-body" style="text-align:center">
+      <p>Just hit <strong>Send</strong> in your email app to deliver your message to the developer. 🙏</p>
+      <p style="color:rgba(255,255,255,.45);font-size:12px">If your mail app didn't open, you can email directly at<br><strong style="color:#7dd3fc">singhyashwant559@gmail.com</strong></p>
+    </div>
+    <button class="glass-btn" style="margin-top:18px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25)" onclick="closePopup('pop-contact');resetContactForm()">✅ Done, Close</button>
+  `;
+}
+
+function resetContactForm(){
+  // Rebuild the contact popup to its original state for next use
+  const card=document.querySelector('#pop-contact .glass-card');
+  card.innerHTML=`
+    <button class="glass-close" onclick="closePopup('pop-contact')">✕</button>
+    <span class="glass-icon">✉️</span>
+    <div class="glass-title">Get in Touch</div>
+    <div class="glass-sub">We'd love to hear from you</div>
+    <div class="glass-divider"></div>
+    <div class="glass-body">
+      <p>Whether you've found a bug, have a suggestion, want to improve this platform, or are looking for a <strong>similar custom online test portal</strong> for your tuition centre, school, or personal use — I'm just a message away.</p>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Your Name</label>
+      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Priya Sharma"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Email Address</label>
+      <input class="glass-input" id="ct-email" type="email" placeholder="your@email.com"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">WhatsApp / Contact Number</label>
+      <input class="glass-input" id="ct-phone" type="tel" placeholder="+91 98765 XXXXX (preferred WhatsApp)"/>
+    </div>
+    <div class="glass-field">
+      <label class="glass-label">Your Message</label>
+      <textarea class="glass-input" id="ct-msg" placeholder="Feedback, issue report, scope for improvement, or inquiry for a custom test portal…"></textarea>
+    </div>
+    <button class="glass-btn" id="ct-btn" onclick="sendContactForm()">📨 Send Message</button>
+    <div class="glass-notice">Your message will be sent directly to the developer at <strong>singhyashwant559@gmail.com</strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
+  `;
+}
+
 /* ══ SESSION ══ */
 function saveSession(){
   if(!active)return;
@@ -1676,9 +2075,42 @@ function doFresh(){
   showLanding();
 }
 
+/* ══ BATCH 2 UNLOCK ══ */
+function refreshBatch2UI(){
+  const locked=document.getElementById('batch2-locked');
+  const btn2=document.getElementById('btn-st2');
+  if(!locked||!btn2)return;
+  if(batch1CompletedThisSession && Q2.length>0){
+    // Batch 1 done AND batch 2 questions exist
+    locked.style.display='none';
+    btn2.style.display='flex';
+  }else if(batch1CompletedThisSession && Q2.length===0){
+    // Batch 1 done but no Batch 2 questions yet
+    locked.style.display='flex';
+    locked.querySelector('.batch2-soon-title').textContent='🔒 Batch 2 — Questions Not Yet Available';
+    locked.querySelector('.batch2-soon-desc').textContent='Batch 1 complete! Batch 2 questions are being prepared by the admin. Check back soon. 🚀';
+    btn2.style.display='none';
+  }else{
+    // Batch 1 not yet done
+    locked.style.display='flex';
+    locked.querySelector('.batch2-soon-title').textContent='🔒 Batch 2 — Complete Batch 1 to Unlock';
+    locked.querySelector('.batch2-soon-desc').textContent='Attempt Batch 1 first to unlock a second full-length mock test in the same session. Your progress unlocks this automatically. 🎯';
+    btn2.style.display='none';
+  }
+}
+
 /* ══ START TEST ══ */
-function startTest(){
-  if(!Q.length){toast('No questions available.');return;}
+function startTest(batch){
+  batch=batch||1;
+  // Pick the right question set
+  const QSet=batch===2?Q2:Q;
+  if(!QSet.length){
+    toast(batch===2?'⚠️ Batch 2 questions not available yet.':'No questions available.');return;
+  }
+  if(batch===2&&!batch1CompletedThisSession){
+    toast('⚠️ Please complete Batch 1 first to unlock Batch 2.');return;
+  }
+  currentBatch=batch;
   if(curUser){
     cName=document.getElementById('c-name').value.trim()||curUser.displayName||'Student';
     cRoll=document.getElementById('c-roll').value.trim()||'—';
@@ -1695,6 +2127,8 @@ function startTest(){
     cEmail=document.getElementById('c-email').value.trim()||'';
     cRoll='—';
   }
+  // Use the right question set
+  Q=QSet; // temporarily assign active Q to the chosen batch set
   buildSecs();
   ans=Array(Q.length).fill(null);vis=Array(Q.length).fill(false);mkd=Array(Q.length).fill(false);
   negM=settings.negM||0;isRev=false;curQ=0;curSec=0;
@@ -1812,11 +2246,19 @@ async function doSubmit(){
   const PASS_PCT=50;
 
   const record={name:cName,roll:cRoll,email:cEmail||curUser?.email||'—',score:net,total:tot,
-    pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso};
+    pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso,batch:currentBatch};
 
   try{await fbAdd('scores',record);}catch(e){console.warn('Global score save failed:',e.message);}
   if(curUser){
     try{await fbAddUserAttempt(curUser.uid,record);}catch(e){console.warn('User attempt save failed:',e.message);}
+  }
+
+  // Mark batch 1 as completed to unlock batch 2
+  if(currentBatch===1){
+    batch1CompletedThisSession=true;
+    if(settings.showResult){
+      setTimeout(()=>toast('🎉 Batch 2 unlocked! Go back to the portal to attempt Batch 2.'),1800);
+    }
   }
 
   if(!settings.showResult){doFresh();return;}
@@ -1978,12 +2420,21 @@ function reqAdmin(){if(!adminIn){showScreen('admin-login');return false;}return 
 
 async function loadAdminData(){
   if(!reqAdmin())return;
+  // Reset to Batch 1 tab
+  _activeQBatch=1;
+  document.getElementById('qb-tab1').classList.add('on');
+  document.getElementById('qb-tab2').classList.remove('on');
   const qd=await fbGet('config/questions');
   const qs=(qd&&Array.isArray(qd.data))?qd.data:[];
   document.getElementById('ap-nq').textContent=qs.length||'0';
   document.getElementById('qs-n').textContent=qs.length||'0';
   if(qs.length){const secSet=new Set(qs.map(q=>q.section||'General'));document.getElementById('qs-s').textContent=[...secSet].join(', ');}
-  if(qd&&qd.updatedAt){document.getElementById('lu').classList.add('on');document.getElementById('lu-t').textContent='Updated: '+fmtDate(qd.updatedAt);}
+  const lu=document.getElementById('lu'),lut=document.getElementById('lu-t');
+  if(qd&&qd.updatedAt){lu.classList.add('on');lut.textContent='Batch 1 updated: '+fmtDate(qd.updatedAt);}
+  else lu.classList.remove('on');
+  // Load Batch 1 JSON into editor by default
+  if(qs.length){document.getElementById('q-area').value=JSON.stringify(qs,null,2);liveValidate();}
+  else{document.getElementById('q-area').value='';document.getElementById('q-msg').textContent='';}
   await refreshScores();
   const s=await fbGet('config/settings');if(s)Object.assign(settings,s);
   document.getElementById('s-neg').value=settings.negM||0;
@@ -2002,8 +2453,128 @@ async function refreshScores(){
       document.getElementById('ap-av').textContent=avg.toFixed(1)+'%';
       document.getElementById('ap-tp').textContent=top+'%';
     }else{document.getElementById('ap-av').textContent='—';document.getElementById('ap-tp').textContent='—';}
+    renderUserView();
     renderTbl();
   }catch(e){toast('Error loading scores: '+e.message);}
+}
+
+/* Records view toggle */
+let _recordsView='user';
+function setRecordsView(v){
+  _recordsView=v;
+  document.getElementById('rv-by-user').classList.toggle('on',v==='user');
+  document.getElementById('rv-all').classList.toggle('on',v==='all');
+  document.getElementById('view-by-user').style.display=v==='user'?'':'none';
+  document.getElementById('view-all').style.display=v==='all'?'':'none';
+}
+
+/* Per-user grouped view */
+function renderUserView(){
+  const srch=(document.getElementById('srch-user')?.value||'').toLowerCase();
+  // Group scores by email (or name for guests)
+  const byUser={};
+  allScores.forEach(r=>{
+    const key=(r.email&&r.email!=='—')?r.email:r.name||'Unknown';
+    if(!byUser[key])byUser[key]={name:r.name||key,email:r.email||'—',uid:r.uid||null,attempts:[]};
+    byUser[key].attempts.push(r);
+  });
+  let users=Object.values(byUser);
+  if(srch)users=users.filter(u=>u.name.toLowerCase().includes(srch)||u.email.toLowerCase().includes(srch));
+  users.sort((a,b)=>a.name.localeCompare(b.name));
+  const container=document.getElementById('usr-list');
+  if(!users.length){container.innerHTML='<div class="usr-empty">📭 No student records yet.</div>';return;}
+  container.innerHTML=users.map((u,ui)=>{
+    const initials=(u.name||'?')[0].toUpperCase();
+    const best=Math.max(...u.attempts.map(a=>a.pct||0));
+    const bestCls=best>=60?'var(--gn)':best>=40?'var(--sf)':'var(--c-no)';
+    const attRows=u.attempts.map((a,i)=>{
+      const pctCls=a.pct>=60?'var(--gn)':a.pct>=40?'var(--sf)':'var(--c-no)';
+      return `<div class="att-row">
+        <div class="att-row-num">${i+1}</div>
+        <div class="att-row-info">
+          <div class="att-row-score" style="color:${pctCls}">${a.score}/${a.total} &nbsp;<span style="font-size:13px;font-weight:600;opacity:.7">(${a.pct}%)</span></div>
+          <div class="att-row-meta">
+            <span style="color:var(--gn)">✅ ${a.correct}</span>
+            <span style="color:var(--c-no)">❌ ${a.wrong}</span>
+            <span style="color:var(--mt)">⬜ ${a.skipped}</span>
+            <span>⏱ ${fmtDuration(a.timeTaken||0)}</span>
+            <span>📅 ${fmtDate(a.timestamp)}</span>
+            ${a.batch?`<span style="background:var(--bl-lt);color:var(--bl);padding:1px 6px;border-radius:6px;font-weight:700">Batch ${a.batch}</span>`:''}
+          </div>
+        </div>
+        <button class="att-row-del" onclick="deleteScoreForUser('${a.id}','${esc(u.email)}',${ui})">🗑</button>
+      </div>`;
+    }).join('');
+    return `<div class="usr-row" id="usr-row-${ui}">
+      <div class="usr-hd" onclick="toggleUser(${ui})">
+        <div class="usr-av">${initials}</div>
+        <div class="usr-info">
+          <div class="usr-name">${esc(u.name)}</div>
+          <div class="usr-email">${esc(u.email)}</div>
+        </div>
+        <div class="usr-meta">
+          <div class="usr-cnt">${u.attempts.length} attempt${u.attempts.length!==1?'s':''}</div>
+          <div style="font-size:12px;font-weight:700;color:${bestCls}">Best: ${best}%</div>
+          <div class="usr-chev">▼</div>
+        </div>
+      </div>
+      <div class="usr-attempts">
+        ${attRows}
+        <button class="usr-del-all" onclick="deleteAllForUser('${esc(u.email)}',${ui})">🗑 Delete All Records for ${esc(u.name)}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleUser(ui){
+  const row=document.getElementById('usr-row-'+ui);
+  if(row)row.classList.toggle('open');
+}
+async function deleteScoreForUser(id,userEmail,ui){
+  if(!reqAdmin())return;
+  if(!confirm('Delete this attempt record?'))return;
+  try{
+    const {doc,deleteDoc,collection,getDocs,query,where}=fs();
+    // Delete from global scores
+    await deleteDoc(doc(db(),'scores',id));
+    allScores=allScores.filter(r=>r.id!==id);
+    // Also try delete from user sub-collection if we can find it
+    if(curUser||true){
+      // Search in users collection for this attempt
+      try{
+        const allUsersSnap=await getDocs(collection(db(),'users'));
+        for(const userDoc of allUsersSnap.docs){
+          const attSnap=await getDocs(query(collection(db(),`users/${userDoc.id}/attempts`),where('timestamp','==',allScores.find(r=>r.id===id)?.timestamp)));
+          // We'll do a direct scan
+        }
+      }catch(ex){/* best effort */}
+    }
+    updateAdminStats();renderUserView();renderTbl();
+    toast('✅ Record deleted.');
+  }catch(e){toast('Error: '+e.message);}
+}
+async function deleteAllForUser(email,ui){
+  if(!reqAdmin())return;
+  if(!confirm(`Delete ALL records for ${email}?`))return;
+  try{
+    const ids=allScores.filter(r=>(r.email===email||r.name===email)).map(r=>r.id);
+    const {doc,deleteDoc}=fs();
+    await Promise.all(ids.map(id=>deleteDoc(doc(db(),'scores',id))));
+    allScores=allScores.filter(r=>r.email!==email&&r.name!==email);
+    updateAdminStats();renderUserView();renderTbl();
+    toast(`✅ All records for ${email} deleted.`);
+  }catch(e){toast('Error: '+e.message);}
+}
+function updateAdminStats(){
+  document.getElementById('ap-na').textContent=allScores.length;
+  if(allScores.length){
+    const avg=allScores.reduce((s,r)=>s+(r.pct||0),0)/allScores.length;
+    const top=Math.max(...allScores.map(r=>r.pct||0));
+    document.getElementById('ap-av').textContent=avg.toFixed(1)+'%';
+    document.getElementById('ap-tp').textContent=top+'%';
+  }else{
+    document.getElementById('ap-av').textContent='—';
+    document.getElementById('ap-tp').textContent='—';
+  }
 }
 function renderTbl(){
   let rows=[...allScores];
@@ -2039,8 +2610,7 @@ async function clearScores(){
   if(!reqAdmin())return;
   if(!confirm('Delete ALL score records from Firebase?'))return;
   await fbDelAll('scores');allScores=[];
-  document.getElementById('ap-na').textContent='0';document.getElementById('ap-av').textContent='—';document.getElementById('ap-tp').textContent='—';
-  renderTbl();toast('Records cleared.');
+  updateAdminStats();renderUserView();renderTbl();toast('Records cleared.');
 }
 async function deleteScore(id){
   if(!reqAdmin())return;
@@ -2049,18 +2619,7 @@ async function deleteScore(id){
     const {doc,deleteDoc}=fs();
     await deleteDoc(doc(db(),'scores',id));
     allScores=allScores.filter(r=>r.id!==id);
-    if(allScores.length){
-      const avg=allScores.reduce((s,r)=>s+(r.pct||0),0)/allScores.length;
-      const top=Math.max(...allScores.map(r=>r.pct||0));
-      document.getElementById('ap-na').textContent=allScores.length;
-      document.getElementById('ap-av').textContent=avg.toFixed(1)+'%';
-      document.getElementById('ap-tp').textContent=top+'%';
-    }else{
-      document.getElementById('ap-na').textContent='0';
-      document.getElementById('ap-av').textContent='—';
-      document.getElementById('ap-tp').textContent='—';
-    }
-    renderTbl();toast('✅ Record deleted.');
+    updateAdminStats();renderUserView();renderTbl();toast('✅ Record deleted.');
   }catch(e){toast('Error: '+e.message);}
 }
 async function exportCSV(){
@@ -2071,7 +2630,22 @@ async function exportCSV(){
   a.click();toast('CSV exported!');
 }
 
-/* Questions */
+/* Questions — Batch-aware */
+let _activeQBatch=1; // which batch is being edited in admin: 1 or 2
+let Q2=[]; // Batch 2 questions
+
+function switchQBatch(b){
+  _activeQBatch=b;
+  document.getElementById('qb-tab1').classList.toggle('on',b===1);
+  document.getElementById('qb-tab2').classList.toggle('on',b===2);
+  // Clear editor
+  const area=document.getElementById('q-area');
+  area.value='';area.className='q-area';
+  document.getElementById('q-msg').textContent='';
+  // Load this batch
+  loadQ();
+}
+
 function liveValidate(){
   const txt=document.getElementById('q-area').value.trim();
   const msg=document.getElementById('q-msg'),area=document.getElementById('q-area');
@@ -2089,38 +2663,70 @@ function liveValidate(){
     return true;
   }catch(e){area.className='q-area bad';msg.className='q-msg bad';msg.textContent='❌ '+e.message;return false;}
 }
+
+function _qBatchKey(){return _activeQBatch===2?'config/questions2':'config/questions';}
+
 async function saveQ(){
   if(!reqAdmin()||!liveValidate())return;
   const data=JSON.parse(document.getElementById('q-area').value.trim());
   const now=new Date().toISOString();
-  await fbSet('config/questions',{data,updatedAt:now});
-  Q=settings.shuffle?shuffle([...data]):data;
+  const key=_qBatchKey();
+  await fbSet(key,{data,updatedAt:now});
+  if(_activeQBatch===1){
+    Q=settings.shuffle?shuffle([...data]):data;
+    document.getElementById('ap-nq').textContent=data.length;
+  }else{
+    Q2=settings.shuffle?shuffle([...data]):data;
+  }
   updateLandingInfo();
-  document.getElementById('ap-nq').textContent=data.length;
-  document.getElementById('qs-n').textContent=data.length;
   const secs=new Set(data.map(q=>q.section||'General'));
+  document.getElementById('qs-n').textContent=data.length;
   document.getElementById('qs-s').textContent=[...secs].join(', ');
-  document.getElementById('lu').classList.add('on');
-  document.getElementById('lu-t').textContent='Updated: '+fmtDate(now);
-  toast(`✅ ${data.length} questions published!`);
+  const lu=document.getElementById('lu'),lut=document.getElementById('lu-t');
+  lu.classList.add('on');
+  lut.textContent=`Batch ${_activeQBatch} updated: ${fmtDate(now)}`;
+  toast(`✅ Batch ${_activeQBatch}: ${data.length} questions published!`);
 }
+
 async function loadQ(){
   if(!reqAdmin())return;
-  const qd=await fbGet('config/questions');
-  if(!qd||!qd.data||!qd.data.length){toast('No questions in Firebase yet.');return;}
+  const key=_qBatchKey();
+  const qd=await fbGet(key);
+  const lu=document.getElementById('lu'),lut=document.getElementById('lu-t');
+  if(!qd||!qd.data||!qd.data.length){
+    document.getElementById('q-area').value='';
+    document.getElementById('q-msg').textContent='';
+    document.getElementById('q-area').className='q-area';
+    document.getElementById('qs-n').textContent='0';
+    document.getElementById('qs-s').textContent='—';
+    lu.classList.remove('on');
+    toast(`Batch ${_activeQBatch} has no questions yet.`);
+    return;
+  }
   document.getElementById('q-area').value=JSON.stringify(qd.data,null,2);
-  liveValidate();toast(`Loaded ${qd.data.length} questions.`);
+  liveValidate();
+  const secs=new Set(qd.data.map(q=>q.section||'General'));
+  document.getElementById('qs-n').textContent=qd.data.length;
+  document.getElementById('qs-s').textContent=[...secs].join(', ');
+  if(qd.updatedAt){lu.classList.add('on');lut.textContent=`Batch ${_activeQBatch} updated: ${fmtDate(qd.updatedAt)}`;}
+  else lu.classList.remove('on');
+  toast(`Batch ${_activeQBatch}: loaded ${qd.data.length} questions.`);
 }
+
 async function clearQ(){
   if(!reqAdmin())return;
-  if(!confirm('Clear ALL questions?'))return;
-  await fbSet('config/questions',{data:[],updatedAt:new Date().toISOString()});
-  Q=[];updateLandingInfo();
+  if(!confirm(`Clear ALL questions for Batch ${_activeQBatch}?`))return;
+  const key=_qBatchKey();
+  await fbSet(key,{data:[],updatedAt:new Date().toISOString()});
+  if(_activeQBatch===1){Q=[];document.getElementById('ap-nq').textContent='0';}
+  else Q2=[];
+  updateLandingInfo();
   document.getElementById('q-area').value='';document.getElementById('q-msg').textContent='';
   document.getElementById('q-area').className='q-area';
-  document.getElementById('ap-nq').textContent='0';document.getElementById('qs-n').textContent='0';
-  document.getElementById('qs-s').textContent='—';document.getElementById('lu').classList.remove('on');
-  toast('Questions cleared.');
+  document.getElementById('qs-n').textContent='0';
+  document.getElementById('qs-s').textContent='—';
+  document.getElementById('lu').classList.remove('on');
+  toast(`Batch ${_activeQBatch} questions cleared.`);
 }
 
 /* Settings */
@@ -2164,10 +2770,25 @@ function toggleDark(){
 }
 function closeDmPopupDirect(){document.getElementById('dm-popup').classList.remove('on');}
 function closeDmPopup(e){if(e.target===document.getElementById('dm-popup'))closeDmPopupDirect();}
+// Restore saved preference — default is LIGHT
+// Version key ensures old dark-mode prefs don't carry over across major builds
 (function(){
   try{
+    const PREF_VER='na_pref_v6'; // bump this key whenever default should reset
+    const alreadyInit=localStorage.getItem(PREF_VER);
+    if(!alreadyInit){
+      // First time loading this version — force light, clear old pref
+      localStorage.setItem('na_dark','0');
+      localStorage.setItem(PREF_VER,'1');
+    }
     const saved=localStorage.getItem('na_dark');
-    if(saved==='1'){_darkOn=true;document.body.classList.add('dark');const btn=document.getElementById('dm-tog');if(btn)btn.textContent='☀️ Light';}
+    if(saved==='1'){
+      _darkOn=true;
+      document.body.classList.add('dark');
+      const btn=document.getElementById('dm-tog');
+      if(btn)btn.textContent='☀️ Light';
+    }
+    // saved==='0' or anything else → stays light
   }catch(e){}
 })();
 

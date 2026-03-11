@@ -340,6 +340,70 @@ body.dark .hm-dot.hm-high{background:#3b82f6}
 .batch2-soon-desc{font-size:12px;color:rgba(255,255,255,.38);line-height:1.55}
 .batch2-soon-badge{background:linear-gradient(135deg,var(--sf),#ff9500);color:#fff;border-radius:8px;padding:8px 12px;font-family:var(--fh);font-size:11px;font-weight:800;text-align:center;flex-shrink:0;line-height:1.3;white-space:nowrap}
 
+/* ── Batch status card (replaces the locked/unlocked divs) ── */
+.batch-card{border-radius:14px;padding:16px;border:2px solid var(--bd);background:#fff;display:flex;flex-direction:column;gap:10px;transition:.2s;position:relative;overflow:hidden}
+body.dark .batch-card{background:#1e293b;border-color:#334155}
+.batch-card.bc-available{border-color:var(--sf);background:linear-gradient(135deg,#fff8f3,#fff)}
+body.dark .batch-card.bc-available{background:linear-gradient(135deg,#2d1a0a,#1e293b)}
+.batch-card.bc-done{border-color:var(--gn);background:linear-gradient(135deg,#f0fdf4,#fff)}
+body.dark .batch-card.bc-done{background:linear-gradient(135deg,#0f2818,#1e293b)}
+.batch-card.bc-locked{border-color:var(--bd);background:#f8fafc;opacity:.85}
+body.dark .batch-card.bc-locked{background:#0f172a}
+.bc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.bc-title{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx)}
+.bc-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.3px}
+.bc-badge.done{background:#dcfce7;color:#166534}
+.bc-badge.new{background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;animation:badgePulse 1.5s ease-in-out infinite}
+.bc-badge.locked{background:#f1f5f9;color:#94a3b8}
+body.dark .bc-badge.done{background:#166534;color:#dcfce7}
+body.dark .bc-badge.locked{background:#1e293b;color:#64748b}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}}
+.bc-meta{font-size:11px;color:var(--mt);display:flex;flex-wrap:wrap;gap:6px;align-items:center;line-height:1.5}
+.bc-meta span{display:flex;align-items:center;gap:3px}
+.bc-meta .sep{color:var(--bd);font-size:10px}
+.bc-btn{width:100%;padding:12px 16px;border:none;border-radius:10px;font-family:var(--fh);font-size:15px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px}
+.bc-btn.start{background:linear-gradient(135deg,var(--sf),var(--sf-dk));color:#fff}
+.bc-btn.start:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,107,0,.35)}
+.bc-btn.start2{background:linear-gradient(135deg,var(--bl),var(--bl-dk));color:#fff}
+.bc-btn.start2:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,87,168,.35)}
+.bc-btn.retake{background:var(--bg);border:2px solid var(--bd);color:var(--mt)}
+body.dark .bc-btn.retake{background:#1e293b;border-color:#334155}
+.bc-btn.retake:hover{border-color:var(--bl);color:var(--bl)}
+.bc-btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ── Notice Board popup ── */
+.nb-popup{display:none;position:fixed;inset:0;z-index:9700;backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);background:rgba(0,8,20,.52);align-items:center;justify-content:center;padding:20px}
+.nb-popup.on{display:flex;animation:fadeIn .2s ease}
+.nb-card{background:linear-gradient(135deg,rgba(0,87,168,.18),rgba(255,107,0,.12));backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1.5px solid rgba(255,255,255,.22);border-radius:24px;padding:32px 28px;max-width:480px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.15);animation:scaleIn .28s cubic-bezier(.34,1.5,.64,1);position:relative;color:#fff}
+.nb-icon{font-size:42px;text-align:center;display:block;margin-bottom:12px}
+.nb-title{font-family:var(--fh);font-size:22px;font-weight:800;text-align:center;color:#fff;margin-bottom:6px}
+.nb-body{font-size:14px;line-height:1.8;color:rgba(255,255,255,.85);margin:16px 0}
+.nb-body p{margin-bottom:10px}
+.nb-body p:last-child{margin-bottom:0}
+.nb-body strong{color:#fff}
+.nb-close{width:100%;padding:12px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;font-family:var(--fh);font-size:15px;font-weight:700;color:#fff;cursor:pointer;transition:.2s;margin-top:4px}
+.nb-close:hover{background:rgba(255,255,255,.25)}
+.nb-ts{font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:12px}
+
+/* ── Admin notice board editor ── */
+.nb-editor{display:flex;flex-direction:column;gap:10px}
+.nb-editor-label{font-size:12px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.nb-textarea{width:100%;min-height:100px;padding:12px;border:2px solid var(--bd);border-radius:10px;font-family:var(--fb);font-size:13px;line-height:1.6;outline:none;resize:vertical;transition:.2s;background:#fafafa;color:var(--tx)}
+.nb-textarea:focus{border-color:var(--bl);background:#fff}
+body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
+.nb-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);gap:10px}
+.nb-row:last-child{border-bottom:none}
+
+/* ── Guest upgrade nudge card ── */
+.guest-nudge{background:linear-gradient(135deg,#0057A8,#003d7a);border-radius:var(--card-r);padding:20px 22px;color:#fff;position:relative;overflow:hidden;margin-bottom:16px}
+.guest-nudge::before{content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;background:rgba(255,255,255,.05);border-radius:50%}
+.guest-nudge-title{font-family:var(--fh);font-size:16px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.guest-nudge-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.guest-nudge-item{font-size:12.5px;color:rgba(255,255,255,.82);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.guest-nudge-item::before{content:'✗';color:rgba(255,107,0,.9);font-weight:800;flex-shrink:0;margin-top:1px}
+.guest-nudge-btn{display:inline-block;background:#fff;color:var(--bl);border:none;border-radius:50px;padding:10px 22px;font-family:var(--fh);font-size:14px;font-weight:800;cursor:pointer;transition:.2s}
+.guest-nudge-btn:hover{background:#f0f6ff;transform:translateY(-1px)}
+
 /* Test start batch cards - kept for potential use */
 .batch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .batch-card{border-radius:14px;padding:18px 16px;cursor:pointer;position:relative;overflow:hidden;transition:.2s}
@@ -1082,21 +1146,31 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
             </div>
           </div>
 
-          <!-- Batch Buttons directly inside Your Details card -->
+          <!-- Batch Cards -->
           <div style="margin-top:20px;border-top:1px solid var(--bd);padding-top:16px">
-            <div class="ld-card-title" style="margin-bottom:10px"><span>🎯</span> Choose Your Test</div>
-            <div style="font-size:12px;color:var(--mt);margin-bottom:12px" id="batch1-info">—</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <button class="start-test-btn" id="btn-st" onclick="startTest(1)">▶ Start Test — Batch 1 (Bihar B.Ed CET)</button>
-              <!-- Batch 2: locked by default, unlocked after completing Batch 1 -->
-              <div id="batch2-locked" class="batch2-soon-card">
-                <div class="batch2-soon-left">
-                  <div class="batch2-soon-title">🔒 Batch 2 — Complete Batch 1 to Unlock</div>
-                  <div class="batch2-soon-desc">Attempt Batch 1 first to unlock a second full-length mock test in the same session. Your progress unlocks this automatically. 🎯</div>
+            <div class="ld-card-title" style="margin-bottom:14px"><span>🎯</span> Choose Your Test</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+
+              <!-- Batch 1 Card -->
+              <div class="batch-card bc-available" id="bc1">
+                <div class="bc-top">
+                  <div class="bc-title">📦 Batch 1 — Bihar B.Ed CET</div>
+                  <div class="bc-badge locked" id="bc1-badge">Loading…</div>
                 </div>
-                <div class="batch2-soon-badge">Locked</div>
+                <div class="bc-meta" id="bc1-meta"><span>⏳ Loading…</span></div>
+                <button class="bc-btn start" id="btn-st" onclick="startTest(1)">▶ Start Batch 1</button>
               </div>
-              <button class="start-test-btn" id="btn-st2" onclick="startTest(2)" style="display:none;background:linear-gradient(135deg,#0057A8,#003d7a)">▶ Start Test — Batch 2 (Second Attempt)</button>
+
+              <!-- Batch 2 Card -->
+              <div class="batch-card bc-locked" id="bc2">
+                <div class="bc-top">
+                  <div class="bc-title">📦 Batch 2 — Second Set</div>
+                  <div class="bc-badge locked" id="bc2-badge">Loading…</div>
+                </div>
+                <div class="bc-meta" id="bc2-meta"><span>⏳ Loading…</span></div>
+                <button class="bc-btn start2" id="btn-st2" onclick="startTest(2)" disabled>▶ Start Batch 2</button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1105,6 +1179,18 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
 
       <!-- RIGHT: sidebar -->
       <div class="ld-side">
+
+        <!-- Guest upgrade nudge (only for guests) -->
+        <div class="guest-nudge" id="guest-nudge-card" style="display:none">
+          <div class="guest-nudge-title">🔓 You're missing out!</div>
+          <div class="guest-nudge-list">
+            <div class="guest-nudge-item">Score history & progress tracking</div>
+            <div class="guest-nudge-item">Personal score trend graph</div>
+            <div class="guest-nudge-item">7-day practice calendar</div>
+            <div class="guest-nudge-item">Priority support from the developer</div>
+          </div>
+          <button class="guest-nudge-btn" onclick="showScreen('auth')">🚀 Create Free Account</button>
+        </div>
 
         <!-- Recent attempts -->
         <div class="ld-card" id="hist-section" style="display:none">
@@ -1218,6 +1304,18 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
   </div>
 </div>
 
+<!-- ═══ NOTICE BOARD POPUP ═══ -->
+<div class="nb-popup" id="nb-popup" onclick="if(event.target===this)closeNoticeBoard()">
+  <div class="nb-card">
+    <span class="nb-icon" id="nb-icon">📢</span>
+    <div class="nb-title" id="nb-title">Notice from Admin</div>
+    <div class="glass-divider"></div>
+    <div class="nb-body" id="nb-body"></div>
+    <button class="nb-close" onclick="closeNoticeBoard()">Got it, Thanks! 👍</button>
+    <div class="nb-ts" id="nb-ts"></div>
+  </div>
+</div>
+
 <!-- ═══════ SCREEN: ADMIN LOGIN ═══════ -->
 <div id="admin-login" class="screen">
   <div style="background:linear-gradient(135deg,var(--nv),#0d2137);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px">
@@ -1327,6 +1425,32 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
             <th>✅</th><th>❌</th><th>⬜</th><th>⏱ Time</th><th>Date & Time</th><th>🗑</th>
           </tr></thead><tbody id="tbl-body"></tbody></table>
         </div>
+      </div>
+    </div>
+
+    <!-- Notice Board -->
+    <div class="ap-card">
+      <div class="ap-card-hd">
+        <div><div class="ap-ct">📢 Notice Board</div><div class="ap-cs">Broadcast notices to students on landing page</div></div>
+        <button class="btn b-prim" onclick="saveNotices()">💾 Save</button>
+      </div>
+      <!-- Guest notice -->
+      <div class="nb-row">
+        <div><div class="set-lbl">Show Notice to Guests</div><div class="set-dsc">Displayed when guest opens the portal</div></div>
+        <button class="tog" id="nb-guest-on" onclick="togSet('nb-guest-on')"></button>
+      </div>
+      <div class="nb-editor" style="margin-bottom:18px">
+        <div class="nb-editor-label">👤 Guest Notice Content</div>
+        <textarea class="nb-textarea" id="nb-guest-txt" placeholder="e.g. &#10;🎉 New questions for Batch 1 are now live!&#10;&#10;We have updated the question bank with fresh questions for Bihar B.Ed CET 2025. Best of luck to all aspirants! 🙏"></textarea>
+      </div>
+      <!-- Registered notice -->
+      <div class="nb-row">
+        <div><div class="set-lbl">Show Notice to Registered Users</div><div class="set-dsc">Displayed when logged-in user opens the portal</div></div>
+        <button class="tog" id="nb-reg-on" onclick="togSet('nb-reg-on')"></button>
+      </div>
+      <div class="nb-editor">
+        <div class="nb-editor-label">🔐 Registered Users Notice Content</div>
+        <textarea class="nb-textarea" id="nb-reg-txt" placeholder="e.g. &#10;📊 Batch 2 is now available!&#10;&#10;Hello students, Batch 2 mock test set is now live. Your scores are tracked automatically. Give it your best! 💪"></textarea>
       </div>
     </div>
 
@@ -1597,8 +1721,22 @@ let adminIn=false;
 let curUser=null;
 let isGuest=false;
 let userAttempts=[];
-let currentBatch=1; // which batch is currently being attempted
-let batch1CompletedThisSession=false; // unlocks batch 2
+let currentBatch=1;
+let Q2=[];
+let _activeQBatch=1;
+
+// Persistent batch completion — stored in localStorage so it survives browser close
+// Key includes UID so guest/user don't share state
+function _batchKey(b){
+  const uid=curUser?curUser.uid:'guest';
+  return `na_batch${b}_done_${uid}`;
+}
+function _batchDoneDate(b){
+  try{return localStorage.getItem(_batchKey(b))||null;}catch(e){return null;}
+}
+function _markBatchDone(b){
+  try{localStorage.setItem(_batchKey(b),new Date().toISOString());}catch(e){}
+}
 
 const SS='na_v5';
 
@@ -1622,6 +1760,7 @@ function hideSplash(){
 }
 
 let _bootLoaded=false;
+let _notices=null; // cached notices from Firebase
 
 async function bootLoad(){
   try{
@@ -1631,12 +1770,14 @@ async function bootLoad(){
     const qd=await fbGet('config/questions');
     if(qd&&Array.isArray(qd.data)&&qd.data.length)
       Q=settings.shuffle?shuffle([...qd.data]):qd.data;
-    // Also preload Batch 2
     try{
       const qd2=await fbGet('config/questions2');
       if(qd2&&Array.isArray(qd2.data)&&qd2.data.length)
         Q2=settings.shuffle?shuffle([...qd2.data]):qd2.data;
-    }catch(e2){/* Batch 2 may not exist yet */}
+    }catch(e2){}
+    try{
+      _notices=await fbGet('config/notices');
+    }catch(en){}
   }catch(e){console.warn('Boot error:',e.message);}
   _bootLoaded=true;
 }
@@ -1774,7 +1915,7 @@ function toggleEyeId(id){const i=document.getElementById(id);i.type=i.type==='pa
 /* ══ LANDING ══ */
 async function showLanding(){
   updateLandingInfo();
-  refreshBatch2UI();
+  refreshBatchCards();
 
   if(curUser){
     document.getElementById('user-badge').style.display='flex';
@@ -1786,14 +1927,18 @@ async function showLanding(){
     document.getElementById('ub-av').textContent=initials;
     document.getElementById('ub-name').textContent=curUser.displayName||'Student';
     document.getElementById('ub-email').textContent=curUser.email||'';
-    // Banner
     document.getElementById('banner-av').textContent=initials;
     document.getElementById('banner-name').textContent='Hi, '+(curUser.displayName||'Student')+'!';
     document.getElementById('banner-role').textContent=curUser.email||'Bihar B.Ed CET Aspirant';
     document.getElementById('hist-section').style.display='block';
-    // Hide required star for logged-in (name auto-filled)
+    document.getElementById('guest-nudge-card').style.display='none';
     const star=document.getElementById('name-req-star');if(star)star.style.display='none';
     loadAttemptHistory();
+    // Show registered notice if enabled
+    if(_notices&&_notices.regEnabled&&_notices.regText){
+      const seen=localStorage.getItem('na_nb_reg_'+(_notices.regTs||''));
+      if(!seen){showNoticeBoard('reg');localStorage.setItem('na_nb_reg_'+(_notices.regTs||''),'1');}
+    }
   }else{
     document.getElementById('user-badge').style.display='none';
     document.getElementById('guest-badge').style.display='flex';
@@ -1803,8 +1948,14 @@ async function showLanding(){
     document.getElementById('banner-name').textContent='Welcome, Guest!';
     document.getElementById('banner-role').textContent='Bihar B.Ed CET Aspirant';
     document.getElementById('hist-section').style.display='none';
+    document.getElementById('guest-nudge-card').style.display='block';
     const star=document.getElementById('name-req-star');if(star)star.style.display='';
-    renderHeatmap([]); // show empty heatmap for guests
+    renderHeatmap([]);
+    // Show guest notice if enabled
+    if(_notices&&_notices.guestEnabled&&_notices.guestText){
+      const seen=localStorage.getItem('na_nb_guest_'+(_notices.guestTs||''));
+      if(!seen){showNoticeBoard('guest');localStorage.setItem('na_nb_guest_'+(_notices.guestTs||''),'1');}
+    }
   }
 
   showScreen('landing');
@@ -2075,40 +2226,95 @@ function doFresh(){
   showLanding();
 }
 
-/* ══ BATCH 2 UNLOCK ══ */
-function refreshBatch2UI(){
-  const locked=document.getElementById('batch2-locked');
+/* ══ BATCH CARDS — fully persistent, open access ══ */
+function refreshBatchCards(){
+  const bc1=document.getElementById('bc1');
+  const bc2=document.getElementById('bc2');
+  const btn1=document.getElementById('btn-st');
   const btn2=document.getElementById('btn-st2');
-  if(!locked||!btn2)return;
-  if(batch1CompletedThisSession && Q2.length>0){
-    // Batch 1 done AND batch 2 questions exist
-    locked.style.display='none';
-    btn2.style.display='flex';
-  }else if(batch1CompletedThisSession && Q2.length===0){
-    // Batch 1 done but no Batch 2 questions yet
-    locked.style.display='flex';
-    locked.querySelector('.batch2-soon-title').textContent='🔒 Batch 2 — Questions Not Yet Available';
-    locked.querySelector('.batch2-soon-desc').textContent='Batch 1 complete! Batch 2 questions are being prepared by the admin. Check back soon. 🚀';
-    btn2.style.display='none';
+  const badge1=document.getElementById('bc1-badge');
+  const badge2=document.getElementById('bc2-badge');
+  const meta1=document.getElementById('bc1-meta');
+  const meta2=document.getElementById('bc2-meta');
+  if(!bc1||!bc2)return;
+
+  // -- Batch 1 --
+  const b1done=_batchDoneDate(1);
+  const b1hasQ=Q.length>0;
+  // Check if questions were updated AFTER last completion (NEW badge)
+  let b1isNew=false;
+  try{
+    if(b1done&&settings._q1updatedAt&&new Date(settings._q1updatedAt)>new Date(b1done))b1isNew=true;
+  }catch(e){}
+
+  if(!b1hasQ){
+    bc1.className='batch-card bc-locked';
+    badge1.className='bc-badge locked';badge1.textContent='No Questions';
+    meta1.innerHTML='<span>⚠️ Admin has not uploaded questions yet</span>';
+    btn1.disabled=true;btn1.textContent='▶ Start Batch 1';
+  }else if(b1done){
+    bc1.className='batch-card bc-done';
+    if(b1isNew){
+      badge1.className='bc-badge new';badge1.textContent='✨ NEW';
+      meta1.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
+    }else{
+      badge1.className='bc-badge done';badge1.textContent='✅ Completed';
+      meta1.innerHTML=`<span>✅ Completed on ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
+    }
+    btn1.disabled=false;btn1.textContent='↺ Retake Batch 1';
+    btn1.className='bc-btn retake';
   }else{
-    // Batch 1 not yet done
-    locked.style.display='flex';
-    locked.querySelector('.batch2-soon-title').textContent='🔒 Batch 2 — Complete Batch 1 to Unlock';
-    locked.querySelector('.batch2-soon-desc').textContent='Attempt Batch 1 first to unlock a second full-length mock test in the same session. Your progress unlocks this automatically. 🎯';
-    btn2.style.display='none';
+    bc1.className='batch-card bc-available';
+    badge1.className='bc-badge locked';badge1.textContent='Available';
+    badge1.style.background='var(--gn-lt)';badge1.style.color='var(--gn)';
+    meta1.innerHTML=`<span>${Q.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q.length*(settings.mpq||1))} mins</span>`;
+    btn1.disabled=false;btn1.textContent='▶ Start Batch 1';
+    btn1.className='bc-btn start';
+  }
+
+  // -- Batch 2 --
+  const b2done=_batchDoneDate(2);
+  const b2hasQ=Q2.length>0;
+  let b2isNew=false;
+  try{
+    if(b2done&&settings._q2updatedAt&&new Date(settings._q2updatedAt)>new Date(b2done))b2isNew=true;
+  }catch(e){}
+
+  if(!b2hasQ){
+    bc2.className='batch-card bc-locked';
+    badge2.className='bc-badge locked';badge2.textContent='Coming Soon';
+    meta2.innerHTML='<span>🔒 Admin is preparing Batch 2 questions</span>';
+    btn2.disabled=true;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
+  }else if(b2done){
+    bc2.className='batch-card bc-done';
+    if(b2isNew){
+      badge2.className='bc-badge new';badge2.textContent='✨ NEW';
+      meta2.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
+    }else{
+      badge2.className='bc-badge done';badge2.textContent='✅ Completed';
+      meta2.innerHTML=`<span>✅ Completed on ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
+    }
+    btn2.disabled=false;btn2.textContent='↺ Retake Batch 2';btn2.className='bc-btn retake';
+  }else{
+    bc2.className='batch-card bc-available';
+    badge2.className='bc-badge locked';badge2.textContent='Available';
+    badge2.style.background='var(--bl-lt)';badge2.style.color='var(--bl)';
+    meta2.innerHTML=`<span>${Q2.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q2.length*(settings.mpq||1))} mins</span>`;
+    btn2.disabled=false;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
   }
 }
 
-/* ══ START TEST ══ */
+function fmtDateShort(iso){
+  try{const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+  catch(e){return '—';}
+}
+
+/* ══ START TEST — open access, no batch-order restriction ══ */
 function startTest(batch){
   batch=batch||1;
-  // Pick the right question set
   const QSet=batch===2?Q2:Q;
   if(!QSet.length){
-    toast(batch===2?'⚠️ Batch 2 questions not available yet.':'No questions available.');return;
-  }
-  if(batch===2&&!batch1CompletedThisSession){
-    toast('⚠️ Please complete Batch 1 first to unlock Batch 2.');return;
+    toast(batch===2?'⚠️ Batch 2 questions not available yet.':'⚠️ No questions available.');return;
   }
   currentBatch=batch;
   if(curUser){
@@ -2127,8 +2333,7 @@ function startTest(batch){
     cEmail=document.getElementById('c-email').value.trim()||'';
     cRoll='—';
   }
-  // Use the right question set
-  Q=QSet; // temporarily assign active Q to the chosen batch set
+  Q=QSet;
   buildSecs();
   ans=Array(Q.length).fill(null);vis=Array(Q.length).fill(false);mkd=Array(Q.length).fill(false);
   negM=settings.negM||0;isRev=false;curQ=0;curSec=0;
@@ -2253,11 +2458,11 @@ async function doSubmit(){
     try{await fbAddUserAttempt(curUser.uid,record);}catch(e){console.warn('User attempt save failed:',e.message);}
   }
 
-  // Mark batch 1 as completed to unlock batch 2
-  if(currentBatch===1){
-    batch1CompletedThisSession=true;
+  // Mark batch as persistently completed
+  _markBatchDone(currentBatch);
+  if(currentBatch===1 && Q2.length>0 && !_batchDoneDate(2)){
     if(settings.showResult){
-      setTimeout(()=>toast('🎉 Batch 2 unlocked! Go back to the portal to attempt Batch 2.'),1800);
+      setTimeout(()=>toast('🎉 Batch 2 is now available! Head back to the portal.'),1800);
     }
   }
 
@@ -2441,6 +2646,7 @@ async function loadAdminData(){
   document.getElementById('s-mpq').value=settings.mpq||1;
   if(settings.shuffle)document.getElementById('s-shuf').classList.add('on');else document.getElementById('s-shuf').classList.remove('on');
   if(settings.showResult!==false)document.getElementById('s-res').classList.add('on');else document.getElementById('s-res').classList.remove('on');
+  await loadNoticesAdmin();
 }
 
 async function refreshScores(){
@@ -2631,8 +2837,6 @@ async function exportCSV(){
 }
 
 /* Questions — Batch-aware */
-let _activeQBatch=1; // which batch is being edited in admin: 1 or 2
-let Q2=[]; // Batch 2 questions
 
 function switchQBatch(b){
   _activeQBatch=b;
@@ -2672,12 +2876,16 @@ async function saveQ(){
   const now=new Date().toISOString();
   const key=_qBatchKey();
   await fbSet(key,{data,updatedAt:now});
+  // Store updatedAt in settings so student batch cards can detect NEW questions
   if(_activeQBatch===1){
     Q=settings.shuffle?shuffle([...data]):data;
+    settings._q1updatedAt=now;
     document.getElementById('ap-nq').textContent=data.length;
   }else{
     Q2=settings.shuffle?shuffle([...data]):data;
+    settings._q2updatedAt=now;
   }
+  await fbSet('config/settings',settings);
   updateLandingInfo();
   const secs=new Set(data.map(q=>q.section||'General'));
   document.getElementById('qs-n').textContent=data.length;
@@ -2749,6 +2957,62 @@ async function changePw(){
   await fbSet('config/admin',{hash,updatedAt:new Date().toISOString()});
   document.getElementById('s-npw').value='';
   toast('✅ Admin password updated!');
+}
+
+/* ══ NOTICE BOARD ══ */
+async function saveNotices(){
+  if(!reqAdmin())return;
+  const guestEnabled=document.getElementById('nb-guest-on').classList.contains('on');
+  const regEnabled=document.getElementById('nb-reg-on').classList.contains('on');
+  const guestText=document.getElementById('nb-guest-txt').value.trim();
+  const regText=document.getElementById('nb-reg-txt').value.trim();
+  const now=new Date().toISOString();
+  const data={
+    guestEnabled,regEnabled,guestText,regText,
+    guestTs:guestEnabled?now:(_notices?.guestTs||now),
+    regTs:regEnabled?now:(_notices?.regTs||now),
+    updatedAt:now
+  };
+  await fbSet('config/notices',data);
+  _notices=data;
+  toast('✅ Notice board saved!');
+}
+
+async function loadNoticesAdmin(){
+  if(!reqAdmin())return;
+  try{
+    const n=await fbGet('config/notices');
+    if(n){
+      _notices=n;
+      if(n.guestEnabled)document.getElementById('nb-guest-on').classList.add('on');
+      else document.getElementById('nb-guest-on').classList.remove('on');
+      if(n.regEnabled)document.getElementById('nb-reg-on').classList.add('on');
+      else document.getElementById('nb-reg-on').classList.remove('on');
+      if(n.guestText)document.getElementById('nb-guest-txt').value=n.guestText;
+      if(n.regText)document.getElementById('nb-reg-txt').value=n.regText;
+    }
+  }catch(e){console.warn('Notice load error:',e.message);}
+}
+
+function showNoticeBoard(type){
+  const n=_notices;
+  if(!n)return;
+  const isGuest=(type==='guest');
+  const text=isGuest?n.guestText:n.regText;
+  if(!text)return;
+  // Format line breaks as paragraphs
+  const html=text.split(/\n\n+/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+  document.getElementById('nb-icon').textContent=isGuest?'📢':'🔔';
+  document.getElementById('nb-title').textContent=isGuest?'Notice for Students':'Notice for Registered Students';
+  document.getElementById('nb-body').innerHTML=html;
+  const ts=document.getElementById('nb-ts');
+  const tStamp=isGuest?n.guestTs:n.regTs;
+  ts.textContent=tStamp?'Posted: '+fmtDateShort(tStamp):'';
+  document.getElementById('nb-popup').classList.add('on');
+}
+
+function closeNoticeBoard(){
+  document.getElementById('nb-popup').classList.remove('on');
 }
 
 /* Utils */

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>NishuAbhyasi – Bihar B.Ed CET</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <!-- ═══ FIREBASE SDK ═══ -->
 <script type="module">
@@ -53,46 +54,161 @@ window.dispatchEvent(new Event('dbready'));
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--tx);overflow-x:hidden;-webkit-tap-highlight-color:transparent;transition:background .3s,color .3s}
 
-/* ══ DARK MODE ══ */
+/* ══ DARK MODE — full palette ══ */
 body.dark{
-  --bg:#0f172a;--tx:#e2e8f0;--mt:#94a3b8;--bd:#1e293b;
-  --bl-lt:#1e3a5f;--sf-lt:#2d1a0a;--gn-lt:#0f2818;
-  --sh:0 2px 16px rgba(0,0,0,.3);--sh2:0 8px 32px rgba(0,0,0,.5);
+  --bg:#0d1117;--tx:#e2e8f0;--mt:#8b98a9;--bd:#21262d;
+  --bl-lt:#0f2644;--sf-lt:#2a1500;--gn-lt:#0c2218;
+  --sh:0 2px 16px rgba(0,0,0,.45);--sh2:0 8px 32px rgba(0,0,0,.65);
 }
-body.dark .ld-card,body.dark .feedback-box,body.dark .ld-stat,body.dark .ld-user-chip,body.dark .ld-admin-btn,body.dark .ld-guest-chip{background:#1e293b;border-color:#334155}
-body.dark .auth-shell,body.dark .auth-right{background:#1e293b}
-body.dark .auth-left{background:linear-gradient(160deg,#1a1f2e,#1e2a3a)}
-body.dark .fg input,body.dark .nf-input,body.dark .set-inp,body.dark .pw-change-row input,body.dark .qotd-textarea,.dark #admin-qotd-author{background:#0f172a;color:#e2e8f0;border-color:#334155}
-body.dark .fg input{background:#0f172a}
-body.dark .rg-c,body.dark .md,body.dark .al-card,body.dark .dbs-card{background:#1e293b;color:#e2e8f0}
-body.dark .ap-stat,body.dark .ap-card{background:#1e293b;border-color:#334155}
-body.dark th{background:#1e293b;color:#94a3b8}
-body.dark td{border-color:#334155}
-body.dark tr:hover td{background:#1a2540}
-body.dark .q-area,body.dark .srch,body.dark .srt{background:#0f172a;color:#e2e8f0;border-color:#334155}
-body.dark .attempt-item{background:#1e293b;border-color:#334155}
-body.dark .attempt-item:hover{background:#233149}
-body.dark .auth-tabs-new{border-color:#334155}
-body.dark .auth-tab-new{color:#64748b}
+
+/* ── Auth screen ── */
+body.dark #auth{background:#0d1117}
+body.dark .auth-shell{background:#161b22;border:1px solid #21262d;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+body.dark .auth-right{background:#161b22}
+body.dark .auth-left{background:linear-gradient(160deg,#161b22,#0d1117)}
+body.dark .auth-left-name{color:#e2e8f0}
+body.dark .auth-mob-brand-name{color:#e2e8f0}
+body.dark .auth-mob-sub{color:#8b98a9}
+body.dark .auth-tabs-new{border-color:#30363d}
+body.dark .auth-tab-new{color:#8b98a9;background:none}
 body.dark .auth-tab-new.on{color:#e2e8f0}
-body.dark .inst-box{background:#1a2540;border-color:#FFB800}
-body.dark .no-q{background:#2d2000;border-color:#FFB800;color:#fbbf24}
+/* Input fields — no harsh white borders */
+body.dark .fg input{background:#21262d;color:#e2e8f0;border:none;box-shadow:inset 0 0 0 1px #30363d}
+body.dark .fg input:focus{background:#2d333b;box-shadow:inset 0 0 0 2px #0057A8}
+body.dark .fg-icon{color:#8b98a9}
+body.dark .pw-eye{color:#8b98a9}
+body.dark .btn-guest{background:#21262d;border:1px solid #30363d;color:#c9d1d9}
+body.dark .btn-guest:hover{background:#2d333b;border-color:#8b98a9}
+body.dark .auth-divider::before,body.dark .auth-divider::after{background:#30363d}
+body.dark .auth-divider span{color:#8b98a9}
+body.dark .auth-bottom-link{color:#8b98a9}
+body.dark .auth-bottom-link a{color:#58a6ff}
+body.dark .auth-footer{color:#8b98a9}
+body.dark .auth-mob-links a{color:#58a6ff}
+body.dark .auth-mob-links span{color:#8b98a9}
+
+/* ── Landing ── */
+body.dark #landing{background:#0d1117}
+body.dark .ld-card,body.dark .feedback-box{background:#161b22;border-color:#21262d}
+body.dark .ld-stat{background:#161b22;border-color:#21262d}
+body.dark .ld-user-chip,body.dark .ld-admin-btn,body.dark .ld-guest-chip{background:#161b22;border-color:#21262d}
 body.dark .ld-hdr-brand em{color:var(--sf)}
+body.dark .ld-card-title{color:#e2e8f0}
+body.dark .ld-stat-val{color:#e2e8f0}
+body.dark .ld-stat-lbl{color:#8b98a9}
+body.dark .ld-banner{background:linear-gradient(135deg,#0f2644,#0d1117)}
+body.dark .banner-role{color:#8b98a9}
+body.dark .inst-box{background:#161f2e;border-color:#e3a000;color:#e2e8f0}
+/* Notice board popup dark */
+body.dark .nb-popup{background:rgba(0,0,0,.75)}
+body.dark .nb-card{background:#161b22;border:1px solid #21262d;color:#e2e8f0}
+body.dark .nb-title{color:#e2e8f0}
+body.dark .nb-body{color:#c9d1d9}
+body.dark .nb-ts{color:#8b98a9}
+body.dark .nb-close{background:#0057A8;color:#fff}
+body.dark .nb-close:hover{background:#1f6feb}
+body.dark .no-q{background:#2a1800;border-color:#e3a000;color:#fbbf24}
+body.dark .nf-input{background:#21262d;color:#e2e8f0;border-color:#30363d}
+body.dark .nf-input:focus{border-color:#0057A8;background:#2d333b}
+body.dark .nf-label{color:#8b98a9}
+body.dark .attempt-item{background:#161b22;border-color:#21262d}
+body.dark .attempt-item:hover{background:#1c2128;border-color:#30363d}
+body.dark .att-date{color:#8b98a9}
+body.dark .feedback-cta{background:#21262d}
+body.dark .feedback-cta:hover{background:#2d333b}
+body.dark .guest-nudge{background:linear-gradient(135deg,#0f2644,#161b22);border-color:#1f3a5f}
+body.dark .guest-nudge-item{color:#c9d1d9}
+/* Heatmap */
+body.dark .hm-dot.hm-none{background:#21262d}
+body.dark .hm-dot.hm-low{background:#0e4429}
+body.dark .hm-dot.hm-mid{background:#006d32}
+body.dark .hm-dot.hm-high{background:#26a641}
+body.dark .hm-label{color:#8b98a9}
+
+/* ── Batch cards ── */
+body.dark .batch-card{background:#161b22;border-color:#21262d}
+body.dark .batch-card.bc-available{border-color:#1f3a5f}
+body.dark .batch-card.bc-done{border-color:#1a3a1a}
+body.dark .bc-title{color:#e2e8f0}
+body.dark .bc-meta{color:#8b98a9}
+
+/* ── Modals / popups ── */
+body.dark .rg-c,body.dark .md{background:#161b22;color:#e2e8f0;border:1px solid #21262d}
+body.dark .md h3{color:#58a6ff}
+body.dark .md-st{background:#0d1117;border:1px solid #21262d}
+body.dark .al-card,body.dark .dbs-card{background:#161b22;color:#e2e8f0;border:1px solid #21262d}
+body.dark .rg-si{background:#0d1117;border:1px solid #21262d}
+body.dark .rg-sv{color:#58a6ff}
+
+/* ── Admin panel ── */
+body.dark .ap-hdr{background:#161b22;border-color:#21262d}
+body.dark .ap-logo{color:#e2e8f0}
+body.dark .ap-logo em{color:var(--sf)}
+body.dark .ap-logo span{color:#8b98a9}
+body.dark .ap-stat{background:#161b22;border-color:#21262d}
+body.dark .ap-sv{color:#e2e8f0}
+body.dark .ap-sl{color:#8b98a9}
+body.dark .ap-card{background:#161b22;border-color:#21262d}
+body.dark .ap-ct{color:#e2e8f0}
+body.dark .ap-cs{color:#8b98a9}
+body.dark th{background:#161b22;color:#8b98a9;border-color:#21262d}
+body.dark td{border-color:#21262d;color:#e2e8f0}
+body.dark tr:hover td{background:#1c2128}
+body.dark .q-area{background:#0d1117;color:#e2e8f0;border-color:#30363d}
+body.dark .srch,body.dark .srt{background:#21262d;color:#e2e8f0;border-color:#30363d}
+body.dark .srch:focus{border-color:#0057A8}
+body.dark .q-batch-tab{background:#161b22;color:#8b98a9;border-color:#21262d}
+body.dark .q-batch-tab.on{background:#0057A8;color:#fff}
+body.dark .set-inp{background:#21262d;color:#e2e8f0;border-color:#30363d}
+body.dark .set-lbl{color:#e2e8f0}
+body.dark .set-dsc{color:#8b98a9}
+body.dark .set-row{border-color:#21262d}
+body.dark .pw-change-row input{background:#21262d;color:#e2e8f0;border-color:#30363d}
+body.dark .qotd-textarea,body.dark #admin-qotd-author{background:#21262d;color:#e2e8f0;border-color:#30363d}
+body.dark .ap-body{background:#0d1117}
+/* Admin user records */
+body.dark .usr-row{background:#0d1117;border-color:#21262d}
+body.dark .usr-hd:hover{background:rgba(88,166,255,.05)}
+body.dark .usr-name{color:#e2e8f0}
+body.dark .usr-email{color:#8b98a9}
+body.dark .usr-cnt{background:#0f2644;color:#58a6ff}
+body.dark .att-row{background:#161b22;border-color:#21262d}
+body.dark .att-row:hover{border-color:#30363d}
+body.dark .att-row-score{color:#e2e8f0}
+body.dark .att-row-meta{color:#8b98a9}
+body.dark .ap-rv-btn{background:#161b22;color:#8b98a9;border-color:#21262d}
+/* Notice board admin */
+body.dark .nb-guest-txt,body.dark .nb-reg-txt{background:#21262d;color:#e2e8f0;border-color:#30363d}
+
+/* ── Result screen ── */
+body.dark #result{background:#0d1117}
+body.dark .rc{background:#161b22}
+body.dark .rs{background:#161b22;border-color:#21262d}
+body.dark .ri{background:#161b22}
+body.dark .mk-row{background:#0d1117;border-color:#21262d}
+body.dark .mk-pen{background:#2a0a0a;border-color:#5a1d1d}
+body.dark .mk-net{background:#0f2644;border-color:#1f3a5f}
+body.dark .rc-msg{background:#161b22;color:#8b98a9;border-color:#21262d}
+body.dark .sg-wrap{background:#161b22}
+body.dark .sg-body{background:#161b22}
+body.dark .sg-bar-wrap{background:#21262d}
+body.dark .sg-name{color:#e2e8f0}
+body.dark .sg-footer{border-color:#21262d}
+body.dark .sg-legend{color:#8b98a9}
+body.dark .rc-st{background:#21262d}
+body.dark .rc-info{border-color:#21262d}
+body.dark .ri{border-color:#21262d}
+body.dark .sr-bg{stroke:#21262d}
+body.dark .sd-tot{color:#e2e8f0}
+body.dark .sd-sub{color:#8b98a9}
 
 /* Dark mode toggle button */
-.dm-tog{position:fixed;bottom:24px;right:20px;z-index:500;background:#fff;border:2px solid var(--bd);border-radius:50px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:var(--sh2);display:flex;align-items:center;gap:6px;transition:.2s;color:var(--tx);font-family:var(--fb)}
-.dm-tog:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
-body.dark .dm-tog{background:#1e293b;border-color:#334155;color:#e2e8f0}
+.dm-tog{position:fixed;bottom:22px;right:18px;z-index:500;background:#fff;border:1.5px solid #e2e8f0;border-radius:50px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.12);display:flex;align-items:center;gap:5px;transition:.2s;color:#374151;font-family:var(--fb);letter-spacing:.2px}
+.dm-tog:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+body.dark .dm-tog{background:#21262d;border-color:#30363d;color:#c9d1d9;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+body.dark .dm-tog:hover{background:#2d333b}
 
-/* Dark mode popup */
-.dm-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9500;align-items:center;justify-content:center;padding:20px}
-.dm-popup.on{display:flex}
-.dm-popup-card{background:#1e293b;color:#e2e8f0;border-radius:18px;padding:28px 24px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.6);animation:fadeUp .25s ease}
-.dm-popup-icon{font-size:40px;margin-bottom:12px}
-.dm-popup-title{font-family:var(--fh);font-size:20px;font-weight:800;margin-bottom:8px;color:#e2e8f0}
-.dm-popup-text{font-size:13px;line-height:1.7;color:#94a3b8;margin-bottom:20px}
-.dm-popup-ok{width:100%;padding:13px;background:linear-gradient(135deg,var(--bl),var(--bl-dk));color:#fff;border:none;border-radius:10px;font-family:var(--fh);font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
-.dm-popup-ok:hover{transform:translateY(-1px)}
+/* Dark mode popup CSS removed — popup no longer used */
 .screen{display:none !important;flex-direction:column;min-height:100vh;position:relative}
 .screen.active{display:flex !important;flex-direction:column}
 #test.active{height:100vh;height:100dvh;overflow:hidden;min-height:0}
@@ -176,6 +292,7 @@ body.dark .dm-tog{background:#1e293b;border-color:#334155;color:#e2e8f0}
    SCREEN: AUTH — NEW DESIGN
 ══════════════════════════════════════ */
 #auth{background:#F0F2F7;align-items:center;justify-content:center;padding:20px;min-height:100vh}
+body.dark #auth{background:#0d1117}
 .auth-shell{width:100%;max-width:900px;background:#fff;border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.12);display:grid;grid-template-columns:300px 1fr;min-height:560px;overflow:hidden;animation:scaleIn .4s ease}
 @media(max-width:700px){.auth-shell{grid-template-columns:1fr;max-width:440px}}
 .auth-left{background:linear-gradient(160deg,#F5F0E8 0%,#EDE8DE 100%);padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
@@ -306,8 +423,7 @@ body.dark .hm-dot.hm-mid{background:#1d4ed8}
 body.dark .hm-dot.hm-high{background:#3b82f6}
 
 /* Score trend chart */
-.chart-area{width:100%;height:120px;position:relative;margin-top:8px}
-.chart-svg{width:100%;height:100%}
+.chart-area{width:100%;height:200px;position:relative;margin-top:12px}
 .chart-empty{font-size:13px;color:var(--mt);text-align:center;padding:30px 0}
 
 /* Recent attempts */
@@ -776,36 +892,58 @@ body.dark .att-row{background:#1e293b;border-color:#334155}
   .mob-tog{bottom:72px;right:12px;width:46px;height:46px;font-size:18px}
 }
 
-/* Test screen always light regardless of dark mode */
-#test,body.dark #test,body.dark .th,body.dark .qp,body.dark .qc,body.dark .sidebar,body.dark .ab,body.dark .st-wrap,body.dark .st{background:unset}
+/* Test screen — light by default, full dark when body.dark */
 #test{background:linear-gradient(135deg,#f0f6ff 0%,#fafcff 100%)}
-body.dark #test{background:linear-gradient(135deg,#f0f6ff 0%,#fafcff 100%) !important}
-body.dark .th{background:#fff !important;border-color:#E2E8F0 !important}
-body.dark .qc{background:#fff !important;border-color:#E2E8F0 !important}
-body.dark .q-tx{color:#1A1A2E !important}
-body.dark .opt{background:#fff !important;border-color:#E2E8F0 !important;color:#1A1A2E !important}
-body.dark .opt-k{background:#F4F6FB !important;color:#1A1A2E !important}
-body.dark .opt.sel{background:#E3F0FF !important;border-color:#0057A8 !important}
-body.dark .opt.sel .opt-k{background:#0057A8 !important;color:#fff !important}
-body.dark .sidebar{background:#fff !important;border-color:#E2E8F0 !important}
-body.dark .sb-hd{background:#E3F0FF !important;color:#0057A8 !important}
-body.dark .sb-ci{background:#f8faff !important}
-body.dark .sb-nm,.dark .sb-rl{color:#1A1A2E !important}
-body.dark .sc{border-color:#E2E8F0 !important}
-body.dark .qg-sec .qg-ttl{color:#6B7280 !important}
-body.dark .sbl{color:#6B7280 !important}
-body.dark .sb-sub{border-color:#E2E8F0 !important}
-body.dark .ab{background:#fff !important;border-color:#E2E8F0 !important}
-body.dark .st-wrap{background:#fff !important;border-color:#E2E8F0 !important}
-body.dark .st{background:#fff !important;color:#6B7280 !important;border-color:#E2E8F0 !important}
-body.dark .st.on{background:#0057A8 !important;color:#fff !important;border-color:#0057A8 !important}
-body.dark .pb-w{background:#E2E8F0 !important}
-body.dark .tp{background:#F4F6FB !important}
-body.dark .tp-v{color:#1A1A2E !important}
-body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
+body.dark #test{background:#0d1117}
+body.dark .th{background:#161b22;border-color:#21262d}
+body.dark .th-logo{color:#58a6ff}
+body.dark .th-name{color:#e2e8f0}
+body.dark .th-roll{color:#8b98a9}
+body.dark .btn-fs{border-color:#30363d;color:#8b98a9}
+body.dark .btn-fs:hover{background:#21262d}
+body.dark .pb-w{background:#21262d}
+body.dark .st-wrap{background:#161b22;border-color:#21262d}
+body.dark .st{background:#21262d;color:#8b98a9;border-color:#30363d}
+body.dark .st.on{background:#0057A8;color:#fff;border-color:#0057A8}
+body.dark .qc{background:#161b22;border:1px solid #21262d}
+body.dark .q-tx{color:#e2e8f0}
+body.dark .q-badge{background:#0f2644;color:#58a6ff}
+body.dark .mk-ok{background:#0c2218;color:#3fb950}
+body.dark .mk-no.on{background:#2a0a0a;color:#f85149}
+/* Options */
+body.dark .opt{background:#1c2128;border-color:#30363d;color:#e2e8f0}
+body.dark .opt:hover{background:#1f2d3d;border-color:#1f6feb}
+body.dark .opt-k{background:#21262d;color:#c9d1d9}
+body.dark .opt.sel{background:#0f2644;border-color:#1f6feb}
+body.dark .opt.sel .opt-k{background:#1f6feb;color:#fff}
+body.dark .opt.cor{background:#0c2218;border-color:#3fb950}
+body.dark .opt.cor .opt-k{background:#238636;color:#fff}
+body.dark .opt.inc{background:#2a0a0a;border-color:#f85149}
+body.dark .opt.inc .opt-k{background:#da3633;color:#fff}
+body.dark .opt-tx{color:#e2e8f0}
+/* Bottom bar */
+body.dark .ab{background:#161b22;border-color:#21262d}
+/* Sidebar */
+body.dark .sidebar{background:#161b22;border-color:#21262d}
+body.dark .sb-frozen{background:#161b22}
+body.dark .sb-hd{background:#0f2644;color:#58a6ff;border-color:#21262d}
+body.dark .sb-ci{background:#1c2128;border-color:#21262d}
+body.dark .sb-nm{color:#e2e8f0}
+body.dark .sb-rl{color:#8b98a9}
+body.dark .sg{border-color:#21262d}
+body.dark .sc{border-color:#21262d}
+body.dark .sl{color:#8b98a9}
+body.dark .qg-ttl{color:#8b98a9}
+body.dark .sbl{color:#8b98a9}
+body.dark .sb-sub{border-color:#21262d}
+body.dark .sb-lg{border-color:#21262d}
+body.dark .sb-scroll::-webkit-scrollbar-thumb{background:#30363d}
+body.dark .tp{background:#21262d}
+body.dark .tp-lbl{color:#8b98a9}
+body.dark .tp-v{color:#e2e8f0}
 #result{background:var(--bg);align-items:center;justify-content:flex-start;padding:20px;overflow-y:auto}
 .rc-out{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:700px;margin:0 auto}
-.rc{background:#fff;border-radius:22px;width:100%;box-shadow:var(--sh2);overflow:hidden;animation:fadeUp .4s ease}
+.rc{background:#fff;border-radius:22px;width:100%;box-shadow:var(--sh2);overflow:hidden;animation:fadeUp .4s ease;border:1px solid transparent}
 .rc-hd{padding:28px 24px 22px;text-align:center;color:#fff;position:relative;overflow:hidden}
 .rc-hd-pass{background:linear-gradient(135deg,var(--bl),var(--bl-dk))}
 .rc-hd-fail{background:linear-gradient(135deg,#dc2626,#b91c1c)}
@@ -879,6 +1017,11 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
 .sg-dot-c{background:#22c55e}.sg-dot-e{background:#dc2626}.sg-dot-s{background:#cbd5e1}
 .sg-footer{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
 .sg-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mt)}
+/* Batch card buttons in dark */
+body.dark .bc-btn.start{background:linear-gradient(135deg,#FF6B00,#C94E00);color:#fff}
+body.dark .bc-btn.start2{background:linear-gradient(135deg,#0057A8,#003d7a);color:#fff}
+body.dark .bc-btn.retake{background:linear-gradient(135deg,#6d28d9,#5b21b6);color:#fff}
+body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
 </style>
 </head>
 <body>
@@ -1100,7 +1243,7 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
         <div class="ld-card" id="graph-section" style="display:none">
           <div class="ld-card-title"><span>📈</span> Score Trend</div>
           <div class="chart-area">
-            <svg class="chart-svg" id="score-chart" viewBox="0 0 400 110" preserveAspectRatio="none"></svg>
+            <canvas id="score-chart"></canvas>
           </div>
         </div>
 
@@ -1113,7 +1256,8 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
             2. Each correct answer = <strong>+1 mark</strong>. <span id="info-neg-label"></span><br/>
             3. Mark questions for review and revisit. Duration: <strong id="info-min">—</strong> mins.<br/>
             4. Do not refresh the page during the test.<br/>
-            5. Submit when done or when the timer expires.
+            5. Submit when done or when the timer expires.<br/>
+            6. 🌙 Set your preferred <strong>Dark / Light</strong> mode <em>before</em> starting — the toggle is unavailable during the test.
           </div>
           <div class="leg-row">
             <div class="leg-item"><div class="leg-dot" style="background:var(--c-ans)"></div>Answered</div>
@@ -1646,15 +1790,7 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
 <!-- Dark mode toggle (not shown on test screen) -->
 <button class="dm-tog" id="dm-tog" onclick="toggleDark()">🌙 Dark</button>
 
-<!-- Dark mode popup -->
-<div class="dm-popup" id="dm-popup" onclick="closeDmPopup(event)">
-  <div class="dm-popup-card">
-    <div class="dm-popup-icon">🌙</div>
-    <div class="dm-popup-title">Dark Mode Enabled</div>
-    <div class="dm-popup-text">Dark mode is now active. Note: The <strong>test screen</strong> will always load with a light background for better readability and eye comfort during exams.</div>
-    <button class="dm-popup-ok" onclick="closeDmPopupDirect()">Got it!</button>
-  </div>
-</div>
+<!-- Dark mode popup removed — dark is now the default -->
 
 <div class="toast" id="toast"></div>
 
@@ -1693,7 +1829,7 @@ async function fbDelAll(col){
 }
 async function fbGetUserAttempts(uid){
   const {collection,getDocs,query,orderBy,limit}=fs();
-  const s=await getDocs(query(collection(db(),`users/${uid}/attempts`),orderBy('ts','desc'),limit(5)));
+  const s=await getDocs(query(collection(db(),`users/${uid}/attempts`),orderBy('ts','desc'),limit(10)));
   return s.docs.map(d=>({id:d.id,...d.data()}));
 }
 async function fbAddUserAttempt(uid,data){
@@ -1970,32 +2106,88 @@ async function loadAttemptHistory(){
       list.innerHTML='<div style="font-size:13px;color:var(--mt);padding:6px 0">No attempts yet. Take your first test!</div>';
       return;
     }
-    const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
-    list.innerHTML=attempts.map((a,i)=>{
-      const pct=a.pct||0;
-      const pctCls=pct>=60?'hi':pct>=40?'md':'lo';
-      const col=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';
-      return `<div class="attempt-item">
-        <div class="att-rank">${medals[i]||i+1}</div>
-        <div class="att-info">
-          <div style="font-weight:700;font-size:13px;color:var(--tx)">${esc(a.name||'—')}</div>
-          <div class="att-date">📅 ${fmtDate(a.timestamp)}</div>
-          <div class="att-detail">
-            <span class="att-chip c">✅ ${a.correct||0}</span>
-            <span class="att-chip w">❌ ${a.wrong||0}</span>
-            <span class="att-chip s">⬜ ${a.skipped||0}</span>
-            <span style="font-size:10px;color:var(--mt);padding-top:2px">⏱ ${fmtDuration(a.timeTaken||0)}</span>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
-          <div class="att-pct ${pctCls}" style="margin-top:4px">${pct}%</div>
-        </div>
-      </div>`;
-    }).join('');
+    _renderAttemptList(attempts,list,5);
   }catch(e){
     list.innerHTML='<div style="font-size:13px;color:var(--c-no)">Could not load history.</div>';
   }
+}
+
+function _renderAttemptList(attempts,list,showCount){
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+  const visible=attempts.slice(0,showCount);
+  const hidden=attempts.slice(showCount);
+  const items=visible.map((a,i)=>{
+    const pct=a.pct||0;
+    const pctCls=pct>=60?'hi':pct>=40?'md':'lo';
+    const col=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';
+    return `<div class="attempt-item" style="animation:fadeUp .25s ease both;animation-delay:${i*40}ms">
+      <div class="att-rank">${medals[i]||i+1}</div>
+      <div class="att-info">
+        <div style="font-weight:700;font-size:13px;color:var(--tx)">${esc(a.name||'—')}</div>
+        <div class="att-date">📅 ${fmtDate(a.timestamp)}</div>
+        <div class="att-detail">
+          <span class="att-chip c">✅ ${a.correct||0}</span>
+          <span class="att-chip w">❌ ${a.wrong||0}</span>
+          <span class="att-chip s">⬜ ${a.skipped||0}</span>
+          <span style="font-size:10px;color:var(--mt);padding-top:2px">⏱ ${fmtDuration(a.timeTaken||0)}</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
+        <div class="att-pct ${pctCls}" style="margin-top:4px">${pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Load more button if there are hidden items
+  const moreBtn=hidden.length>0?`<button id="load-more-btn" onclick="_loadMoreAttempts()" style="
+    width:100%;margin-top:8px;padding:10px 14px;background:none;border:1.5px dashed var(--bd);
+    border-radius:10px;font-family:var(--fb);font-size:13px;font-weight:700;color:var(--bl);
+    cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px"
+    onmouseover="this.style.background='var(--bl-lt)'" onmouseout="this.style.background='none'">
+    ⇩ Load ${hidden.length} more attempt${hidden.length>1?'s':''}
+  </button>`:'';
+
+  list.innerHTML=items+moreBtn;
+}
+
+function _loadMoreAttempts(){
+  const list=document.getElementById('hist-list');
+  // Remove the load-more button
+  const btn=document.getElementById('load-more-btn');
+  if(btn)btn.remove();
+  // Append all remaining attempts with stagger animation
+  const alreadyShown=list.querySelectorAll('.attempt-item').length;
+  const remaining=userAttempts.slice(alreadyShown);
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+  remaining.forEach((a,ri)=>{
+    const i=alreadyShown+ri;
+    const pct=a.pct||0;
+    const pctCls=pct>=60?'hi':pct>=40?'md':'lo';
+    const col=pct>=60?'var(--gn)':pct>=40?'var(--sf)':'var(--c-no)';
+    const div=document.createElement('div');
+    div.className='attempt-item';
+    div.style.cssText=`animation:fadeUp .3s ease both;animation-delay:${ri*60}ms;opacity:0`;
+    div.innerHTML=`
+      <div class="att-rank">${medals[i]||i+1}</div>
+      <div class="att-info">
+        <div style="font-weight:700;font-size:13px;color:var(--tx)">${esc(a.name||'—')}</div>
+        <div class="att-date">📅 ${fmtDate(a.timestamp)}</div>
+        <div class="att-detail">
+          <span class="att-chip c">✅ ${a.correct||0}</span>
+          <span class="att-chip w">❌ ${a.wrong||0}</span>
+          <span class="att-chip s">⬜ ${a.skipped||0}</span>
+          <span style="font-size:10px;color:var(--mt);padding-top:2px">⏱ ${fmtDuration(a.timeTaken||0)}</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
+        <div class="att-pct ${pctCls}" style="margin-top:4px">${pct}%</div>
+      </div>`;
+    list.appendChild(div);
+    // Trigger animation
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{div.style.opacity='';}));
+  });
 }
 
 function updateStats(attempts){
@@ -2066,46 +2258,196 @@ function renderHeatmap(attempts){
 }
 
 function renderScoreChart(attempts){
-  const wrap=document.getElementById('graph-section');
-  const svg=document.getElementById('score-chart');
-  if(!attempts||attempts.length<2){wrap.style.display='none';return;}
-  wrap.style.display='block';
-  // Reverse to show oldest first
-  const pts=[...attempts].reverse();
-  const W=400,H=110,pad=20;
-  const vals=pts.map(a=>a.pct||0);
-  const minV=0,maxV=100;
-  const xStep=(W-pad*2)/(pts.length-1);
-  const toY=v=>H-pad-((v-minV)/(maxV-minV))*(H-pad*2);
-  const toX=(i)=>pad+i*xStep;
+  const wrap = document.getElementById('graph-section');
+  const canvas = document.getElementById('score-chart');
+  if(!attempts || attempts.length < 2){ wrap.style.display='none'; return; }
+  wrap.style.display = 'block';
 
-  // Build path
-  let path=`M ${toX(0)} ${toY(vals[0])}`;
-  for(let i=1;i<vals.length;i++)path+=` L ${toX(i)} ${toY(vals[i])}`;
+  // Oldest → newest
+  const pts = [...attempts].reverse();
+  const vals = pts.map(a => a.pct || 0);
 
-  // Fill area
-  let area=`M ${toX(0)} ${H-pad} L ${toX(0)} ${toY(vals[0])}`;
-  for(let i=1;i<vals.length;i++)area+=` L ${toX(i)} ${toY(vals[i])}`;
-  area+=` L ${toX(vals.length-1)} ${H-pad} Z`;
+  // Labels: "score% (DD/MM)" — compact, informative
+  const labels = pts.map(a => {
+    const pct = a.pct != null ? a.pct : (a.score != null ? a.score : '?');
+    let datePart = '';
+    if(a.timestamp){
+      const d = new Date(a.timestamp);
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      datePart = dd+'/'+mm;
+    }
+    return pct + '%' + (datePart ? '\n' + datePart : '');
+  });
 
-  const passMark=toY(50);
+  // Dynamic Y range — zoom in so even 1% diff is visible
+  const dataMin = Math.min(...vals);
+  const dataMax = Math.max(...vals);
+  const span    = Math.max(dataMax - dataMin, 8);
+  const pad     = span * 0.55;
+  const yMin    = Math.max(0,   Math.floor(dataMin - pad));
+  const yMax    = Math.min(100, Math.ceil (dataMax + pad));
 
-  svg.innerHTML=`
-    <defs>
-      <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="var(--sf)" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="var(--sf)" stop-opacity="0.02"/>
-      </linearGradient>
-    </defs>
-    <line x1="${pad}" y1="${passMark}" x2="${W-pad}" y2="${passMark}" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4,4"/>
-    <text x="${pad+4}" y="${passMark-4}" font-size="9" fill="#94A3B8" font-family="DM Sans">50% cutoff</text>
-    <path d="${area}" fill="url(#cg)"/>
-    <path d="${path}" fill="none" stroke="var(--sf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    ${vals.map((v,i)=>`
-      <circle cx="${toX(i)}" cy="${toY(v)}" r="4" fill="${v>=50?'var(--gn)':'var(--c-no)'}" stroke="#fff" stroke-width="1.5"/>
-      <text x="${toX(i)}" y="${toY(v)-10}" text-anchor="middle" font-size="9.5" fill="var(--mt)" font-family="DM Sans" font-weight="600">${v}%</text>
-    `).join('')}
-  `;
+  // App colours
+  const SF  = '#FF6B00';   // orange (--sf)
+  const BL  = '#0057A8';   // blue   (--bl)
+  const GN  = '#138808';   // green  (--gn)
+  const RED = '#EF4444';
+  const isDark = document.body.classList.contains('dark');
+  const gridCol  = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+  const tickCol  = isDark ? '#64748b' : '#94A3B8';
+  const cardBg   = isDark ? '#1e293b' : '#ffffff';
+
+  // Bar colours: green if ≥50%, red otherwise
+  const barColors = vals.map(v =>
+    v >= 50
+      ? (isDark ? 'rgba(19,136,8,0.75)' : 'rgba(19,136,8,0.65)')
+      : (isDark ? 'rgba(239,68,68,0.75)' : 'rgba(239,68,68,0.60)')
+  );
+  const barBorders = vals.map(v => v >= 50 ? GN : RED);
+
+  // Destroy any previous Chart.js instance on this canvas
+  if(canvas._chartInstance){ canvas._chartInstance.destroy(); }
+
+  const ctx = canvas.getContext('2d');
+
+  // Gradient fill under the trend line
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0,   'rgba(255,107,0,0.18)');
+  grad.addColorStop(1,   'rgba(255,107,0,0.00)');
+
+  canvas._chartInstance = new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        {
+          // ── Bars ──
+          type: 'bar',
+          label: 'Score',
+          data: vals,
+          backgroundColor: barColors,
+          borderColor: barBorders,
+          borderWidth: 1.5,
+          borderRadius: 6,
+          borderSkipped: 'bottom',
+          order: 2,
+          yAxisID: 'y'
+        },
+        {
+          // ── Trend line ──
+          type: 'line',
+          label: 'Trend',
+          data: vals,
+          borderColor: SF,
+          borderWidth: 2.5,
+          pointBackgroundColor: vals.map(v => v >= 50 ? GN : RED),
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.42,
+          fill: true,
+          backgroundColor: grad,
+          order: 1,
+          yAxisID: 'y'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      animation: {
+        duration: 700,
+        easing: 'easeOutQuart'
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#1e293b' : '#0a1628',
+          titleColor: '#e2e8f0',
+          bodyColor: '#94a3b8',
+          borderColor: isDark ? '#334155' : '#0057A8',
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 10,
+          titleFont: { family: "'Baloo 2', cursive", size: 13, weight: '700' },
+          bodyFont:  { family: "'DM Sans', sans-serif", size: 12 },
+          callbacks: {
+            title(items){
+              const i = items[0].dataIndex;
+              const a = pts[i];
+              const d = a.timestamp ? new Date(a.timestamp).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '';
+              return 'Attempt ' + (i+1) + (d ? '  ·  ' + d : '');
+            },
+            label(item){
+              const a = pts[item.dataIndex];
+              const pct  = a.pct  || 0;
+              const net  = a.score != null ? a.score : '—';
+              const tot  = a.total || '—';
+              const pass = pct >= 50 ? '✅ Pass' : '❌ Below cutoff';
+              return [
+                ' Score: ' + net + ' / ' + tot + '  (' + pct + '%)',
+                ' ' + pass,
+                ' ✔ ' + (a.correct||0) + '   ✘ ' + (a.wrong||0) + '   ⬜ ' + (a.skipped||0)
+              ];
+            },
+            labelColor(){ return null; }
+          }
+        },
+        // 50% cutoff annotation drawn as a plugin-free baseline
+        annotation: undefined
+      },
+      scales: {
+        x: {
+          grid: { color: gridCol, drawBorder: false },
+          ticks: {
+            color: tickCol,
+            font: { family: "'DM Sans', sans-serif", size: 10, weight: '600' },
+            maxRotation: 0
+          },
+          border: { display: false }
+        },
+        y: {
+          min: yMin,
+          max: yMax,
+          grid: { color: gridCol, drawBorder: false },
+          ticks: {
+            color: tickCol,
+            font: { family: "'DM Sans', sans-serif", size: 10 },
+            callback: v => v + '%',
+            maxTicksLimit: 5,
+            stepSize: Math.ceil((yMax - yMin) / 4)
+          },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      // Draw 50% cutoff line manually (no annotation plugin needed)
+      id: 'cutoffLine',
+      afterDraw(chart){
+        const {ctx, scales:{y, x}} = chart;
+        if(y.min > 50 || y.max < 50) return; // don't draw if out of range
+        const yPos = y.getPixelForValue(50);
+        const xStart = x.left;
+        const xEnd   = x.right;
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([5, 5]);
+        ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.55)' : 'rgba(100,116,139,0.5)';
+        ctx.lineWidth = 1.5;
+        ctx.moveTo(xStart, yPos);
+        ctx.lineTo(xEnd,   yPos);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.font = "600 9px 'DM Sans', sans-serif";
+        ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
+        ctx.fillText('50% cutoff', xEnd - 58, yPos - 4);
+        ctx.restore();
+      }
+    }]
+  });
 }
 
 function updateLandingInfo(){
@@ -2249,16 +2591,20 @@ function refreshBatchCards(){
     meta1.innerHTML='<span>⚠️ Admin has not uploaded questions yet</span>';
     btn1.disabled=true;btn1.textContent='▶ Start Batch 1';
   }else if(b1done){
-    bc1.className='batch-card bc-done';
     if(b1isNew){
-      badge1.className='bc-badge new';badge1.textContent='✨ NEW';
+      // Questions updated after last attempt → treat as fresh start
+      bc1.className='batch-card bc-available';
+      badge1.className='bc-badge new';badge1.textContent='✨ UPDATED';
       meta1.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
+      btn1.disabled=false;btn1.textContent='▶ Start Batch 1';
+      btn1.className='bc-btn start';
     }else{
+      bc1.className='batch-card bc-done';
       badge1.className='bc-badge done';badge1.textContent='✅ Completed';
       meta1.innerHTML=`<span>✅ Completed on ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
+      btn1.disabled=false;btn1.textContent='↺ Retake Batch 1';
+      btn1.className='bc-btn retake';
     }
-    btn1.disabled=false;btn1.textContent='↺ Retake Batch 1';
-    btn1.className='bc-btn retake';
   }else{
     bc1.className='batch-card bc-available';
     badge1.className='bc-badge locked';badge1.textContent='Available';
@@ -2282,15 +2628,18 @@ function refreshBatchCards(){
     meta2.innerHTML='<span>🔒 Admin is preparing Batch 2 questions</span>';
     btn2.disabled=true;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
   }else if(b2done){
-    bc2.className='batch-card bc-done';
     if(b2isNew){
-      badge2.className='bc-badge new';badge2.textContent='✨ NEW';
+      // Questions updated after last attempt → treat as fresh start
+      bc2.className='batch-card bc-available';
+      badge2.className='bc-badge new';badge2.textContent='✨ UPDATED';
       meta2.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
+      btn2.disabled=false;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
     }else{
+      bc2.className='batch-card bc-done';
       badge2.className='bc-badge done';badge2.textContent='✅ Completed';
       meta2.innerHTML=`<span>✅ Completed on ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
+      btn2.disabled=false;btn2.textContent='↺ Retake Batch 2';btn2.className='bc-btn retake';
     }
-    btn2.disabled=false;btn2.textContent='↺ Retake Batch 2';btn2.className='bc-btn retake';
   }else{
     bc2.className='batch-card bc-available';
     badge2.className='bc-badge locked';badge2.textContent='Available';
@@ -3025,31 +3374,35 @@ function toggleDark(){
   document.body.classList.toggle('dark',_darkOn);
   const btn=document.getElementById('dm-tog');
   btn.textContent=_darkOn?'☀️ Light':'🌙 Dark';
-  if(_darkOn){document.getElementById('dm-popup').classList.add('on');}
+  // dark mode popup removed — dark is now default
   try{localStorage.setItem('na_dark',_darkOn?'1':'0');}catch(e){}
+  // Re-render chart so colours match the new theme
+  if(userAttempts&&userAttempts.length>=2) renderScoreChart(userAttempts);
 }
-function closeDmPopupDirect(){document.getElementById('dm-popup').classList.remove('on');}
-function closeDmPopup(e){if(e.target===document.getElementById('dm-popup'))closeDmPopupDirect();}
-// Restore saved preference — default is LIGHT
-// Version key ensures old dark-mode prefs don't carry over across major builds
+// Dark mode popup functions removed
+// Restore saved preference — DEFAULT is now DARK (v7 reset)
 (function(){
   try{
-    const PREF_VER='na_pref_v6'; // bump this key whenever default should reset
+    const PREF_VER='na_pref_v7'; // bumped: dark is now the new default
     const alreadyInit=localStorage.getItem(PREF_VER);
     if(!alreadyInit){
-      // First time loading this version — force light, clear old pref
-      localStorage.setItem('na_dark','0');
+      // First time on this version — force dark, clear old pref
+      localStorage.setItem('na_dark','1');
       localStorage.setItem(PREF_VER,'1');
     }
     const saved=localStorage.getItem('na_dark');
-    if(saved==='1'){
+    // Apply dark if saved==='1' OR first visit (default dark)
+    if(saved!=='0'){
       _darkOn=true;
       document.body.classList.add('dark');
       const btn=document.getElementById('dm-tog');
       if(btn)btn.textContent='☀️ Light';
     }
-    // saved==='0' or anything else → stays light
-  }catch(e){}
+  }catch(e){
+    // Fallback: default dark
+    _darkOn=true;
+    document.body.classList.add('dark');
+  }
 })();
 
 </script>

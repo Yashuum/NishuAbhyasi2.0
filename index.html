@@ -879,43 +879,6 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
 .sg-dot-c{background:#22c55e}.sg-dot-e{background:#dc2626}.sg-dot-s{background:#cbd5e1}
 .sg-footer{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
 .sg-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mt)}
-
-/* ── AI Generate ── */
-.ai-gen-strip{background:linear-gradient(135deg,#0f172a,#1e1b4b);border-radius:12px;padding:16px;margin-top:14px;border:1.5px solid rgba(99,102,241,.35)}
-.ai-gen-title{font-size:12px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.ai-gen-btns{display:flex;gap:8px;flex-wrap:wrap}
-.ai-gen-btn{flex:1;min-width:120px;padding:11px 14px;border:none;border-radius:10px;font-family:var(--fh);font-size:13px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.ai-gen-btn.b1{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff}
-.ai-gen-btn.b2{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff}
-.ai-gen-btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
-.ai-gen-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:none}
-.ai-key-row{display:flex;gap:8px;margin-top:10px;align-items:center}
-.ai-key-inp{flex:1;padding:9px 12px;border-radius:8px;border:1.5px solid rgba(99,102,241,.35);background:#0f172a;color:#e2e8f0;font-size:12px;font-family:var(--fb);outline:none}
-.ai-key-inp:focus{border-color:#6366f1}
-.ai-key-inp::placeholder{color:#475569}
-.ai-key-save{padding:9px 14px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-.ai-key-status{font-size:11px;margin-top:6px}
-.ai-key-status.ok{color:#4ade80}
-.ai-key-status.no{color:#f87171}
-
-/* AI generation progress popup */
-.ai-prog-ov{display:none;position:fixed;inset:0;z-index:9800;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:20px}
-.ai-prog-ov.on{display:flex;animation:fadeIn .2s ease}
-.ai-prog-card{background:#0f172a;border:1.5px solid rgba(99,102,241,.4);border-radius:20px;padding:28px 24px;max-width:420px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.6)}
-.ai-prog-title{font-family:var(--fh);font-size:18px;font-weight:800;color:#e2e8f0;margin-bottom:4px}
-.ai-prog-sub{font-size:12px;color:#64748b;margin-bottom:20px}
-.ai-prog-bar-wrap{background:#1e293b;border-radius:50px;height:8px;margin-bottom:16px;overflow:hidden}
-.ai-prog-bar{height:100%;border-radius:50px;background:linear-gradient(90deg,#6366f1,#a855f7);width:0%;transition:width .4s ease}
-.ai-prog-log{background:#020617;border-radius:10px;padding:12px;height:160px;overflow-y:auto;font-family:monospace;font-size:12px;color:#94a3b8;display:flex;flex-direction:column;gap:4px}
-.ai-prog-log-line{display:flex;gap:8px;align-items:flex-start;line-height:1.5}
-.ai-prog-log-line.ok{color:#4ade80}
-.ai-prog-log-line.err{color:#f87171}
-.ai-prog-log-line.info{color:#94a3b8}
-.ai-prog-log-line.warn{color:#fbbf24}
-.ai-prog-done-btn{width:100%;margin-top:14px;padding:12px;background:#6366f1;border:none;border-radius:10px;color:#fff;font-family:var(--fh);font-size:15px;font-weight:700;cursor:pointer;display:none}
-.ai-prog-done-btn:hover{background:#4f46e5}
-.ai-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(99,102,241,.3);border-top-color:#6366f1;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;margin-top:1px}
-@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -1316,7 +1279,7 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
     <div class="glass-divider"></div>
     <div class="priv-item">
       <div class="priv-icon">🛡️</div>
-      <div class="priv-text"><strong>Your Passwords Are Safe</strong><span>All account passwords are stored as industry-standard cryptographic technology. Not even the admin can see or access your password — ever. Only you hold that key.</span></div>
+      <div class="priv-text"><strong>Your Passwords Are Safe</strong><span>All account passwords are stored as industry-standard cryptographic hashes (SHA-256 + Firebase Auth). Not even the admin can see or access your password — ever. Only you hold that key.</span></div>
     </div>
     <div class="priv-item">
       <div class="priv-icon">📊</div>
@@ -1417,32 +1380,7 @@ body.dark .q-badge{background:#E3F0FF !important;color:#0057A8 !important}
         <button class="btn b-out"  onclick="loadQ()">🔄 Load Current</button>
         <button class="btn b-danger" onclick="clearQ()">🗑 Clear Batch</button>
       </div>
-
-      <!-- AI Generate Strip -->
-      <div class="ai-gen-strip">
-        <div class="ai-gen-title">✨ AI Question Generator</div>
-        <div class="ai-gen-btns">
-          <button class="ai-gen-btn b1" id="ai-btn-b1" onclick="aiGenerate(1)">🤖 Generate Batch 1</button>
-          <button class="ai-gen-btn b2" id="ai-btn-b2" onclick="aiGenerate(2)">🤖 Generate Batch 2</button>
-        </div>
-        <div class="ai-key-row">
-          <input class="ai-key-inp" type="password" id="ai-key-inp" placeholder="Paste Gemini API key here (saved once to Firebase)"/>
-          <button class="ai-key-save" onclick="saveGeminiKey()">Save Key</button>
-        </div>
-        <div class="ai-key-status" id="ai-key-status"></div>
-      </div>
     </div>
-
-<!-- AI Progress Popup -->
-<div class="ai-prog-ov" id="ai-prog-ov">
-  <div class="ai-prog-card">
-    <div class="ai-prog-title" id="ai-prog-title">🤖 Generating Questions…</div>
-    <div class="ai-prog-sub" id="ai-prog-sub">Calling Gemini API — this takes about 15–20 seconds</div>
-    <div class="ai-prog-bar-wrap"><div class="ai-prog-bar" id="ai-prog-bar"></div></div>
-    <div class="ai-prog-log" id="ai-prog-log"></div>
-    <button class="ai-prog-done-btn" id="ai-prog-done-btn" onclick="closeAiProg()">✅ Done — Close</button>
-  </div>
-</div>
 
     <!-- Scores -->
     <div class="ap-card">
@@ -2705,7 +2643,6 @@ async function loadAdminData(){
   if(settings.shuffle)document.getElementById('s-shuf').classList.add('on');else document.getElementById('s-shuf').classList.remove('on');
   if(settings.showResult!==false)document.getElementById('s-res').classList.add('on');else document.getElementById('s-res').classList.remove('on');
   await loadNoticesAdmin();
-  await loadGeminiKey();
 }
 
 async function refreshScores(){
@@ -3072,229 +3009,6 @@ function showNoticeBoard(type){
 
 function closeNoticeBoard(){
   document.getElementById('nb-popup').classList.remove('on');
-}
-
-/* ══ AI QUESTION GENERATOR ══ */
-let _geminiKey='';
-
-async function loadGeminiKey(){
-  try{
-    const d=await fbGet('config/admin');
-    if(d&&d.geminiKey){
-      _geminiKey=d.geminiKey;
-      document.getElementById('ai-key-status').className='ai-key-status ok';
-      document.getElementById('ai-key-status').textContent='✅ Gemini API key saved';
-      document.getElementById('ai-key-inp').placeholder='Key saved — paste new one to update';
-    }
-  }catch(e){}
-}
-
-async function saveGeminiKey(){
-  const k=document.getElementById('ai-key-inp').value.trim();
-  if(!k||!k.startsWith('AIza')){
-    document.getElementById('ai-key-status').className='ai-key-status no';
-    document.getElementById('ai-key-status').textContent='❌ Invalid key — should start with AIza…';
-    return;
-  }
-  try{
-    const existing=await fbGet('config/admin')||{};
-    await fbSet('config/admin',{...existing,geminiKey:k});
-    _geminiKey=k;
-    document.getElementById('ai-key-inp').value='';
-    document.getElementById('ai-key-inp').placeholder='Key saved — paste new one to update';
-    document.getElementById('ai-key-status').className='ai-key-status ok';
-    document.getElementById('ai-key-status').textContent='✅ Gemini API key saved to Firebase';
-  }catch(e){
-    document.getElementById('ai-key-status').className='ai-key-status no';
-    document.getElementById('ai-key-status').textContent='❌ Save failed: '+e.message;
-  }
-}
-
-function aiLog(msg,type='info'){
-  const log=document.getElementById('ai-prog-log');
-  const line=document.createElement('div');
-  line.className='ai-prog-log-line '+(type||'info');
-  const spinner=type==='info'?'<div class="ai-spinner"></div>':'';
-  const icon=type==='ok'?'✅':type==='err'?'❌':type==='warn'?'⚠️':'';
-  line.innerHTML=`${spinner||icon?`<span>${spinner||icon}</span>`:''}  <span>${msg}</span>`;
-  log.appendChild(line);
-  log.scrollTop=log.scrollHeight;
-}
-
-function aiSetProgress(pct){
-  document.getElementById('ai-prog-bar').style.width=pct+'%';
-}
-
-function closeAiProg(){
-  document.getElementById('ai-prog-ov').classList.remove('on');
-}
-
-async function aiGenerate(batch){
-  if(!reqAdmin())return;
-
-  // Check key
-  if(!_geminiKey){
-    const inp=document.getElementById('ai-key-inp').value.trim();
-    if(inp&&inp.startsWith('AIza')){
-      await saveGeminiKey();
-    }else{
-      toast('⚠️ Please paste your Gemini API key first.');
-      document.getElementById('ai-key-inp').focus();
-      return;
-    }
-  }
-
-  // Open progress popup
-  const ov=document.getElementById('ai-prog-ov');
-  document.getElementById('ai-prog-log').innerHTML='';
-  document.getElementById('ai-prog-title').textContent=`🤖 Generating Batch ${batch} Questions…`;
-  document.getElementById('ai-prog-sub').textContent='Calling Gemini API — takes about 15–30 seconds';
-  document.getElementById('ai-prog-done-btn').style.display='none';
-  aiSetProgress(0);
-  ov.classList.add('on');
-
-  // Disable buttons
-  document.getElementById('ai-btn-b1').disabled=true;
-  document.getElementById('ai-btn-b2').disabled=true;
-
-  const prompt=`You are an expert question paper setter for the Bihar B.Ed Combined Entrance Test (CET). Generate exactly 120 unique, fresh, original MCQ questions for a mock test.
-1. Section Distribution (Strictly exactly 30 each):
-General Knowledge: 30 questions
-Teaching Aptitude: 30 questions
-Mental Ability: 30 questions
-Language & Literature: 30 questions (15 English + 15 Hindi)
-2. GK Balancing Rules (Crucial):
-Bihar-Specific: Only 8–10 questions (History, Geography, Schemes, Districts).
-India & World: 20–22 questions (Indian Constitution, Science, History, Geography, Static GK, and Current Affairs).
-Current Affairs: Include latest sports wins (Cricket/Olympics), global news, and recent awards.
-3. Content Guidelines:
-Teaching Aptitude: Cover Bloom's Taxonomy, Piaget, Vygotsky, NCF 2005, RTE 2009, NEP 2020, and Classroom Management.
-Mental Ability: Series, coding-decoding, blood relations, directions, time/work, and basic profit-loss.
-Language: 15 English (Grammar, Synonyms, Active-Passive) and 15 Hindi (Sandhi, Samas, Alankar, Literature authors).
-4. Technical Rules:
-Difficulty Mix: 40% Easy, 40% Medium, 20% Hard.
-Language: Use Devanagari Hindi for all sections EXCEPT the English Language part.
-Format: Output ONLY a valid JSON array. No markdown code blocks, no intro/outro text.
-Each object must have exactly these fields: "section" (string), "q" (string), "options" (array of exactly 4 strings), "correct" (integer 0-3).
-5. Source: Take inspiration from Previous Year Questions and align strictly with the modern Bihar B.Ed CET syllabus. Except English all other questions should be in Devanagari Hindi. Now generate 120 questions.`;
-
-  try{
-    aiLog('Connecting to Gemini API…','info');
-    aiSetProgress(10);
-
-    const res=await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${_geminiKey}`,
-      {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{temperature:0.85,maxOutputTokens:8192}
-        })
-      }
-    );
-
-    aiSetProgress(50);
-    aiLog('Response received — parsing…','info');
-
-    if(!res.ok){
-      const err=await res.json().catch(()=>({}));
-      const msg=err?.error?.message||`HTTP ${res.status}`;
-      if(res.status===400&&msg.toLowerCase().includes('api key')){
-        aiLog('Invalid API key. Please update your Gemini key below.','err');
-      }else if(res.status===429){
-        aiLog('Rate limit hit — you\'ve used today\'s free quota. Try again tomorrow.','err');
-      }else{
-        aiLog('Gemini API error: '+msg,'err');
-      }
-      throw new Error(msg);
-    }
-
-    const data=await res.json();
-    const rawText=data?.candidates?.[0]?.content?.parts?.[0]?.text||'';
-
-    aiSetProgress(70);
-
-    if(!rawText){
-      aiLog('Gemini returned empty response. Try again.','err');
-      throw new Error('Empty response');
-    }
-
-    // Strip markdown fences if present
-    const cleaned=rawText.replace(/```json/gi,'').replace(/```/g,'').trim();
-
-    let questions;
-    try{
-      questions=JSON.parse(cleaned);
-    }catch(pe){
-      aiLog('JSON parse failed — Gemini response was not valid JSON.','err');
-      aiLog('Raw snippet: '+cleaned.slice(0,120)+'…','warn');
-      throw new Error('JSON parse failed');
-    }
-
-    if(!Array.isArray(questions)){
-      aiLog('Response is not a JSON array.','err');
-      throw new Error('Not an array');
-    }
-
-    aiLog(`Parsed ${questions.length} questions successfully.`,'ok');
-    aiSetProgress(80);
-
-    // Validate each question
-    const valid=questions.filter(q=>
-      q.section&&q.q&&Array.isArray(q.options)&&q.options.length===4&&
-      typeof q.correct==='number'&&q.correct>=0&&q.correct<=3
-    );
-
-    if(valid.length<100){
-      aiLog(`Only ${valid.length} valid questions — need at least 100. Try again.`,'err');
-      throw new Error('Too few valid questions');
-    }
-    if(valid.length<questions.length){
-      aiLog(`⚠️ ${questions.length-valid.length} malformed questions skipped.`,'warn');
-    }
-
-    // Section summary
-    const secCounts={};
-    valid.forEach(q=>{secCounts[q.section]=(secCounts[q.section]||0)+1;});
-    Object.entries(secCounts).forEach(([s,n])=>aiLog(`  ${s}: ${n} questions`,'ok'));
-
-    aiSetProgress(90);
-    aiLog(`Saving ${valid.length} questions to Firebase (Batch ${batch})…`,'info');
-
-    // Save to Firebase
-    const now=new Date().toISOString();
-    const key=batch===2?'config/questions2':'config/questions';
-    await fbSet(key,{data:valid,updatedAt:now});
-
-    // Update in-memory + settings timestamp
-    if(batch===1){Q=settings.shuffle?shuffle([...valid]):[...valid];settings._q1updatedAt=now;}
-    else{Q2=settings.shuffle?shuffle([...valid]):[...valid];settings._q2updatedAt=now;}
-    await fbSet('config/settings',settings);
-
-    aiSetProgress(100);
-    aiLog(`✅ Batch ${batch} live! ${valid.length} questions published.`,'ok');
-
-    document.getElementById('ai-prog-title').textContent=`✅ Batch ${batch} Ready!`;
-    document.getElementById('ai-prog-sub').textContent=`${valid.length} questions generated and published`;
-    document.getElementById('ai-prog-done-btn').style.display='block';
-
-    // Reload the editor
-    switchQBatch(batch);
-    toast(`✅ Batch ${batch}: ${valid.length} AI questions live!`);
-
-  }catch(e){
-    aiSetProgress(100);
-    document.getElementById('ai-prog-bar').style.background='#ef4444';
-    document.getElementById('ai-prog-title').textContent='❌ Generation Failed';
-    document.getElementById('ai-prog-sub').textContent=e.message||'Unknown error';
-    document.getElementById('ai-prog-done-btn').style.display='block';
-    document.getElementById('ai-prog-done-btn').textContent='Close';
-    document.getElementById('ai-prog-done-btn').style.background='#64748b';
-  }finally{
-    document.getElementById('ai-btn-b1').disabled=false;
-    document.getElementById('ai-btn-b2').disabled=false;
-  }
 }
 
 /* Utils */

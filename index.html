@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="NishuAbhyasi"/>
+<meta name="theme-color" content="#0a1628"/>
+<meta name="description" content="Free Bihar B.Ed CET Mock Test Portal — Practice 120 questions, track your score, and ace your exam."/>
 <title>NishuAbhyasi – Bihar B.Ed CET</title>
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22NishuAbhyasi%20%E2%80%93%20Bihar%20B.Ed%20CET%22%2C%22short_name%22%3A%22NishuAbhyasi%22%2C%22description%22%3A%22Free%20Bihar%20B.Ed%20CET%20Mock%20Test%20Portal%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a1628%22%2C%22theme_color%22%3A%22%230a1628%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527100%2527%2520fill%253D%2527%2523FF6B00%2527%252F%253E%253Ctext%2520y%253D%2527350%2527%2520x%253D%2527256%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%2527320%2527%253E%25F0%259F%2593%259A%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
@@ -424,13 +431,20 @@ body.dark .hm-dot.hm-high{background:#3b82f6}
 
 /* Score trend chart */
 .chart-area{width:100%;height:200px;position:relative;margin-top:12px}
+.chart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:130px;border:2px dashed var(--bd);border-radius:14px;padding:24px;text-align:center;gap:8px;margin:8px 0;background:repeating-linear-gradient(135deg,transparent,transparent 10px,rgba(0,0,0,.012) 10px,rgba(0,0,0,.012) 20px)}
+.chart-ph-icon{font-size:36px;opacity:.35;filter:grayscale(1)}
+.chart-ph-title{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--mt)}
+.chart-ph-sub{font-size:12px;color:var(--mt);line-height:1.6}
+.chart-ph-sub strong{color:var(--bl)}
+body.dark .chart-placeholder{border-color:#30363d;background:repeating-linear-gradient(135deg,transparent,transparent 10px,rgba(255,255,255,.02) 10px,rgba(255,255,255,.02) 20px)}
+body.dark .chart-ph-sub strong{color:#58a6ff}
 .chart-empty{font-size:13px;color:var(--mt);text-align:center;padding:30px 0}
 
 /* Recent attempts */
 .attempt-list{display:flex;flex-direction:column;gap:8px}
-.attempt-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1px solid var(--bd);transition:.2s}
+.attempt-item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1px solid var(--bd);transition:.2s}
 .attempt-item:hover{background:#EEF2FF;border-color:var(--bl-lt)}
-.att-rank{font-size:20px;min-width:28px;text-align:center}
+.att-rank{font-size:20px;min-width:28px;text-align:center;padding-top:2px}
 .att-info{flex:1;min-width:0}
 .att-date{font-size:12px;color:var(--mt)}
 .att-score{font-family:var(--fh);font-size:15px;font-weight:800;white-space:nowrap}
@@ -440,6 +454,10 @@ body.dark .hm-dot.hm-high{background:#3b82f6}
 .att-pct.lo{background:#FEE2E2;color:#991B1B}
 .att-detail{display:flex;gap:8px;margin-top:3px;flex-wrap:wrap}
 .att-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.att-review-btn{background:var(--bl-lt);border:1px solid var(--bl);color:var(--bl);border-radius:7px;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;transition:.15s;font-family:var(--fb);white-space:nowrap}
+.att-review-btn:hover{background:var(--bl);color:#fff}
+body.dark .att-review-btn{background:#0f2644;border-color:#1f6feb;color:#58a6ff}
+body.dark .att-review-btn:hover{background:#1f6feb;color:#fff}
 .att-chip.c{background:#dcfce7;color:#15803d}
 .att-chip.w{background:#fee2e2;color:#b91c1c}
 .att-chip.s{background:#f1f5f9;color:#475569}
@@ -788,6 +806,31 @@ body.dark .att-row{background:#1e293b;border-color:#334155}
 .th-roll{font-size:11px;color:var(--mt)}
 .btn-fs{background:none;border:1.5px solid var(--bd);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:14px;color:var(--mt);transition:.2s}
 .btn-fs:hover{background:var(--bg)}
+/* Mobile profile pill */
+.th-mob-profile{display:none;position:relative}
+.th-mob-pill{display:flex;align-items:center;gap:5px;background:none;border:1.5px solid var(--bd);border-radius:50px;padding:5px 10px 5px 6px;cursor:pointer;transition:.18s}
+.th-mob-pill:hover,.th-mob-pill.open{background:var(--bg);border-color:var(--bl)}
+.th-mob-av{width:28px;height:28px;background:var(--bl);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:12px;font-weight:800;flex-shrink:0}
+.th-mob-chevron{font-size:10px;color:var(--mt);transition:transform .18s}
+.th-mob-pill.open .th-mob-chevron{transform:rotate(180deg)}
+.th-mob-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1.5px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:12px 14px;min-width:190px;z-index:500}
+.th-mob-drop.on{display:block;animation:fadeUp .18s ease}
+.th-mob-drop-name{font-family:var(--fh);font-size:13px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.th-mob-drop-roll{font-size:11px;color:var(--mt);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.th-mob-drop-div{height:1px;background:var(--bd);margin:10px 0}
+.th-mob-drop-btn{width:100%;text-align:left;background:none;border:none;padding:7px 4px;font-size:13px;font-weight:600;color:var(--tx);cursor:pointer;border-radius:6px;transition:.14s;font-family:var(--fb)}
+.th-mob-drop-btn:hover{background:var(--bl-lt);color:var(--bl)}
+body.dark .th-mob-drop{background:#161b22;border-color:#30363d}
+body.dark .th-mob-drop-name{color:#e2e8f0}
+body.dark .th-mob-drop-roll{color:#64748b}
+body.dark .th-mob-drop-div{background:#30363d}
+body.dark .th-mob-drop-btn{color:#e2e8f0}
+body.dark .th-mob-drop-btn:hover{background:#0f2644;color:#58a6ff}
+@media(max-width:600px){
+  .th-cand-info{display:none}
+  .btn-fs{display:none}
+  .th-mob-profile{display:block}
+}
 
 /* Progress bar */
 .pb-w{height:3px;background:var(--bd);flex-shrink:0}
@@ -873,7 +916,10 @@ body.dark .att-row{background:#1e293b;border-color:#334155}
 .sbl-b{width:14px;height:14px;border-radius:4px;flex-shrink:0}
 .sb-sub{padding:12px 14px;border-top:1px solid var(--bd)}
 /* Mobile palette toggle */
-.mob-tog{display:none;position:fixed;bottom:76px;right:14px;z-index:200;background:var(--bl);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);align-items:center;justify-content:center}
+.mob-tog{display:none;position:fixed;bottom:76px;right:14px;z-index:200;background:var(--bl);color:#fff;border:none;border-radius:50px;width:auto;padding:0 14px 0 10px;height:50px;font-size:14px;font-weight:800;font-family:var(--fh);cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.38);align-items:center;justify-content:center;gap:6px;white-space:nowrap;letter-spacing:.2px}
+.mob-tog-hint{position:fixed;bottom:134px;right:14px;z-index:201;background:#1A1A2E;color:#fff;font-size:11px;font-weight:700;padding:6px 10px;border-radius:8px;white-space:nowrap;pointer-events:none;animation:fadeUp .3s ease,fadeOut .4s ease 2.8s both;font-family:var(--fb)}
+.mob-tog-hint::after{content:'';position:absolute;bottom:-5px;right:20px;border:5px solid transparent;border-top-color:#1A1A2E;border-bottom:none}
+@keyframes fadeOut{to{opacity:0;transform:translateY(-6px)}}
 .sb-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:150}
 @media(max-width:1024px){
   .sidebar{position:fixed;right:-300px;top:0;bottom:0;z-index:160;transition:right .3s;box-shadow:-6px 0 20px rgba(0,0,0,.2)}
@@ -889,7 +935,8 @@ body.dark .att-row{background:#1e293b;border-color:#334155}
   .ab .btn{padding:9px 8px;font-size:12px;min-width:0}
   .btn-mark-text{display:none}
   .st{padding:7px 12px;font-size:11.5px}
-  .mob-tog{bottom:72px;right:12px;width:46px;height:46px;font-size:18px}
+  .mob-tog{bottom:72px;right:10px;height:44px;font-size:13px;padding:0 12px 0 9px}
+  .mob-tog span{font-size:12px}
 }
 
 /* Test screen — light by default, full dark when body.dark */
@@ -1017,6 +1064,18 @@ body.dark .tp-v{color:#e2e8f0}
 .sg-dot-c{background:#22c55e}.sg-dot-e{background:#dc2626}.sg-dot-s{background:#cbd5e1}
 .sg-footer{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
 .sg-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mt)}
+/* Countdown overlay */
+.countdown-ov{position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:0;backdrop-filter:blur(6px)}
+.countdown-ov.on{display:flex}
+.countdown-ring{position:relative;width:180px;height:180px;margin-bottom:10px}
+.countdown-svg{width:180px;height:180px;transform:rotate(-90deg)}
+.countdown-bg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:10}
+.countdown-arc{fill:none;stroke:var(--sf);stroke-width:10;stroke-linecap:round;stroke-dasharray:502.65;stroke-dashoffset:0;transition:stroke-dashoffset 0.92s linear}
+.countdown-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:72px;font-weight:800;color:#fff;line-height:1}
+.countdown-label{font-family:var(--fh);font-size:18px;font-weight:700;color:rgba(255,255,255,.75);margin-bottom:6px;letter-spacing:.5px}
+.countdown-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:28px}
+.countdown-back{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);border-radius:50px;padding:10px 24px;font-family:var(--fh);font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.countdown-back:hover{background:rgba(255,255,255,.2);color:#fff}
 /* Batch card buttons in dark */
 body.dark .bc-btn.start{background:linear-gradient(135deg,#FF6B00,#C94E00);color:#fff}
 body.dark .bc-btn.start2{background:linear-gradient(135deg,#0057A8,#003d7a);color:#fff}
@@ -1240,7 +1299,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <div class="ld-main">
 
         <!-- Score Trend (only shows after ≥2 attempts) -->
-        <div class="ld-card" id="graph-section" style="display:none">
+        <div class="ld-card" id="graph-section">
           <div class="ld-card-title"><span>📈</span> Score Trend</div>
           <div class="chart-area">
             <canvas id="score-chart"></canvas>
@@ -1347,7 +1406,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <!-- Feedback / Query -->
         <div class="feedback-box">
           <div class="ld-card-title" style="margin-bottom:10px"><span>💬</span> Feedback & Support</div>
-          <div class="feedback-cta" onclick="openFeedback()">
+          <div class="feedback-cta" onclick="openPopup('contact')">
             <div class="feedback-cta-text">Found a bug or have a suggestion?<br/><strong>Click here to send feedback →</strong></div>
             <div class="feedback-arrow">✉️</div>
           </div>
@@ -1643,6 +1702,19 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <div class="th-roll" id="hdr-roll">—</div>
       </div>
       <button class="btn-fs" onclick="toggleFS()">⛶</button>
+      <!-- Mobile-only: profile pill + dropdown -->
+      <div class="th-mob-profile" id="th-mob-profile">
+        <button class="th-mob-pill" onclick="togMobProfile(event)" id="th-mob-pill">
+          <span class="th-mob-av" id="th-mob-av">?</span>
+          <span class="th-mob-chevron">▾</span>
+        </button>
+        <div class="th-mob-drop" id="th-mob-drop">
+          <div class="th-mob-drop-name" id="th-mob-drop-name">—</div>
+          <div class="th-mob-drop-roll" id="th-mob-drop-roll">—</div>
+          <div class="th-mob-drop-div"></div>
+          <button class="th-mob-drop-btn" onclick="toggleFS();closeMobProfile()">⛶ &nbsp;Fullscreen</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="rv-ban" id="rv-ban">🔍 REVIEW MODE — Correct answers shown &nbsp;<button class="rv-ban-back" onclick="backToResult()">📋 Back to Results</button></div>
@@ -1698,7 +1770,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
     <div class="ab-sp"></div>
     <button class="btn b-prim" onclick="saveNxt()">Next ▶</button>
   </div>
-  <button class="mob-tog" onclick="togSB()">📋</button>
+  <button class="mob-tog" id="mob-tog-btn" onclick="togSB()">📋 <span>Questions</span></button>
   <div class="sb-ov" id="sb-ov" onclick="togSB()"></div>
 </div>
 
@@ -1786,6 +1858,19 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <button class="btn b-sub" onclick="doSubmit()">Submit Now</button>
     </div>
   </div>
+</div>
+<!-- Countdown overlay -->
+<div class="countdown-ov" id="countdown-ov">
+  <div class="countdown-label">Get Ready!</div>
+  <div class="countdown-sub" id="cd-batch-lbl">Starting Batch 1…</div>
+  <div class="countdown-ring">
+    <svg class="countdown-svg" viewBox="0 0 180 180">
+      <circle class="countdown-bg" cx="90" cy="90" r="80"/>
+      <circle class="countdown-arc" id="cd-arc" cx="90" cy="90" r="80"/>
+    </svg>
+    <div class="countdown-num" id="cd-num">3</div>
+  </div>
+  <button class="countdown-back" onclick="cancelCountdown()">← Back to Home</button>
 </div>
 <!-- Dark mode toggle (not shown on test screen) -->
 <button class="dm-tog" id="dm-tog" onclick="toggleDark()">🌙 Dark</button>
@@ -2101,7 +2186,8 @@ async function loadAttemptHistory(){
     const attempts=await fbGetUserAttempts(curUser.uid);
     userAttempts=attempts;
     updateStats(attempts);
-    renderScoreChart(attempts);
+    // Defer chart render so DOM has finished painting the card first
+    requestAnimationFrame(()=>renderScoreChart(attempts));
     if(!attempts.length){
       list.innerHTML='<div style="font-size:13px;color:var(--mt);padding:6px 0">No attempts yet. Take your first test!</div>';
       return;
@@ -2124,7 +2210,8 @@ function _renderAttemptList(attempts,list,showCount){
       <div class="att-rank">${medals[i]||i+1}</div>
       <div class="att-info">
         <div style="font-weight:700;font-size:13px;color:var(--tx)">${esc(a.name||'—')}</div>
-        <div class="att-date">📅 ${fmtDate(a.timestamp)}</div>
+        <div class="att-date">📅 ${fmtDate(a.timestamp)}${a.batch?` &nbsp;<span style="background:${a.batch===2?'var(--bl-lt)':'var(--sf-lt)'};color:${a.batch===2?'var(--bl)':'var(--sf)'};padding:1px 6px;border-radius:6px;font-size:10px;font-weight:800">B${a.batch}</span>`:''}
+</div>
         <div class="att-detail">
           <span class="att-chip c">✅ ${a.correct||0}</span>
           <span class="att-chip w">❌ ${a.wrong||0}</span>
@@ -2132,9 +2219,10 @@ function _renderAttemptList(attempts,list,showCount){
           <span style="font-size:10px;color:var(--mt);padding-top:2px">⏱ ${fmtDuration(a.timeTaken||0)}</span>
         </div>
       </div>
-      <div style="text-align:right">
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:2px;flex-shrink:0">
         <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
-        <div class="att-pct ${pctCls}" style="margin-top:4px">${pct}%</div>
+        <div class="att-pct ${pctCls}">${pct}%</div>
+        ${a.answers&&a.answers.length?`<button class="att-review-btn" onclick="reviewFromHistory(${i})" title="Review this attempt">🔍 Review</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -2172,7 +2260,8 @@ function _loadMoreAttempts(){
       <div class="att-rank">${medals[i]||i+1}</div>
       <div class="att-info">
         <div style="font-weight:700;font-size:13px;color:var(--tx)">${esc(a.name||'—')}</div>
-        <div class="att-date">📅 ${fmtDate(a.timestamp)}</div>
+        <div class="att-date">📅 ${fmtDate(a.timestamp)}${a.batch?` &nbsp;<span style="background:${a.batch===2?'var(--bl-lt)':'var(--sf-lt)'};color:${a.batch===2?'var(--bl)':'var(--sf)'};padding:1px 6px;border-radius:6px;font-size:10px;font-weight:800">B${a.batch}</span>`:''}
+</div>
         <div class="att-detail">
           <span class="att-chip c">✅ ${a.correct||0}</span>
           <span class="att-chip w">❌ ${a.wrong||0}</span>
@@ -2180,9 +2269,10 @@ function _loadMoreAttempts(){
           <span style="font-size:10px;color:var(--mt);padding-top:2px">⏱ ${fmtDuration(a.timeTaken||0)}</span>
         </div>
       </div>
-      <div style="text-align:right">
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:2px;flex-shrink:0">
         <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
-        <div class="att-pct ${pctCls}" style="margin-top:4px">${pct}%</div>
+        <div class="att-pct ${pctCls}">${pct}%</div>
+        ${a.answers&&a.answers.length?`<button class="att-review-btn" onclick="reviewFromHistory(${i})" title="Review this attempt">🔍 Review</button>`:''}
       </div>`;
     list.appendChild(div);
     // Trigger animation
@@ -2257,11 +2347,55 @@ function renderHeatmap(attempts){
   }
 }
 
-function renderScoreChart(attempts){
+function renderScoreChart(attempts, _retryCount){
   const wrap = document.getElementById('graph-section');
   const canvas = document.getElementById('score-chart');
-  if(!attempts || attempts.length < 2){ wrap.style.display='none'; return; }
+  if(!wrap||!canvas)return;
+
+  if(!attempts || attempts.length < 2){
+    wrap.style.display='block';
+    // Show locked placeholder
+    const area=wrap.querySelector('.chart-area');
+    if(area){
+      area.style.display='none';
+      let ph=wrap.querySelector('.chart-placeholder');
+      if(!ph){
+        ph=document.createElement('div');
+        ph.className='chart-placeholder';
+        ph.innerHTML=`<div class="chart-ph-icon">📈</div>
+          <div class="chart-ph-title">Score Trend</div>
+          <div class="chart-ph-sub">Complete <strong>${2-(attempts?attempts.length:0)} more test${(2-(attempts?attempts.length:0))>1?'s':''}</strong> to unlock your progress chart</div>`;
+        area.parentNode.insertBefore(ph,area);
+      }
+    }
+    return;
+  }
+
+  // Make sure card is visible before measuring canvas
   wrap.style.display = 'block';
+  // Show chart canvas, hide placeholder
+  const area=wrap.querySelector('.chart-area');
+  if(area)area.style.display='';
+  const ph=wrap.querySelector('.chart-placeholder');
+  if(ph)ph.remove();
+
+  // Guard: if canvas has no dimensions yet (still transitioning from display:none),
+  // defer one frame and retry up to 5 times
+  if((canvas.offsetWidth===0||canvas.offsetHeight===0) && (_retryCount||0)<5){
+    requestAnimationFrame(()=>renderScoreChart(attempts,(_retryCount||0)+1));
+    return;
+  }
+
+  // Safely destroy any previous Chart.js instance
+  // Try both our custom ref and Chart.getChart() to handle edge cases
+  try{
+    const existing = (typeof Chart!=='undefined' && Chart.getChart) ? Chart.getChart(canvas) : null;
+    if(existing) existing.destroy();
+  }catch(e){}
+  if(canvas._chartInstance){
+    try{canvas._chartInstance.destroy();}catch(e){}
+    canvas._chartInstance=null;
+  }
 
   // Oldest → newest
   const pts = [...attempts].reverse();
@@ -2306,8 +2440,7 @@ function renderScoreChart(attempts){
   );
   const barBorders = vals.map(v => v >= 50 ? GN : RED);
 
-  // Destroy any previous Chart.js instance on this canvas
-  if(canvas._chartInstance){ canvas._chartInstance.destroy(); }
+  // (Chart instance destruction handled above)
 
   const ctx = canvas.getContext('2d');
 
@@ -2655,13 +2788,14 @@ function fmtDateShort(iso){
 }
 
 /* ══ START TEST — open access, no batch-order restriction ══ */
+let _pendingBatch=1; // stores batch during countdown
 function startTest(batch){
   batch=batch||1;
   const QSet=batch===2?Q2:Q;
   if(!QSet.length){
     toast(batch===2?'⚠️ Batch 2 questions not available yet.':'⚠️ No questions available.');return;
   }
-  currentBatch=batch;
+  // Validate name before showing countdown
   if(curUser){
     cName=document.getElementById('c-name').value.trim()||curUser.displayName||'Student';
     cRoll=document.getElementById('c-roll').value.trim()||'—';
@@ -2678,6 +2812,79 @@ function startTest(batch){
     cEmail=document.getElementById('c-email').value.trim()||'';
     cRoll='—';
   }
+  _pendingBatch=batch;
+  showCountdown(batch);
+}
+
+let _cdTimer=null;
+function showCountdown(batch){
+  const ov=document.getElementById('countdown-ov');
+  const numEl=document.getElementById('cd-num');
+  const arc=document.getElementById('cd-arc');
+  const lbl=document.getElementById('cd-batch-lbl');
+  if(lbl)lbl.textContent='Starting Batch '+batch+'…';
+  ov.classList.add('on');
+  let n=5;
+  const CIRC=502.65;
+
+  function flashNum(val){
+    numEl.textContent=val;
+    numEl.style.transform='scale(1.4)';
+    numEl.style.opacity='0.7';
+    numEl.style.transition='transform .18s ease,opacity .18s ease';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      numEl.style.transform='scale(1)';
+      numEl.style.opacity='1';
+    }));
+  }
+
+  function startArc(){
+    arc.style.transition='none';
+    arc.style.strokeDashoffset='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      arc.style.transition='stroke-dashoffset 0.94s linear';
+      arc.style.strokeDashoffset=String(CIRC);
+    }));
+  }
+
+  // Show initial number and start first arc sweep
+  flashNum(n);
+  startArc();
+
+  function tick(){
+    n--;
+    if(n<=0){
+      // Show GO briefly then launch
+      numEl.textContent='GO!';
+      numEl.style.transform='scale(1.5)';
+      numEl.style.opacity='1';
+      numEl.style.color='#22c55e';
+      numEl.style.transition='transform .2s ease';
+      arc.style.transition='none';
+      arc.style.strokeDashoffset='0';
+      clearInterval(_cdTimer);
+      setTimeout(()=>{
+        ov.classList.remove('on');
+        numEl.style.color='';
+        _launchTest(_pendingBatch);
+      },600);
+      return;
+    }
+    flashNum(n);
+    startArc();
+  }
+  clearInterval(_cdTimer);
+  _cdTimer=setInterval(tick,1000);
+}
+
+function cancelCountdown(){
+  clearInterval(_cdTimer);
+  document.getElementById('countdown-ov').classList.remove('on');
+}
+
+function _launchTest(batch){
+  const QSet=batch===2?Q2:Q;
+  currentBatch=batch;
   Q=QSet;
   buildSecs();
   ans=Array(Q.length).fill(null);vis=Array(Q.length).fill(false);mkd=Array(Q.length).fill(false);
@@ -2693,6 +2900,28 @@ function setHdr(){
   document.getElementById('hdr-roll').textContent=cEmail||cRoll;
   document.getElementById('sb-nm').textContent=cName;
   document.getElementById('sb-rl').textContent=cEmail||cRoll;
+  // Populate mobile profile pill
+  const av=document.getElementById('th-mob-av');
+  const dn=document.getElementById('th-mob-drop-name');
+  const dr=document.getElementById('th-mob-drop-roll');
+  if(av){const initials=(cName||'?').split(' ').map(w=>w[0]||'').slice(0,2).join('').toUpperCase()||'?';av.textContent=initials;}
+  if(dn)dn.textContent=cName||'—';
+  if(dr)dr.textContent=cRoll&&cRoll!=='—'?'Roll: '+cRoll:(cEmail?cEmail:'Guest');
+}
+function togMobProfile(e){
+  e.stopPropagation();
+  const drop=document.getElementById('th-mob-drop');
+  const pill=document.getElementById('th-mob-pill');
+  const isOpen=drop.classList.contains('on');
+  drop.classList.toggle('on',!isOpen);
+  pill.classList.toggle('open',!isOpen);
+  if(!isOpen)setTimeout(()=>document.addEventListener('click',closeMobProfile,{once:true}),10);
+}
+function closeMobProfile(){
+  const drop=document.getElementById('th-mob-drop');
+  const pill=document.getElementById('th-mob-pill');
+  if(drop)drop.classList.remove('on');
+  if(pill)pill.classList.remove('open');
 }
 function buildSecs(){
   const m={};Q.forEach((q,i)=>{const s=q.section||'General';if(!m[s])m[s]=[];m[s].push(i);});
@@ -2735,6 +2964,17 @@ function refStats(){
 }
 function renderQ(idx){
   curQ=idx;vis[idx]=true;
+  // Disable Prev on first question
+  const prevBtn=document.querySelector('.btn.b-out[onclick="prevQ()"]');
+  if(prevBtn){prevBtn.disabled=(idx===0);prevBtn.style.opacity=idx===0?'0.35':'1';}
+  // In review mode: update Next btn label on last question
+  if(isRev){
+    const nxtBtn=document.querySelector('.btn.b-prim[onclick="saveNxt()"]');
+    if(nxtBtn){
+      if(idx>=Q.length-1){nxtBtn.textContent='📋 Results';}
+      else{nxtBtn.textContent='Next ▶';}
+    }
+  }
   const si=secs.findIndex(s=>s.ix.includes(idx));
   if(si!==-1&&si!==curSec){curSec=si;document.querySelectorAll('.st').forEach((t,j)=>t.classList.toggle('on',j===si));}
   const q=Q[idx];
@@ -2757,7 +2997,15 @@ function renderQ(idx){
   saveSession();
 }
 function selOpt(i){ans[curQ]=i;renderQ(curQ);}
-function saveNxt(){goNxt();}
+function saveNxt(){
+  if(isRev){
+    // In review mode: just navigate, on last question go back
+    if(curQ>=Q.length-1){backToResult();}
+    else{renderQ(curQ+1);}
+    return;
+  }
+  goNxt();
+}
 function markRev(){mkd[curQ]=true;goNxt();}
 function clearR(){ans[curQ]=null;renderQ(curQ);toast('Response cleared');}
 function prevQ(){if(curQ>0)renderQ(curQ-1);}
@@ -2765,6 +3013,18 @@ function goNxt(){if(curQ<Q.length-1)renderQ(curQ+1);else toast('Last question!')
 function startTimer(){
   clearInterval(tInt);showTimer();
   tInt=setInterval(()=>{tLeft--;showTimer();if(tLeft%30===0)saveSession();if(tLeft<=0){clearInterval(tInt);doSubmit();}},1000);
+  // One-time tooltip hint for mobile palette button
+  if(window.innerWidth<=1024){
+    try{
+      if(!localStorage.getItem('na_mob_hint')){
+        const hint=document.createElement('div');
+        hint.className='mob-tog-hint';
+        hint.textContent='👆 Tap to see all questions';
+        document.body.appendChild(hint);
+        setTimeout(()=>{hint.remove();localStorage.setItem('na_mob_hint','1');},3200);
+      }
+    }catch(e){}
+  }
 }
 function showTimer(){
   const h=Math.floor(tLeft/3600),m=Math.floor((tLeft%3600)/60),s=tLeft%60;
@@ -2796,7 +3056,8 @@ async function doSubmit(){
   const PASS_PCT=50;
 
   const record={name:cName,roll:cRoll,email:cEmail||curUser?.email||'—',score:net,total:tot,
-    pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso,batch:currentBatch};
+    pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso,batch:currentBatch,
+    answers:[...ans]};  // store answers for per-attempt review (no extra Firebase read needed)
 
   try{await fbAdd('scores',record);}catch(e){console.warn('Global score save failed:',e.message);}
   if(curUser){
@@ -2850,10 +3111,19 @@ async function doSubmit(){
 function reviewTest(){
   isRev=true;showScreen('test');document.getElementById('rv-ban').classList.add('on');
   document.getElementById('timer').textContent='00:00:00';
-  document.querySelectorAll('.ab .btn').forEach(b=>{if(b.getAttribute('onclick')&&['saveNxt','markRev','clearR'].some(f=>b.getAttribute('onclick').includes(f)))b.style.display='none';});
+  _applyReviewButtons();
   renderQ(0);
 }
 function backToResult(){showScreen('result');}
+function _applyReviewButtons(){
+  // In review: hide Mark and Clear, keep Prev and Next
+  document.querySelectorAll('.ab .btn').forEach(b=>{
+    const oc=b.getAttribute('onclick')||'';
+    if(['markRev','clearR'].some(f=>oc.includes(f))){b.style.display='none';}
+    // Make Next button say "Next ▶" always visible
+    if(oc.includes('saveNxt')){b.style.display='';b.textContent='Next ▶';}
+  });
+}
 
 function renderSubjectGraph(){
   const wrap=document.getElementById('sg-wrap');
@@ -2921,6 +3191,33 @@ document.addEventListener('keydown',e=>{
 document.addEventListener('visibilitychange',()=>{if(document.getElementById('test').classList.contains('active')&&!isRev&&document.hidden)toast('⚠️ Do not switch tabs!');});
 document.addEventListener('contextmenu',e=>{if(document.getElementById('test').classList.contains('active')&&!isRev)e.preventDefault();});
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ══ REVIEW FROM HISTORY ══ */
+function reviewFromHistory(idx){
+  const a=userAttempts[idx];
+  if(!a){toast('⚠️ Attempt data not found.');return;}
+  if(!a.answers||!a.answers.length){toast('⚠️ This attempt was saved before review was supported. Retake to enable review.');return;}
+  // Reconstruct the Q set for that batch
+  const QSet=a.batch===2?Q2:Q;
+  if(!QSet.length){toast('⚠️ Questions not loaded for this batch.');return;}
+  if(a.answers.length!==QSet.length){toast('⚠️ Question set has changed since this attempt. Review unavailable.');return;}
+  // Set up review mode state
+  Q=[...QSet];
+  ans=[...a.answers];
+  vis=Array(Q.length).fill(true);
+  mkd=Array(Q.length).fill(false);
+  cName=a.name||'—';
+  cRoll=a.roll||'—';
+  cEmail=a.email||'—';
+  currentBatch=a.batch||1;
+  negM=0;isRev=true;curQ=0;active=false;
+  buildSecs();
+  showScreen('test');
+  document.getElementById('rv-ban').classList.add('on');
+  document.getElementById('timer').textContent='00:00:00';
+  setHdr();buildTabs();buildGrid();renderQ(0);
+  _applyReviewButtons();
+}
 
 /* ══ ADMIN ══ */
 async function goAdmin(){
@@ -3376,10 +3673,87 @@ function toggleDark(){
   btn.textContent=_darkOn?'☀️ Light':'🌙 Dark';
   // dark mode popup removed — dark is now default
   try{localStorage.setItem('na_dark',_darkOn?'1':'0');}catch(e){}
-  // Re-render chart so colours match the new theme
-  if(userAttempts&&userAttempts.length>=2) renderScoreChart(userAttempts);
+  // Re-render chart after dark-mode CSS transition settles (~300ms)
+  if(userAttempts&&userAttempts.length>=2){
+    setTimeout(()=>renderScoreChart(userAttempts),320);
+  }
 }
 // Dark mode popup functions removed
+/* ══ PWA SERVICE WORKER ══ */
+(function(){
+  if(!('serviceWorker' in navigator))return;
+  // Inline service worker as a Blob — caches the app shell for offline use
+  const swCode=`
+const CACHE='nishuabhyasi-v1';
+const SHELL=['./']; // cache self only — Firebase calls need network
+self.addEventListener('install',e=>{
+  e.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)));
+  self.skipWaiting();
+});
+self.addEventListener('activate',e=>{
+  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
+  self.clients.claim();
+});
+self.addEventListener('fetch',e=>{
+  // Only cache-first for same-origin navigations; pass through Firebase/CDN
+  if(e.request.mode==='navigate'){
+    e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+  }
+  // Everything else: network-first
+});
+`;
+  try{
+    const blob=new Blob([swCode],{type:'application/javascript'});
+    const url=URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url,{scope:'./'}).catch(()=>{});
+  }catch(e){}
+})();
+
+/* ══ PWA INSTALL PROMPT ══ */
+let _deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  _deferredInstallPrompt=e;
+  // Show install banner after landing screen loads, only if not already installed
+  setTimeout(()=>{
+    const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+    if(!isStandalone&&_deferredInstallPrompt){
+      try{
+        if(localStorage.getItem('na_pwa_dismissed'))return;
+      }catch(e){}
+      showPWABanner();
+    }
+  },4000);
+});
+function showPWABanner(){
+  const screen=document.getElementById('landing');
+  if(!screen||!screen.classList.contains('active'))return;
+  let banner=document.getElementById('pwa-banner');
+  if(banner)return;
+  banner=document.createElement('div');
+  banner.id='pwa-banner';
+  banner.style.cssText='position:fixed;bottom:72px;left:50%;transform:translateX(-50%);z-index:400;background:#0a1628;color:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:360px;width:calc(100% - 32px);animation:fadeUp .3s ease;border:1px solid rgba(255,255,255,.12)';
+  banner.innerHTML=`
+    <span style="font-size:26px">📲</span>
+    <div style="flex:1;min-width:0">
+      <div style="font-family:var(--fh);font-size:13px;font-weight:800;margin-bottom:2px">Add to Home Screen</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.6)">Install NishuAbhyasi for offline access</div>
+    </div>
+    <button onclick="installPWA()" style="background:var(--sf);border:none;border-radius:8px;color:#fff;font-family:var(--fh);font-size:13px;font-weight:800;padding:8px 14px;cursor:pointer;white-space:nowrap">Install</button>
+    <button onclick="dismissPWABanner()" style="background:rgba(255,255,255,.1);border:none;border-radius:8px;color:rgba(255,255,255,.7);font-size:18px;padding:6px 10px;cursor:pointer;line-height:1">✕</button>`;
+  document.body.appendChild(banner);
+}
+function installPWA(){
+  if(!_deferredInstallPrompt)return;
+  _deferredInstallPrompt.prompt();
+  _deferredInstallPrompt.userChoice.then(()=>{_deferredInstallPrompt=null;dismissPWABanner();});
+}
+function dismissPWABanner(){
+  const b=document.getElementById('pwa-banner');
+  if(b)b.remove();
+  try{localStorage.setItem('na_pwa_dismissed','1');}catch(e){}
+}
+
 // Restore saved preference — DEFAULT is now DARK (v7 reset)
 (function(){
   try{

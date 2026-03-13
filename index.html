@@ -877,6 +877,18 @@ body.dark .th-mob-drop-btn:hover{background:#0f2644;color:#58a6ff}
 .opt.inc .opt-k{background:var(--c-no);color:#fff}
 .opt-tx{line-height:1.55;flex:1;font-size:14px;font-weight:500}
 
+/* Solution panel */
+.sol-panel{margin-top:18px;border-radius:12px;border:1.5px solid #bbf7d0;background:#f0fdf4;overflow:hidden;animation:fadeUp .22s ease}
+body.dark .sol-panel{background:#0d2818;border-color:#166534}
+.sol-hd{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#dcfce7;border-bottom:1px solid #bbf7d0}
+body.dark .sol-hd{background:#14532d;border-color:#166534}
+.sol-icon{font-size:16px}
+.sol-title{font-family:var(--fh);font-size:13px;font-weight:800;color:#15803d;flex:1}
+body.dark .sol-title{color:#4ade80}
+.sol-ans-badge{background:#16a34a;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+.sol-body{padding:12px 14px;font-size:13px;color:#166534;line-height:1.7;white-space:pre-wrap}
+body.dark .sol-body{color:#86efac}
+
 /* Bottom action bar */
 .ab{display:flex;align-items:center;gap:8px;background:#fff;padding:10px 16px;border-top:1px solid var(--bd);flex-shrink:0;box-shadow:0 -2px 8px rgba(0,0,0,.06);padding-bottom:max(10px,env(safe-area-inset-bottom))}
 .ab-sp{flex:1}
@@ -1453,7 +1465,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
     </div>
     <div class="glass-field">
       <label class="glass-label">Your Name</label>
-      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Priya Sharma"/>
+      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Mira Singh"/>
     </div>
     <div class="glass-field">
       <label class="glass-label">Email Address</label>
@@ -1733,6 +1745,15 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <div class="q-tx" id="q-tx">Loading…</div>
         <img id="q-im" class="q-im" src="" alt="" style="display:none"/>
         <div class="opts" id="opts"></div>
+        <!-- Solution panel — only visible in review mode -->
+        <div class="sol-panel" id="sol-panel" style="display:none">
+          <div class="sol-hd">
+            <span class="sol-icon">💡</span>
+            <span class="sol-title">Solution</span>
+            <span class="sol-ans-badge" id="sol-ans-badge">Correct: A</span>
+          </div>
+          <div class="sol-body" id="sol-body">No explanation available for this question.</div>
+        </div>
       </div>
     </div>
     <div class="sidebar" id="sidebar">
@@ -2992,6 +3013,23 @@ function renderQ(idx){
     if(!isRev)b.onclick=()=>selOpt(i);
     ol.appendChild(b);
   });
+  // Solution panel — only in review mode
+  const solPanel=document.getElementById('sol-panel');
+  const solBody=document.getElementById('sol-body');
+  const solBadge=document.getElementById('sol-ans-badge');
+  if(solPanel){
+    if(isRev){
+      const ks=['A','B','C','D','E'];
+      const correctIdx=q.correct;
+      const correctLetter=ks[correctIdx]||String(correctIdx+1);
+      const correctText=q.options?q.options[correctIdx]||'':correctLetter;
+      solBadge.textContent='✅ Correct: '+correctLetter+' — '+correctText;
+      solBody.textContent=q.explanation||q.solution||q.logic||'No explanation available for this question.';
+      solPanel.style.display='block';
+    }else{
+      solPanel.style.display='none';
+    }
+  }
   refGrid();
   const gb=document.getElementById('qb'+idx);if(gb)gb.scrollIntoView({block:'nearest',behavior:'smooth'});
   saveSession();

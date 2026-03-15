@@ -43,6 +43,7 @@ try {
   window._fs   = { doc, getDoc, setDoc, addDoc, collection, getDocs, deleteDoc, query, orderBy, limit, where };
   window._fauth = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile };
 } catch(e) { window._dbReady = false; window._dbError = e.message; }
+window._dbReadyFired = true;          // flag for classic script to check
 window.dispatchEvent(new Event('dbready'));
 </script>
 
@@ -292,6 +293,13 @@ body.dark .dm-tog:hover{background:#2d333b}
 .ms{font-size:13px;color:var(--mt)}.ms span{font-weight:800;color:var(--bl)}
 .md-bt{display:flex;gap:10px}.md-bt .btn{flex:1;justify-content:center;padding:13px}
 .ft{background:var(--nv);color:rgba(255,255,255,.38);text-align:center;padding:14px 20px;font-size:11.5px;line-height:2.1;border-radius:14px;width:100%;flex-shrink:0}
+.ft-links-wrap{position:relative;display:inline-block;margin-top:8px}
+.ft-menu-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.7);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fb);transition:.18s;letter-spacing:.2px}
+.ft-menu-btn:hover{background:rgba(255,255,255,.18);color:#fff}
+.ft-dropdown{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1e293b;border:1px solid #334155;border-radius:12px;box-shadow:0 -6px 28px rgba(0,0,0,.45);padding:6px;min-width:180px;z-index:300}
+.ft-dropdown.on{display:block;animation:fadeUp .18s ease}
+.ft-dd-item{display:block;width:100%;text-align:left;background:none;border:none;padding:10px 13px;font-size:13px;font-weight:600;color:#e2e8f0;cursor:pointer;border-radius:8px;transition:.14s;font-family:var(--fb);letter-spacing:.1px}
+.ft-dd-item:hover{background:rgba(88,166,255,.15);color:#58a6ff}
 .ft-br{font-family:var(--fh);font-size:15px;font-weight:800;color:#fff;display:block;margin-bottom:1px}
 .ft-br em{color:#FFB800;font-style:normal}
 
@@ -350,6 +358,8 @@ body.dark #auth{background:#0d1117}
 .auth-bottom-link{text-align:center;font-size:13px;color:var(--mt);margin-top:16px}
 .auth-bottom-link a{color:var(--bl);font-weight:700;cursor:pointer;text-decoration:none}
 .auth-footer{text-align:center;margin-top:auto;padding-top:10px;font-size:11px;color:var(--mt)}
+.auth-admin-link{cursor:pointer;opacity:.35;transition:opacity .2s;font-size:12px;user-select:none}
+.auth-admin-link:hover{opacity:.85}
 /* Mobile-only links strip (shown when left panel is hidden) */
 .auth-mob-links{display:none;justify-content:center;align-items:center;gap:8px;padding-top:16px;flex-wrap:wrap}
 @media(max-width:700px){.auth-mob-links{display:flex}}
@@ -360,8 +370,8 @@ body.dark #auth{background:#0d1117}
 /* ══════════════════════════════════════
    SCREEN: LANDING — NEW DASHBOARD DESIGN
 ══════════════════════════════════════ */
-#landing{background:var(--bg);min-height:100vh;flex-direction:column}
-.ld-shell{width:100%;max-width:1200px;margin:0 auto;padding:0 20px 40px}
+#landing{background:var(--bg);flex-direction:column}
+.ld-shell{width:100%;max-width:1200px;margin:0 auto;padding:0 20px 16px}
 
 /* Top header bar */
 .ld-hdr{padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -374,6 +384,24 @@ body.dark #auth{background:#0d1117}
 .ld-uemail{font-size:11px;color:var(--mt);white-space:nowrap}
 .ld-logout-btn{background:none;border:none;font-size:12px;color:var(--c-no);cursor:pointer;font-weight:700;padding:4px 8px;border-radius:8px;transition:.2s;white-space:nowrap}
 .ld-logout-btn:hover{background:#FEE2E2}
+/* Landing profile pill */
+.ld-profile-wrap{position:relative}
+.ld-profile-pill{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--bd);border-radius:50px;padding:4px 12px 4px 4px;cursor:pointer;transition:.18s;font-family:var(--fb);box-shadow:var(--sh)}
+.ld-profile-pill:hover,.ld-profile-pill.open{border-color:var(--bl);background:#f0f6ff}
+body.dark .ld-profile-pill{background:#161b22;border-color:#30363d}
+body.dark .ld-profile-pill:hover,.ld-profile-pill.open{border-color:#58a6ff;background:#0f2644}
+.ld-profile-chevron{font-size:10px;color:var(--mt);transition:transform .18s;flex-shrink:0}
+.ld-profile-pill.open .ld-profile-chevron{transform:rotate(180deg)}
+.ld-profile-drop{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1.5px solid var(--bd);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.14);padding:8px;min-width:200px;z-index:300}
+.ld-profile-drop.on{display:block;animation:fadeUp .18s ease}
+body.dark .ld-profile-drop{background:#161b22;border-color:#30363d;box-shadow:0 8px 28px rgba(0,0,0,.5)}
+.ld-profile-info{padding:8px 10px 6px}
+.ld-profile-div{height:1px;background:var(--bd);margin:4px 0}
+body.dark .ld-profile-div{background:#30363d}
+.ld-profile-item{display:block;width:100%;text-align:left;background:none;border:none;padding:9px 12px;font-size:13px;font-weight:600;color:var(--tx);cursor:pointer;border-radius:8px;transition:.14s;font-family:var(--fb)}
+.ld-profile-item:hover{background:#FEE2E2;color:var(--c-no)}
+body.dark .ld-profile-item{color:#e2e8f0}
+body.dark .ld-profile-item:hover{background:#3d1515;color:#f87171}
 .ld-guest-chip{background:#fff;border-radius:50px;padding:8px 16px;box-shadow:var(--sh);font-size:13px;color:var(--mt)}
 .ld-guest-chip a{color:var(--bl);font-weight:700;cursor:pointer}
 .ld-admin-btn{font-size:12px;color:var(--mt);cursor:pointer;padding:8px 14px;background:#fff;border-radius:50px;box-shadow:var(--sh);transition:.2s;white-space:nowrap;border:none;font-family:var(--fb)}
@@ -390,9 +418,24 @@ body.dark #auth{background:#0d1117}
 
 /* Main grid layout */
 .ld-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
-@media(max-width:900px){.ld-grid{grid-template-columns:1fr}}
 .ld-main{display:flex;flex-direction:column;gap:20px}
 .ld-side{display:flex;flex-direction:column;gap:20px}
+@media(max-width:900px){
+  .ld-grid{grid-template-columns:1fr;display:flex;flex-direction:column;gap:0}
+  /* Each section gets an explicit order so mobile stacking matches the desired flow */
+  /* ld-main children */
+  #graph-section{order:5}
+  #instr-card{order:7}
+  #start-card{order:8}
+  /* ld-side children */
+  #guest-nudge-card{order:9}
+  #hist-section{order:10}
+  #lb-card{order:4}
+  #progress-banner{order:6}
+  /* The main + side columns themselves need to be transparent containers */
+  .ld-main{order:0;gap:0;display:contents}
+  .ld-side{order:0;gap:0;display:contents}
+}
 
 /* Card base */
 .ld-card{background:#fff;border-radius:var(--card-r);padding:22px;box-shadow:var(--sh)}
@@ -430,7 +473,29 @@ body.dark .hm-dot.hm-mid{background:#1d4ed8}
 body.dark .hm-dot.hm-high{background:#3b82f6}
 
 /* Score trend chart */
-.chart-area{width:100%;height:200px;position:relative;margin-top:12px}
+.chart-area{width:100%;height:200px;position:relative;margin-top:8px}
+/* Chart carousel */
+.chart-carousel-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.chart-dots{display:flex;gap:6px;align-items:center}
+.ch-dot{width:8px;height:8px;border-radius:50%;border:none;background:var(--bd);cursor:pointer;padding:0;transition:.2s;flex-shrink:0}
+.ch-dot.on{background:var(--bl);width:22px;border-radius:10px}
+.chart-max-btn{background:none;border:1.5px solid var(--bd);border-radius:7px;padding:3px 8px;font-size:13px;color:var(--mt);cursor:pointer;transition:.15s;line-height:1}
+.chart-max-btn:hover{background:var(--bl-lt);color:var(--bl);border-color:var(--bl)}
+body.dark .chart-max-btn:hover{background:#0f2644;color:#58a6ff;border-color:#1f6feb}
+.chart-slide-title{font-size:11px;font-weight:700;color:var(--mt);letter-spacing:.3px;margin-bottom:2px}
+/* Maximize overlay */
+.chart-max-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:800;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.chart-max-ov.on{display:flex}
+.chart-max-card{background:#fff;border-radius:18px;width:100%;max-width:820px;padding:20px;box-shadow:0 24px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;gap:12px;max-height:90vh}
+body.dark .chart-max-card{background:#161b22;border:1px solid #30363d}
+.chart-max-top{display:flex;align-items:center;gap:10px}
+.chart-max-sel-wrap{flex:1}
+.chart-max-sel{width:100%;padding:8px 12px;border:1.5px solid var(--bd);border-radius:10px;font-family:var(--fb);font-size:13px;font-weight:600;color:var(--tx);background:#fff;cursor:pointer;outline:none}
+body.dark .chart-max-sel{background:#0d1117;color:#e2e8f0;border-color:#30363d}
+.chart-max-close{background:none;border:1.5px solid var(--bd);border-radius:8px;padding:7px 12px;font-size:14px;color:var(--mt);cursor:pointer;transition:.15s;flex-shrink:0}
+.chart-max-close:hover{background:#fee2e2;color:#b91c1c;border-color:#fecaca}
+.chart-max-body{flex:1;position:relative;min-height:320px}
+.chart-max-body canvas{width:100%!important;height:100%!important}
 .chart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:130px;border:2px dashed var(--bd);border-radius:14px;padding:24px;text-align:center;gap:8px;margin:8px 0;background:repeating-linear-gradient(135deg,transparent,transparent 10px,rgba(0,0,0,.012) 10px,rgba(0,0,0,.012) 20px)}
 .chart-ph-icon{font-size:36px;opacity:.35;filter:grayscale(1)}
 .chart-ph-title{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--mt)}
@@ -530,6 +595,21 @@ body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
 
 /* ── Guest upgrade nudge card ── */
 .guest-nudge{background:linear-gradient(135deg,#0057A8,#003d7a);border-radius:var(--card-r);padding:20px 22px;color:#fff;position:relative;overflow:hidden;margin-bottom:16px}
+
+/* ── Guest blur-lock ── */
+.guest-blur-wrap{position:relative;border-radius:var(--card-r)}
+.guest-blur-wrap.is-locked{min-height:160px}
+.guest-blur-inner{transition:filter .3s}
+.guest-blur-inner.is-blurred{filter:blur(5px) brightness(.85);pointer-events:none;user-select:none}
+.guest-lock-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:2;padding:16px;text-align:center;background:rgba(255,255,255,.08);backdrop-filter:blur(2px)}
+body.dark .guest-lock-ov{background:rgba(0,0,0,.18)}
+.guest-lock-icon{font-size:26px;line-height:1}
+.guest-lock-title{font-family:var(--fh);font-size:14px;font-weight:800;color:var(--tx)}
+.guest-lock-sub{font-size:11px;color:var(--mt);line-height:1.5;max-width:200px}
+.guest-lock-btn{background:var(--bl);color:#fff;border:none;border-radius:50px;padding:7px 18px;font-family:var(--fh);font-size:12px;font-weight:800;cursor:pointer;transition:.18s;box-shadow:0 4px 14px rgba(0,87,168,.3)}
+.guest-lock-btn:hover{background:var(--bl-dk);transform:translateY(-1px)}
+body.dark .guest-lock-title{color:#e2e8f0}
+body.dark .guest-lock-sub{color:#64748b}
 .guest-nudge::before{content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;background:rgba(255,255,255,.05);border-radius:50%}
 .guest-nudge-title{font-family:var(--fh);font-size:16px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .guest-nudge-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
@@ -553,6 +633,10 @@ body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
 
 /* No-Q notice */
 .no-q{display:none;background:#FFF3CD;border:1.5px solid #FFB800;border-radius:10px;padding:10px 12px;font-size:13px;color:#856404;margin-bottom:14px;line-height:1.6}
+@media(max-width:900px){
+  #graph-section,#hist-section,#lb-card,#progress-banner,#guest-nudge-card,
+  .ld-main>.ld-card,.ld-side>.ld-card{margin-bottom:16px}
+}
 .no-q.on{display:block}
 
 /* Student name fields */
@@ -571,6 +655,41 @@ body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
 
 /* Feedback/Query box */
 .feedback-box{background:#fff;border-radius:var(--card-r);padding:20px;box-shadow:var(--sh);border:1.5px solid var(--bd)}
+
+/* ── Leaderboard ── */
+.lb-card{background:#fff;border-radius:var(--card-r);padding:18px;box-shadow:var(--sh);border:1px solid var(--bd);margin-bottom:14px}
+body.dark .lb-card{background:#161b22;border-color:#21262d}
+.lb-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.lb-title{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:7px}
+.lb-tabs{display:flex;background:var(--bg);border-radius:20px;padding:3px;gap:2px}
+body.dark .lb-tabs{background:#0d1117}
+.lb-tab{padding:5px 13px;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer;border:none;background:none;color:var(--mt);font-family:var(--fb);transition:.15s}
+.lb-tab.on{background:#fff;color:var(--bl);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+body.dark .lb-tab.on{background:#21262d;color:#58a6ff}
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;transition:.15s;cursor:pointer;flex-wrap:wrap}
+.lb-row:hover{background:var(--bg)}
+body.dark .lb-row:hover{background:#1c2128}
+.lb-row-main{display:flex;align-items:center;gap:10px;width:100%}
+.lb-row.lb-me .lb-row-main{background:var(--bl-lt);border-radius:8px;padding:4px 8px}
+body.dark .lb-row.lb-me .lb-row-main{background:#0f2644}
+.lb-rank{font-family:var(--fh);font-size:14px;font-weight:800;min-width:28px;text-align:center}
+.lb-rank.gold{color:#f59e0b}.lb-rank.silver{color:#94a3b8}.lb-rank.bronze{color:#cd7c3a}
+.lb-av{width:32px;height:32px;border-radius:50%;background:var(--bl);color:#fff;font-family:var(--fh);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:13px;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:5px}
+.lb-sub{font-size:10px;color:var(--mt);margin-top:1px}
+.lb-score{text-align:right;flex-shrink:0}
+.lb-pct{font-family:var(--fh);font-size:15px;font-weight:800}
+.lb-pct.hi{color:var(--gn)}.lb-pct.md{color:var(--sf)}.lb-pct.lo{color:var(--c-no)}
+.lb-att-count{font-size:10px;color:var(--mt)}
+.lb-history{display:none;width:100%;padding:4px 0 4px 50px;flex-direction:column;gap:4px}
+.lb-history.on{display:flex}
+.lb-hist-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mt);padding:5px 8px;background:var(--bg);border-radius:7px}
+body.dark .lb-hist-row{background:#0d1117}
+.lb-hist-pct{font-weight:800;min-width:38px}
+.lb-hist-batch{background:var(--sf-lt);color:var(--sf);padding:1px 6px;border-radius:5px;font-weight:700;font-size:10px;white-space:nowrap}
+.lb-empty{text-align:center;padding:24px;color:var(--mt);font-size:13px}
+.lb-you-badge{background:var(--bl);color:#fff;font-size:9px;font-weight:800;padding:1px 6px;border-radius:10px;white-space:nowrap}
 .feedback-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:12px 14px;background:linear-gradient(135deg,var(--sf-lt),#fff);border-radius:12px;border:1.5px dashed #FFB800;transition:.2s}
 .feedback-cta:hover{background:var(--sf-lt)}
 .feedback-cta-text{font-size:13px;color:var(--tx);line-height:1.5;font-weight:500}
@@ -628,6 +747,20 @@ body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
 .ap-card{background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sh);width:100%;box-sizing:border-box;overflow:hidden}
 @media(max-width:600px){.ap-card{padding:14px;border-radius:12px}}
 .ap-card-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+/* Firebase usage card */
+.fb-usage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.fb-usage-item{background:var(--bg);border-radius:10px;padding:12px}
+body.dark .fb-usage-item{background:#0d1117}
+.fb-usage-label{font-size:10px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.fb-usage-bar-wrap{height:6px;background:var(--bd);border-radius:10px;overflow:hidden;margin-bottom:5px}
+.fb-usage-bar{height:100%;border-radius:10px;transition:width .5s ease}
+.fb-usage-bar.ok{background:var(--gn)}
+.fb-usage-bar.warn{background:var(--sf)}
+.fb-usage-bar.danger{background:var(--c-no)}
+.fb-usage-val{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx)}
+.fb-usage-limit{font-size:10px;color:var(--mt)}
+.fb-usage-note{font-size:11px;color:var(--mt);line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:8px;border-left:3px solid var(--bd)}
+body.dark .fb-usage-note{background:#0d1117}
 .ap-ct{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--nv)}
 .ap-cs{font-size:12px;color:var(--mt);margin-top:2px}
 .last-upd{display:none;background:var(--gn-lt);border:1px solid var(--gn);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--gn);align-items:center;gap:5px}
@@ -1234,7 +1367,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <span>·</span>
         <a onclick="openPopup('privacy')">Privacy Policy</a>
       </div>
-      <div class="auth-footer">NishuAbhyasi · © 2025</div>
+      <div class="auth-footer">NishuAbhyasi · © 2025 &nbsp;·&nbsp; <span class="auth-admin-link" onclick="goAdmin()" title="Admin Access">ADM</span></div>
     </div>
   </div>
 </div>
@@ -1246,19 +1379,25 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
     <div class="ld-hdr">
       <div class="ld-hdr-brand">Nishu<em>Abhyasi</em></div>
       <div class="ld-hdr-right">
-        <!-- Logged-in user chip — includes sign out, NO admin button -->
-        <div class="ld-user-chip" id="user-badge" style="display:none">
-          <div class="ld-av" id="ub-av">Y</div>
-          <div>
-            <div class="ld-uname" id="ub-name">Student</div>
-            <div class="ld-uemail" id="ub-email">email</div>
+        <!-- Logged-in: compact avatar pill with dropdown -->
+        <div class="ld-profile-wrap" id="user-badge" style="display:none">
+          <button class="ld-profile-pill" id="ld-profile-pill" onclick="togLdProfile(event)">
+            <div class="ld-av" id="ub-av">Y</div>
+            <span class="ld-uname" id="ub-name" style="max-width:90px;overflow:hidden;text-overflow:ellipsis">Student</span>
+            <span class="ld-profile-chevron">▾</span>
+          </button>
+          <div class="ld-profile-drop" id="ld-profile-drop">
+            <div class="ld-profile-info">
+              <div style="font-family:var(--fh);font-size:14px;font-weight:800;color:var(--tx)" id="ld-drop-name">Student</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:2px" id="ld-drop-email">email</div>
+            </div>
+            <div class="ld-profile-div"></div>
+            <button class="ld-profile-item" onclick="doSignOut();closeLdProfile()">🚪 Sign Out</button>
           </div>
-          <button class="ld-logout-btn" onclick="doSignOut()">Sign out</button>
         </div>
-        <!-- Guest chip — shows Sign in link + admin button -->
+        <!-- Guest chip — shows Sign in link only -->
         <div id="guest-badge" style="display:none;align-items:center;gap:8px">
           <div class="ld-guest-chip">Guest &nbsp;|&nbsp; <a onclick="showScreen('auth')">Sign in</a></div>
-          <button class="ld-admin-btn" onclick="goAdmin()">🔐 Admin</button>
         </div>
       </div>
     </div>
@@ -1310,16 +1449,63 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <!-- LEFT: main content -->
       <div class="ld-main">
 
-        <!-- Score Trend (only shows after ≥2 attempts) -->
+        <!-- Chart Carousel -->
+        <div class="guest-blur-wrap" id="graph-blur-wrap">
+          <div class="guest-lock-ov" id="graph-lock-ov" style="display:none">
+            <div class="guest-lock-icon">📈</div>
+            <div class="guest-lock-title">Score Trends Locked</div>
+            <div class="guest-lock-sub">Track your progress across every attempt</div>
+            <button class="guest-lock-btn" onclick="showScreen('auth')">Sign up — it's free</button>
+          </div>
+          <div class="guest-blur-inner" id="graph-blur-inner">
         <div class="ld-card" id="graph-section">
-          <div class="ld-card-title"><span>📈</span> Score Trend</div>
-          <div class="chart-area">
-            <canvas id="score-chart"></canvas>
+          <div class="chart-carousel-hd">
+            <div class="chart-dots" id="chart-dots">
+              <button class="ch-dot on" onclick="goChart(0)"></button>
+              <button class="ch-dot" onclick="goChart(1)"></button>
+              <button class="ch-dot" onclick="goChart(2)"></button>
+            </div>
+            <button class="chart-max-btn" id="chart-max-btn" onclick="openChartMax()" title="Maximise">⛶</button>
+          </div>
+          <div class="chart-carousel" id="chart-carousel">
+            <div class="chart-slide" id="chart-slide-0">
+              <div class="chart-slide-title">📈 Score Trend</div>
+              <div class="chart-area"><canvas id="score-chart-0"></canvas></div>
+            </div>
+            <div class="chart-slide" id="chart-slide-1" style="display:none">
+              <div class="chart-slide-title">✅ Correct vs Wrong</div>
+              <div class="chart-area"><canvas id="score-chart-1"></canvas></div>
+            </div>
+            <div class="chart-slide" id="chart-slide-2" style="display:none">
+              <div class="chart-slide-title">⏱ Time Spent</div>
+              <div class="chart-area"><canvas id="score-chart-2"></canvas></div>
+            </div>
+          </div>
+        </div>
+          </div><!-- /guest-blur-inner -->
+        </div><!-- /guest-blur-wrap -->
+
+        <!-- Chart Maximise Overlay -->
+        <div class="chart-max-ov" id="chart-max-ov" onclick="closeChartMaxBg(event)">
+          <div class="chart-max-card">
+            <div class="chart-max-top">
+              <div class="chart-max-sel-wrap">
+                <select class="chart-max-sel" id="chart-max-sel" onchange="switchMaxChart(this.value)">
+                  <option value="0">📈 Score Trend</option>
+                  <option value="1">✅ Correct vs Wrong</option>
+                  <option value="2">⏱ Time Spent</option>
+                </select>
+              </div>
+              <button class="chart-max-close" onclick="closeChartMax()">✕</button>
+            </div>
+            <div class="chart-max-body">
+              <canvas id="score-chart-max"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- Instructions -->
-        <div class="ld-card">
+        <div class="ld-card" id="instr-card">
           <div class="ld-card-title"><span>📋</span> Instructions</div>
           <div class="inst-box">
             <strong>📋 Read before starting:</strong><br/>
@@ -1340,7 +1526,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         </div>
 
         <!-- Your Details + Start Test Buttons (all in one card) -->
-        <div class="ld-card">
+        <div class="ld-card" id="start-card">
           <div class="ld-card-title"><span>✏️</span> Your Details</div>
           <div class="name-fields">
             <div class="nf-row" id="fg-name">
@@ -1408,28 +1594,67 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         </div>
 
         <!-- Recent attempts -->
+        <div class="guest-blur-wrap" id="hist-blur-wrap">
+          <div class="guest-lock-ov" id="hist-lock-ov" style="display:none">
+            <div class="guest-lock-icon">📊</div>
+            <div class="guest-lock-title">Attempt History Locked</div>
+            <div class="guest-lock-sub">Your scores, ranks and review mode — all saved automatically</div>
+          </div>
+          <div class="guest-blur-inner" id="hist-blur-inner">
         <div class="ld-card" id="hist-section" style="display:none">
           <div class="ld-card-title"><span>📊</span> Recent Attempts</div>
           <div class="attempt-list" id="hist-list">
             <div style="font-size:13px;color:var(--mt);padding:6px 0">No attempts yet. Take your first test!</div>
           </div>
         </div>
+          </div><!-- /guest-blur-inner -->
+        </div><!-- /guest-blur-wrap -->
 
-        <!-- Feedback / Query -->
-        <div class="feedback-box">
-          <div class="ld-card-title" style="margin-bottom:10px"><span>💬</span> Feedback & Support</div>
-          <div class="feedback-cta" onclick="openPopup('contact')">
-            <div class="feedback-cta-text">Found a bug or have a suggestion?<br/><strong>Click here to send feedback →</strong></div>
-            <div class="feedback-arrow">✉️</div>
+        <!-- ── Leaderboard ── -->
+        <div class="lb-card" id="lb-card">
+          <div class="lb-hd">
+            <div class="lb-title">🏆 Leaderboard</div>
+            <div class="lb-tabs">
+              <button class="lb-tab on" id="lb-tab-week" onclick="setLbTab('week')">This Week</button>
+              <button class="lb-tab" id="lb-tab-all" onclick="setLbTab('all')">All Time</button>
+            </div>
           </div>
+          <div id="lb-list"><div class="lb-empty">⏳ Loading…</div></div>
         </div>
+
+        <!-- ── Overall Progress Banner ── -->
+        <div class="guest-blur-wrap" id="progress-blur-wrap">
+          <div class="guest-lock-ov" id="progress-lock-ov" style="display:none">
+            <div class="guest-lock-icon">🎯</div>
+            <div class="guest-lock-title">Your Journey Awaits</div>
+            <div class="guest-lock-sub">See which batches you've completed and your best scores</div>
+          </div>
+          <div class="guest-blur-inner" id="progress-blur-inner">
+        <div class="ld-card" id="progress-banner" style="display:none">
+          <div class="ld-card-title"><span>🎯</span> Your Overall Journey</div>
+          <div id="progress-inner" style="padding-top:6px"></div>
+        </div>
+          </div><!-- /guest-blur-inner -->
+        </div><!-- /guest-blur-wrap -->
+
+
 
       </div>
     </div>
 
-    <footer class="ft" style="margin-top:20px">
+    <footer class="ft" style="margin-top:10px">
       <span class="ft-br">Nishu<em>Abhyasi</em></span>
       An app by <strong style="color:#fff">Yashwant</strong> &nbsp;|&nbsp; © 2025 &nbsp;|&nbsp; Bihar B.Ed CET Prep
+      <div class="ft-links-wrap">
+        <button class="ft-menu-btn" id="ft-menu-btn" onclick="togFtMenu(event)">
+          Quick Links &nbsp;▾
+        </button>
+        <div class="ft-dropdown" id="ft-dropdown">
+          <button class="ft-dd-item" onclick="openPopup('about');closeFtMenu()">🎓 About Us</button>
+          <button class="ft-dd-item" onclick="openPopup('contact');closeFtMenu()">✉️ Contact Us</button>
+          <button class="ft-dd-item" onclick="openPopup('privacy');closeFtMenu()">🔒 Privacy Policy</button>
+        </div>
+      </div>
     </footer>
   </div>
 </div>
@@ -1465,7 +1690,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
     </div>
     <div class="glass-field">
       <label class="glass-label">Your Name</label>
-      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Mira Singh"/>
+      <input class="glass-input" id="ct-name" type="text" placeholder="e.g. Priya Sharma"/>
     </div>
     <div class="glass-field">
       <label class="glass-label">Email Address</label>
@@ -1480,7 +1705,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <textarea class="glass-input" id="ct-msg" placeholder="Feedback, issue report, scope for improvement, or inquiry for a custom test portal…"></textarea>
     </div>
     <button class="glass-btn" id="ct-btn" onclick="sendContactForm()">📨 Send Message</button>
-    <div class="glass-notice">Your message will be sent directly to the developer at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb8892959c93829a88938c9a958fcecec2bb9c969a9297d5989496">[email&#160;protected]</a></strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
+    <div class="glass-notice">Your message will be sent directly to the developer at <strong>singhyashwant559&#64;gmail&#46;com</strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
   </div>
 </div>
 
@@ -1543,7 +1768,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       </div>
       <div class="al-err" id="al-err"></div>
       <button class="btn-al" id="al-btn" onclick="doAdminLogin()">🔓 Login to Admin Panel</button>
-      <div class="al-back" onclick="showScreen('landing')">← Back to Student Portal</div>
+      <div class="al-back" onclick="showScreen(_adminOrigin||'auth')">← Back</div>
     </div>
     <footer class="ft" style="max-width:420px">
       <span class="ft-br">Nishu<em>Abhyasi</em></span>
@@ -1557,7 +1782,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
   <div class="ap-hdr">
     <div class="ap-logo">Nishu<em>Abhyasi</em> <span>Admin</span></div>
     <div class="ap-hdr-rt">
-      <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="showScreen('landing')">← Portal</button>
+      <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="showScreen(_adminOrigin||'auth')">← Portal</button>
       <button class="btn b-danger" style="font-size:12px;padding:6px 12px" onclick="adminOut()">Logout</button>
     </div>
   </div>
@@ -1665,6 +1890,44 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       </div>
     </div>
 
+    <!-- Firebase Daily Usage -->
+    <div class="ap-card" id="fb-usage-card">
+      <div class="ap-card-hd">
+        <div>
+          <div class="ap-ct">🔥 Firebase Daily Usage</div>
+          <div class="ap-cs">Today 00:00 – 23:59 · Spark free tier limits</div>
+        </div>
+        <button class="btn b-out" style="font-size:12px;padding:5px 10px" onclick="refreshFbUsage()">↻ Refresh</button>
+      </div>
+      <div class="fb-usage-grid">
+        <div class="fb-usage-item">
+          <div class="fb-usage-label">Reads (est.)</div>
+          <div class="fb-usage-bar-wrap"><div class="fb-usage-bar ok" id="fb-bar-r" style="width:0%"></div></div>
+          <div class="fb-usage-val" id="fb-val-r">—</div>
+          <div class="fb-usage-limit">Limit: 50,000 / day</div>
+        </div>
+        <div class="fb-usage-item">
+          <div class="fb-usage-label">Writes (today)</div>
+          <div class="fb-usage-bar-wrap"><div class="fb-usage-bar ok" id="fb-bar-w" style="width:0%"></div></div>
+          <div class="fb-usage-val" id="fb-val-w">—</div>
+          <div class="fb-usage-limit">Limit: 20,000 / day</div>
+        </div>
+        <div class="fb-usage-item">
+          <div class="fb-usage-label">Active Users Today</div>
+          <div class="fb-usage-bar-wrap"><div class="fb-usage-bar ok" id="fb-bar-u" style="width:0%"></div></div>
+          <div class="fb-usage-val" id="fb-val-u">—</div>
+          <div class="fb-usage-limit">Unique submitters (00:00–now)</div>
+        </div>
+        <div class="fb-usage-item">
+          <div class="fb-usage-label">Tests Taken Today</div>
+          <div class="fb-usage-bar-wrap"><div class="fb-usage-bar ok" id="fb-bar-t" style="width:0%"></div></div>
+          <div class="fb-usage-val" id="fb-val-t">—</div>
+          <div class="fb-usage-limit">Score submissions today</div>
+        </div>
+      </div>
+      <div class="fb-usage-note" id="fb-usage-note">⏳ Click Refresh or open Admin to load today's data.</div>
+    </div>
+
     <!-- Settings -->
     <div class="ap-card">
       <div class="ap-card-hd">
@@ -1686,6 +1949,10 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <div class="set-row">
         <div><div class="set-lbl">Show Result After Submit</div><div class="set-dsc">Display score page</div></div>
         <button class="tog on" id="s-res" onclick="togSet('s-res')"></button>
+      </div>
+      <div class="set-row">
+        <div><div class="set-lbl">Show Leaderboard</div><div class="set-dsc">Display leaderboard to all students</div></div>
+        <button class="tog on" id="s-lb" onclick="togSet('s-lb')"></button>
       </div>
       <div class="set-row" style="border-bottom:none">
         <div><div class="set-lbl">Change Admin Password</div><div class="set-dsc">Stored as hash in Firebase</div></div>
@@ -1901,7 +2168,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
 <div class="toast" id="toast"></div>
 
 <!-- ═══════════════ MAIN SCRIPT ═══════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false">
 'use strict';
 
 /* ══ Firebase helpers ══ */
@@ -2006,12 +2273,16 @@ async function bootLoad(){
     if(s)Object.assign(settings,s);
     negM=settings.negM||0;
     const qd=await fbGet('config/questions');
-    if(qd&&Array.isArray(qd.data)&&qd.data.length)
+    if(qd&&Array.isArray(qd.data)&&qd.data.length){
       Q=settings.shuffle?shuffle([...qd.data]):qd.data;
+      if(qd.updatedAt)settings._q1updatedAt=qd.updatedAt; // store for batch card "last updated"
+    }
     try{
       const qd2=await fbGet('config/questions2');
-      if(qd2&&Array.isArray(qd2.data)&&qd2.data.length)
+      if(qd2&&Array.isArray(qd2.data)&&qd2.data.length){
         Q2=settings.shuffle?shuffle([...qd2.data]):qd2.data;
+        if(qd2.updatedAt)settings._q2updatedAt=qd2.updatedAt;
+      }
     }catch(e2){}
     try{
       _notices=await fbGet('config/notices');
@@ -2020,7 +2291,9 @@ async function bootLoad(){
   _bootLoaded=true;
 }
 
-window.addEventListener('dbready',async()=>{
+// ES modules are deferred — 'dbready' may have already fired before this
+// classic script registered the listener. Check the flag and fire immediately.
+async function _onDbReady(){
   if(!window._dbReady){
     await runSplash();hideSplash();
     document.getElementById('db-setup').classList.add('on');
@@ -2029,7 +2302,14 @@ window.addEventListener('dbready',async()=>{
   await Promise.all([runSplash(),bootLoad()]);
   hideSplash();
   finishBoot();
-});
+}
+if(window._dbReadyFired){
+  // Already fired — run now
+  _onDbReady();
+} else {
+  // Not yet fired — wait for it
+  window.addEventListener('dbready', _onDbReady, {once:true});
+}
 
 function finishBoot(){
   try{
@@ -2164,12 +2444,25 @@ async function showLanding(){
     const initials=(curUser.displayName||'S')[0].toUpperCase();
     document.getElementById('ub-av').textContent=initials;
     document.getElementById('ub-name').textContent=curUser.displayName||'Student';
-    document.getElementById('ub-email').textContent=curUser.email||'';
+    // Populate dropdown info fields
+    const dn=document.getElementById('ld-drop-name');
+    const de=document.getElementById('ld-drop-email');
+    if(dn)dn.textContent=curUser.displayName||'Student';
+    if(de)de.textContent=curUser.email||'';
     document.getElementById('banner-av').textContent=initials;
     document.getElementById('banner-name').textContent='Hi, '+(curUser.displayName||'Student')+'!';
     document.getElementById('banner-role').textContent=curUser.email||'Bihar B.Ed CET Aspirant';
     document.getElementById('hist-section').style.display='block';
     document.getElementById('guest-nudge-card').style.display='none';
+    // Remove any blur overlays from previous guest session
+    ['graph','progress','hist'].forEach(id=>{
+      const ov=document.getElementById(id+'-lock-ov');
+      const inner=document.getElementById(id+'-blur-inner');
+      const wrap=document.getElementById(id+'-blur-wrap');
+      if(ov)ov.style.display='none';
+      if(inner)inner.classList.remove('is-blurred');
+      if(wrap)wrap.classList.remove('is-locked');
+    });
     const star=document.getElementById('name-req-star');if(star)star.style.display='none';
     loadAttemptHistory();
     // Show registered notice if enabled
@@ -2185,10 +2478,20 @@ async function showLanding(){
     document.getElementById('banner-av').textContent='👤';
     document.getElementById('banner-name').textContent='Welcome, Guest!';
     document.getElementById('banner-role').textContent='Bihar B.Ed CET Aspirant';
-    document.getElementById('hist-section').style.display='none';
-    document.getElementById('guest-nudge-card').style.display='block';
+    document.getElementById('hist-section').style.display='block'; // show blurred version
+    document.getElementById('guest-nudge-card').style.display='none';  // replaced by blur overlays
+    const pb=document.getElementById('progress-banner');if(pb)pb.style.display='block';
     const star=document.getElementById('name-req-star');if(star)star.style.display='';
     renderHeatmap([]);
+    // Show blur-lock overlays on restricted cards
+    ['graph','progress','hist'].forEach(id=>{
+      const ov=document.getElementById(id+'-lock-ov');
+      const inner=document.getElementById(id+'-blur-inner');
+      const wrap=document.getElementById(id+'-blur-wrap');
+      if(ov)ov.style.display='flex';
+      if(inner)inner.classList.add('is-blurred');
+      if(wrap)wrap.classList.add('is-locked');
+    });
     // Show guest notice if enabled
     if(_notices&&_notices.guestEnabled&&_notices.guestText){
       const seen=localStorage.getItem('na_nb_guest_'+(_notices.guestTs||''));
@@ -2197,6 +2500,8 @@ async function showLanding(){
   }
 
   showScreen('landing');
+  // Load leaderboard for everyone (guests and users)
+  loadLeaderboard();
 }
 
 async function loadAttemptHistory(){
@@ -2207,10 +2512,12 @@ async function loadAttemptHistory(){
     const attempts=await fbGetUserAttempts(curUser.uid);
     userAttempts=attempts;
     updateStats(attempts);
+    renderProgressBanner(attempts);
     // Defer chart render so DOM has finished painting the card first
     requestAnimationFrame(()=>renderScoreChart(attempts));
     if(!attempts.length){
       list.innerHTML='<div style="font-size:13px;color:var(--mt);padding:6px 0">No attempts yet. Take your first test!</div>';
+      renderProgressBanner([]);
       return;
     }
     _renderAttemptList(attempts,list,5);
@@ -2368,240 +2675,222 @@ function renderHeatmap(attempts){
   }
 }
 
-function renderScoreChart(attempts, _retryCount){
+/* ══ CHART ENGINE ══
+   Key fix: always REPLACE the canvas DOM node before drawing.
+   This gives a guaranteed fresh 2D context — solving the theme-toggle
+   graph failure permanently. No more stale context, no retries needed.
+══════════════════════════════════════════════════════════════════ */
+
+let _currentChart = 0; // which slide is active (0/1/2)
+let _chartAttempts = null; // cached attempts for re-renders
+
+function _freshCanvas(canvasId){
+  // Replace the canvas node entirely → guaranteed fresh context
+  const old = document.getElementById(canvasId);
+  if(!old) return null;
+  const parent = old.parentNode;
+  const fresh = document.createElement('canvas');
+  fresh.id = canvasId;
+  parent.replaceChild(fresh, old);
+  return fresh;
+}
+
+function _destroyChart(canvasId){
+  const el = document.getElementById(canvasId);
+  if(!el) return;
+  try{
+    const inst = (typeof Chart!=='undefined' && Chart.getChart) ? Chart.getChart(el) : null;
+    if(inst) inst.destroy();
+  }catch(e){}
+}
+
+function renderScoreChart(attempts, _unused){
   const wrap = document.getElementById('graph-section');
-  const canvas = document.getElementById('score-chart');
-  if(!wrap||!canvas)return;
+  if(!wrap) return;
+  _chartAttempts = attempts;
 
   if(!attempts || attempts.length < 2){
-    wrap.style.display='block';
-    // Show locked placeholder
-    const area=wrap.querySelector('.chart-area');
+    wrap.style.display = 'block';
+    // Show placeholder on first slide only
+    const area = document.getElementById('chart-slide-0')?.querySelector('.chart-area');
     if(area){
-      area.style.display='none';
-      let ph=wrap.querySelector('.chart-placeholder');
-      if(!ph){
-        ph=document.createElement('div');
-        ph.className='chart-placeholder';
-        ph.innerHTML=`<div class="chart-ph-icon">📈</div>
+      area.style.display = 'none';
+      if(!wrap.querySelector('.chart-placeholder')){
+        const ph = document.createElement('div');
+        ph.className = 'chart-placeholder';
+        ph.innerHTML = `<div class="chart-ph-icon">📈</div>
           <div class="chart-ph-title">Score Trend</div>
           <div class="chart-ph-sub">Complete <strong>${2-(attempts?attempts.length:0)} more test${(2-(attempts?attempts.length:0))>1?'s':''}</strong> to unlock your progress chart</div>`;
-        area.parentNode.insertBefore(ph,area);
+        area.parentNode.insertBefore(ph, area);
       }
     }
     return;
   }
 
-  // Make sure card is visible before measuring canvas
   wrap.style.display = 'block';
-  // Show chart canvas, hide placeholder
-  const area=wrap.querySelector('.chart-area');
-  if(area)area.style.display='';
-  const ph=wrap.querySelector('.chart-placeholder');
-  if(ph)ph.remove();
+  // Remove placeholder if present
+  const ph = wrap.querySelector('.chart-placeholder');
+  if(ph) ph.remove();
+  const area0 = document.getElementById('chart-slide-0')?.querySelector('.chart-area');
+  if(area0) area0.style.display = '';
 
-  // Guard: if canvas has no dimensions yet (still transitioning from display:none),
-  // defer one frame and retry up to 5 times
-  if((canvas.offsetWidth===0||canvas.offsetHeight===0) && (_retryCount||0)<5){
-    requestAnimationFrame(()=>renderScoreChart(attempts,(_retryCount||0)+1));
-    return;
-  }
+  // Render whichever slide is currently visible
+  _renderChartSlide(_currentChart, attempts);
+}
 
-  // Safely destroy any previous Chart.js instance
-  // Try both our custom ref and Chart.getChart() to handle edge cases
-  try{
-    const existing = (typeof Chart!=='undefined' && Chart.getChart) ? Chart.getChart(canvas) : null;
-    if(existing) existing.destroy();
-  }catch(e){}
-  if(canvas._chartInstance){
-    try{canvas._chartInstance.destroy();}catch(e){}
-    canvas._chartInstance=null;
-  }
+function _renderChartSlide(idx, attempts){
+  if(!attempts || attempts.length < 2) return;
+  const canvasId = 'score-chart-' + idx;
+  const slide = document.getElementById('chart-slide-' + idx);
+  if(!slide || slide.style.display === 'none') return;
 
-  // Oldest → newest
-  const pts = [...attempts].reverse();
-  const vals = pts.map(a => a.pct || 0);
+  // Replace canvas for fresh context (the permanent fix for theme-toggle bug)
+  _destroyChart(canvasId);
+  const canvas = _freshCanvas(canvasId);
+  if(!canvas) return;
 
-  // Labels: "score% (DD/MM)" — compact, informative
-  const labels = pts.map(a => {
-    const pct = a.pct != null ? a.pct : (a.score != null ? a.score : '?');
-    let datePart = '';
-    if(a.timestamp){
-      const d = new Date(a.timestamp);
-      const dd = String(d.getDate()).padStart(2,'0');
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      datePart = dd+'/'+mm;
+  // Wait one frame so browser registers the new element dimensions
+  requestAnimationFrame(()=>{
+    if(canvas.offsetWidth === 0){
+      requestAnimationFrame(()=>_buildChart(canvas, idx, attempts));
+    } else {
+      _buildChart(canvas, idx, attempts);
     }
-    return pct + '%' + (datePart ? '\n' + datePart : '');
   });
+}
 
-  // Dynamic Y range — zoom in so even 1% diff is visible
-  const dataMin = Math.min(...vals);
-  const dataMax = Math.max(...vals);
-  const span    = Math.max(dataMax - dataMin, 8);
-  const pad     = span * 0.55;
-  const yMin    = Math.max(0,   Math.floor(dataMin - pad));
-  const yMax    = Math.min(100, Math.ceil (dataMax + pad));
-
-  // App colours
-  const SF  = '#FF6B00';   // orange (--sf)
-  const BL  = '#0057A8';   // blue   (--bl)
-  const GN  = '#138808';   // green  (--gn)
-  const RED = '#EF4444';
+function _buildChart(canvas, idx, attempts){
   const isDark = document.body.classList.contains('dark');
-  const gridCol  = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
-  const tickCol  = isDark ? '#64748b' : '#94A3B8';
-  const cardBg   = isDark ? '#1e293b' : '#ffffff';
-
-  // Bar colours: green if ≥50%, red otherwise
-  const barColors = vals.map(v =>
-    v >= 50
-      ? (isDark ? 'rgba(19,136,8,0.75)' : 'rgba(19,136,8,0.65)')
-      : (isDark ? 'rgba(239,68,68,0.75)' : 'rgba(239,68,68,0.60)')
-  );
-  const barBorders = vals.map(v => v >= 50 ? GN : RED);
-
-  // (Chart instance destruction handled above)
-
+  const pts = [...attempts].reverse(); // oldest → newest
   const ctx = canvas.getContext('2d');
+  const gridCol = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+  const tickCol = isDark ? '#64748b' : '#94A3B8';
+  const SF='#FF6B00', GN='#138808', RED='#EF4444', BL='#0057A8';
 
-  // Gradient fill under the trend line
-  const grad = ctx.createLinearGradient(0, 0, 0, 200);
-  grad.addColorStop(0,   'rgba(255,107,0,0.18)');
-  grad.addColorStop(1,   'rgba(255,107,0,0.00)');
+  if(idx === 0){
+    // ── Chart 0: Score Trend (bar + line) ──
+    const vals = pts.map(a => a.pct || 0);
+    const labels = pts.map((a,i) => {
+      const pct = a.pct != null ? a.pct : '?';
+      let dp = '';
+      if(a.timestamp){ const d=new Date(a.timestamp); dp=String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
+      return pct+'%'+(dp?'\n'+dp:'');
+    });
+    const dataMin=Math.min(...vals), dataMax=Math.max(...vals);
+    const span=Math.max(dataMax-dataMin,8), pad=span*0.55;
+    const yMin=Math.max(0,Math.floor(dataMin-pad)), yMax=Math.min(100,Math.ceil(dataMax+pad));
+    const barColors=vals.map(v=>v>=50?(isDark?'rgba(19,136,8,0.75)':'rgba(19,136,8,0.65)'):(isDark?'rgba(239,68,68,0.75)':'rgba(239,68,68,0.60)'));
+    const grad=ctx.createLinearGradient(0,0,0,200);
+    grad.addColorStop(0,'rgba(255,107,0,0.18)'); grad.addColorStop(1,'rgba(255,107,0,0)');
+    canvas._chartInstance = new Chart(ctx, {
+      data:{ labels, datasets:[
+        {type:'bar',label:'Score',data:vals,backgroundColor:barColors,borderColor:vals.map(v=>v>=50?GN:RED),borderWidth:1.5,borderRadius:6,borderSkipped:'bottom',order:2,yAxisID:'y'},
+        {type:'line',label:'Trend',data:vals,borderColor:SF,borderWidth:2.5,pointBackgroundColor:vals.map(v=>v>=50?GN:RED),pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5,pointHoverRadius:7,tension:0.42,fill:true,backgroundColor:grad,order:1,yAxisID:'y'}
+      ]},
+      options:{ responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        animation:{duration:600,easing:'easeOutQuart'},
+        plugins:{ legend:{display:false},
+          tooltip:{ backgroundColor:isDark?'#1e293b':'#0a1628',titleColor:'#e2e8f0',bodyColor:'#94a3b8',
+            borderColor:isDark?'#334155':BL,borderWidth:1,padding:12,cornerRadius:10,
+            titleFont:{family:"'Baloo 2',cursive",size:13,weight:'700'},
+            bodyFont:{family:"'DM Sans',sans-serif",size:12},
+            callbacks:{
+              title(items){const i=items[0].dataIndex;const a=pts[i];const d=a.timestamp?new Date(a.timestamp).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'';return 'Attempt '+(i+1)+(d?'  ·  '+d:'');},
+              label(item){const a=pts[item.dataIndex];return[' Score: '+a.score+' / '+a.total+' ('+a.pct+'%)',(a.pct>=50?'✅ Pass':'❌ Below cutoff'),' ✔ '+(a.correct||0)+'  ✘ '+(a.wrong||0)+'  ⬜ '+(a.skipped||0)];}
+            }}},
+        scales:{ x:{grid:{color:gridCol,drawBorder:false},ticks:{color:tickCol,font:{size:10,weight:'600'},maxRotation:0},border:{display:false}},
+          y:{min:yMin,max:yMax,grid:{color:gridCol,drawBorder:false},ticks:{color:tickCol,font:{size:10},callback:v=>v+'%',maxTicksLimit:5},border:{display:false}}}},
+      plugins:[{id:'cutoff',afterDraw(chart){
+        const {ctx,scales:{y,x}}=chart;
+        if(y.min>50||y.max<50)return;
+        const yPos=y.getPixelForValue(50);
+        ctx.save();ctx.beginPath();ctx.setLineDash([5,5]);
+        ctx.strokeStyle=isDark?'rgba(148,163,184,0.55)':'rgba(100,116,139,0.5)';ctx.lineWidth=1.5;
+        ctx.moveTo(x.left,yPos);ctx.lineTo(x.right,yPos);ctx.stroke();ctx.setLineDash([]);
+        ctx.font="600 9px 'DM Sans',sans-serif";ctx.fillStyle=isDark?'#64748b':'#94a3b8';
+        ctx.fillText('50% cutoff',x.right-58,yPos-4);ctx.restore();
+      }}]
+    });
 
-  canvas._chartInstance = new Chart(ctx, {
-    data: {
-      labels,
-      datasets: [
-        {
-          // ── Bars ──
-          type: 'bar',
-          label: 'Score',
-          data: vals,
-          backgroundColor: barColors,
-          borderColor: barBorders,
-          borderWidth: 1.5,
-          borderRadius: 6,
-          borderSkipped: 'bottom',
-          order: 2,
-          yAxisID: 'y'
-        },
-        {
-          // ── Trend line ──
-          type: 'line',
-          label: 'Trend',
-          data: vals,
-          borderColor: SF,
-          borderWidth: 2.5,
-          pointBackgroundColor: vals.map(v => v >= 50 ? GN : RED),
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          tension: 0.42,
-          fill: true,
-          backgroundColor: grad,
-          order: 1,
-          yAxisID: 'y'
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      animation: {
-        duration: 700,
-        easing: 'easeOutQuart'
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: isDark ? '#1e293b' : '#0a1628',
-          titleColor: '#e2e8f0',
-          bodyColor: '#94a3b8',
-          borderColor: isDark ? '#334155' : '#0057A8',
-          borderWidth: 1,
-          padding: 12,
-          cornerRadius: 10,
-          titleFont: { family: "'Baloo 2', cursive", size: 13, weight: '700' },
-          bodyFont:  { family: "'DM Sans', sans-serif", size: 12 },
-          callbacks: {
-            title(items){
-              const i = items[0].dataIndex;
-              const a = pts[i];
-              const d = a.timestamp ? new Date(a.timestamp).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '';
-              return 'Attempt ' + (i+1) + (d ? '  ·  ' + d : '');
-            },
-            label(item){
-              const a = pts[item.dataIndex];
-              const pct  = a.pct  || 0;
-              const net  = a.score != null ? a.score : '—';
-              const tot  = a.total || '—';
-              const pass = pct >= 50 ? '✅ Pass' : '❌ Below cutoff';
-              return [
-                ' Score: ' + net + ' / ' + tot + '  (' + pct + '%)',
-                ' ' + pass,
-                ' ✔ ' + (a.correct||0) + '   ✘ ' + (a.wrong||0) + '   ⬜ ' + (a.skipped||0)
-              ];
-            },
-            labelColor(){ return null; }
-          }
-        },
-        // 50% cutoff annotation drawn as a plugin-free baseline
-        annotation: undefined
-      },
-      scales: {
-        x: {
-          grid: { color: gridCol, drawBorder: false },
-          ticks: {
-            color: tickCol,
-            font: { family: "'DM Sans', sans-serif", size: 10, weight: '600' },
-            maxRotation: 0
-          },
-          border: { display: false }
-        },
-        y: {
-          min: yMin,
-          max: yMax,
-          grid: { color: gridCol, drawBorder: false },
-          ticks: {
-            color: tickCol,
-            font: { family: "'DM Sans', sans-serif", size: 10 },
-            callback: v => v + '%',
-            maxTicksLimit: 5,
-            stepSize: Math.ceil((yMax - yMin) / 4)
-          },
-          border: { display: false }
-        }
-      }
-    },
-    plugins: [{
-      // Draw 50% cutoff line manually (no annotation plugin needed)
-      id: 'cutoffLine',
-      afterDraw(chart){
-        const {ctx, scales:{y, x}} = chart;
-        if(y.min > 50 || y.max < 50) return; // don't draw if out of range
-        const yPos = y.getPixelForValue(50);
-        const xStart = x.left;
-        const xEnd   = x.right;
-        ctx.save();
-        ctx.beginPath();
-        ctx.setLineDash([5, 5]);
-        ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.55)' : 'rgba(100,116,139,0.5)';
-        ctx.lineWidth = 1.5;
-        ctx.moveTo(xStart, yPos);
-        ctx.lineTo(xEnd,   yPos);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.font = "600 9px 'DM Sans', sans-serif";
-        ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
-        ctx.fillText('50% cutoff', xEnd - 58, yPos - 4);
-        ctx.restore();
-      }
-    }]
-  });
+  } else if(idx === 1){
+    // ── Chart 1: Correct vs Wrong per attempt ──
+    const labels = pts.map((_,i)=>'#'+(i+1));
+    canvas._chartInstance = new Chart(ctx, {
+      type:'bar',
+      data:{ labels, datasets:[
+        {label:'Correct',data:pts.map(a=>a.correct||0),backgroundColor:isDark?'rgba(19,136,8,0.75)':'rgba(19,136,8,0.65)',borderColor:GN,borderWidth:1.5,borderRadius:4,stack:'s'},
+        {label:'Wrong',data:pts.map(a=>a.wrong||0),backgroundColor:isDark?'rgba(239,68,68,0.7)':'rgba(239,68,68,0.6)',borderColor:RED,borderWidth:1.5,borderRadius:4,stack:'s'},
+        {label:'Skipped',data:pts.map(a=>a.skipped||0),backgroundColor:isDark?'rgba(148,163,184,0.4)':'rgba(148,163,184,0.35)',borderColor:'#94a3b8',borderWidth:1.5,borderRadius:4,stack:'s'}
+      ]},
+      options:{ responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        animation:{duration:600},
+        plugins:{ legend:{display:true,position:'bottom',labels:{color:tickCol,font:{size:11},boxWidth:12,padding:12}},
+          tooltip:{backgroundColor:isDark?'#1e293b':'#0a1628',titleColor:'#e2e8f0',bodyColor:'#94a3b8',borderColor:isDark?'#334155':BL,borderWidth:1,padding:10,cornerRadius:8,
+            callbacks:{title(items){return 'Attempt '+items[0].label.replace('#','');},
+              label(item){return ' '+item.dataset.label+': '+item.raw;}}}},
+        scales:{ x:{stacked:true,grid:{display:false},ticks:{color:tickCol,font:{size:10}},border:{display:false}},
+          y:{stacked:true,grid:{color:gridCol,drawBorder:false},ticks:{color:tickCol,font:{size:10},maxTicksLimit:5},border:{display:false}}}}
+    });
+
+  } else if(idx === 2){
+    // ── Chart 2: Time spent per attempt (minutes) ──
+    const timeVals = pts.map(a=>a.timeTaken?+(a.timeTaken/60).toFixed(1):0);
+    const labels = pts.map((_,i)=>'#'+(i+1));
+    const grad2=ctx.createLinearGradient(0,0,0,200);
+    grad2.addColorStop(0,isDark?'rgba(0,87,168,0.5)':'rgba(0,87,168,0.25)');
+    grad2.addColorStop(1,'rgba(0,87,168,0)');
+    canvas._chartInstance = new Chart(ctx, {
+      type:'line',
+      data:{ labels, datasets:[{
+        label:'Minutes',data:timeVals,borderColor:BL,borderWidth:2.5,
+        pointBackgroundColor:BL,pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5,pointHoverRadius:7,
+        tension:0.38,fill:true,backgroundColor:grad2
+      }]},
+      options:{ responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        animation:{duration:600},
+        plugins:{ legend:{display:false},
+          tooltip:{backgroundColor:isDark?'#1e293b':'#0a1628',titleColor:'#e2e8f0',bodyColor:'#94a3b8',borderColor:isDark?'#334155':BL,borderWidth:1,padding:10,cornerRadius:8,
+            callbacks:{title(items){return 'Attempt '+items[0].label.replace('#','');},
+              label(item){const secs=pts[item.dataIndex].timeTaken||0;const m=Math.floor(secs/60),s=secs%60;return ' Time: '+m+'m '+String(s).padStart(2,'0')+'s';}}}},
+        scales:{ x:{grid:{display:false},ticks:{color:tickCol,font:{size:10}},border:{display:false}},
+          y:{grid:{color:gridCol,drawBorder:false},ticks:{color:tickCol,font:{size:10},callback:v=>v+'m'},border:{display:false}}}}
+    });
+  }
+}
+
+/* Carousel navigation */
+function goChart(idx){
+  if(!_chartAttempts || _chartAttempts.length < 2) return;
+  // Hide current, show target
+  document.querySelectorAll('.chart-slide').forEach((s,i)=>{s.style.display = i===idx?'':'none';});
+  document.querySelectorAll('.ch-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
+  _currentChart = idx;
+  _renderChartSlide(idx, _chartAttempts);
+}
+
+/* Maximize overlay */
+let _maxChartIdx = 0;
+function openChartMax(){
+  if(!_chartAttempts || _chartAttempts.length < 2){toast('Need at least 2 attempts to view charts.');return;}
+  _maxChartIdx = _currentChart;
+  document.getElementById('chart-max-sel').value = _maxChartIdx;
+  document.getElementById('chart-max-ov').classList.add('on');
+  _renderMaxChart(_maxChartIdx);
+}
+function closeChartMax(){
+  document.getElementById('chart-max-ov').classList.remove('on');
+  _destroyChart('score-chart-max');
+}
+function closeChartMaxBg(e){if(e.target===document.getElementById('chart-max-ov'))closeChartMax();}
+function switchMaxChart(val){
+  _maxChartIdx = +val;
+  _renderMaxChart(_maxChartIdx);
+}
+function _renderMaxChart(idx){
+  _destroyChart('score-chart-max');
+  const canvas = _freshCanvas('score-chart-max');
+  if(!canvas || !_chartAttempts) return;
+  requestAnimationFrame(()=>_buildChart(canvas, idx, _chartAttempts));
 }
 
 function updateLandingInfo(){
@@ -2626,6 +2915,32 @@ function openFeedback(){
 function openPopup(name){document.getElementById('pop-'+name).classList.add('on');}
 function closePopup(id){document.getElementById(id).classList.remove('on');}
 function closePopupBg(e,id){if(e.target===document.getElementById(id))closePopup(id);}
+function togFtMenu(e){
+  e.stopPropagation();
+  const dd=document.getElementById('ft-dropdown');
+  const isOpen=dd.classList.contains('on');
+  dd.classList.toggle('on',!isOpen);
+  if(!isOpen)setTimeout(()=>document.addEventListener('click',closeFtMenu,{once:true}),10);
+}
+function closeFtMenu(){
+  const dd=document.getElementById('ft-dropdown');
+  if(dd)dd.classList.remove('on');
+}
+function togLdProfile(e){
+  e.stopPropagation();
+  const drop=document.getElementById('ld-profile-drop');
+  const pill=document.getElementById('ld-profile-pill');
+  const isOpen=drop.classList.contains('on');
+  drop.classList.toggle('on',!isOpen);
+  pill.classList.toggle('open',!isOpen);
+  if(!isOpen)setTimeout(()=>document.addEventListener('click',closeLdProfile,{once:true}),10);
+}
+function closeLdProfile(){
+  const drop=document.getElementById('ld-profile-drop');
+  const pill=document.getElementById('ld-profile-pill');
+  if(drop)drop.classList.remove('on');
+  if(pill)pill.classList.remove('open');
+}
 async function sendContactForm(){
   const name=document.getElementById('ct-name').value.trim();
   const email=document.getElementById('ct-email').value.trim();
@@ -2655,7 +2970,7 @@ async function sendContactForm(){
     <div class="glass-divider"></div>
     <div class="glass-body" style="text-align:center">
       <p>Just hit <strong>Send</strong> in your email app to deliver your message to the developer. 🙏</p>
-      <p style="color:rgba(255,255,255,.45);font-size:12px">If your mail app didn't open, you can email directly at<br><strong style="color:#7dd3fc">singhyashwant559@gmail.com</strong></p>
+      <p style="color:rgba(255,255,255,.45);font-size:12px">If your mail app didn't open, you can email directly at<br><strong style="color:#7dd3fc">singhyashwant559&#64;gmail&#46;com</strong></p>
     </div>
     <button class="glass-btn" style="margin-top:18px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25)" onclick="closePopup('pop-contact');resetContactForm()">✅ Done, Close</button>
   `;
@@ -2690,7 +3005,7 @@ function resetContactForm(){
       <textarea class="glass-input" id="ct-msg" placeholder="Feedback, issue report, scope for improvement, or inquiry for a custom test portal…"></textarea>
     </div>
     <button class="glass-btn" id="ct-btn" onclick="sendContactForm()">📨 Send Message</button>
-    <div class="glass-notice">Your message will be sent directly to the developer at <strong>singhyashwant559@gmail.com</strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
+    <div class="glass-notice">Your message will be sent directly to the developer at <strong>singhyashwant559&#64;gmail&#46;com</strong>. I personally read every message and try to respond within 24–48 hours. 🙏</div>
   `;
 }
 
@@ -2763,7 +3078,7 @@ function refreshBatchCards(){
     bc1.className='batch-card bc-available';
     badge1.className='bc-badge locked';badge1.textContent='Available';
     badge1.style.background='var(--gn-lt)';badge1.style.color='var(--gn)';
-    meta1.innerHTML=`<span>${Q.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q.length*(settings.mpq||1))} mins</span>`;
+    meta1.innerHTML=`<span>${Q.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q.length*(settings.mpq||1))} mins</span>${settings._q1updatedAt?`<span class="sep">·</span><span style="color:var(--mt);font-size:10px">🗓 Updated ${fmtDateShort(settings._q1updatedAt)}</span>`:''}`;
     btn1.disabled=false;btn1.textContent='▶ Start Batch 1';
     btn1.className='bc-btn start';
   }
@@ -2798,7 +3113,7 @@ function refreshBatchCards(){
     bc2.className='batch-card bc-available';
     badge2.className='bc-badge locked';badge2.textContent='Available';
     badge2.style.background='var(--bl-lt)';badge2.style.color='var(--bl)';
-    meta2.innerHTML=`<span>${Q2.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q2.length*(settings.mpq||1))} mins</span>`;
+    meta2.innerHTML=`<span>${Q2.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q2.length*(settings.mpq||1))} mins</span>${settings._q2updatedAt?`<span class="sep">·</span><span style="color:var(--mt);font-size:10px">🗓 Updated ${fmtDateShort(settings._q2updatedAt)}</span>`:''}`;
     btn2.disabled=false;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
   }
 }
@@ -3258,7 +3573,11 @@ function reviewFromHistory(idx){
 }
 
 /* ══ ADMIN ══ */
+let _adminOrigin = 'auth'; // track where admin was opened from
 async function goAdmin(){
+  // Remember which screen we came from so Back works correctly
+  const activeScreen = document.querySelector('.screen.active');
+  _adminOrigin = activeScreen ? activeScreen.id : 'auth';
   showScreen('admin-login');
   const pwDoc=await fbGet('config/admin');
   if(!pwDoc||!pwDoc.hash){
@@ -3326,7 +3645,9 @@ async function loadAdminData(){
   document.getElementById('s-mpq').value=settings.mpq||1;
   if(settings.shuffle)document.getElementById('s-shuf').classList.add('on');else document.getElementById('s-shuf').classList.remove('on');
   if(settings.showResult!==false)document.getElementById('s-res').classList.add('on');else document.getElementById('s-res').classList.remove('on');
+  if(settings.showLeaderboard!==false)document.getElementById('s-lb').classList.add('on');else document.getElementById('s-lb').classList.remove('on');
   await loadNoticesAdmin();
+  refreshFbUsage();
 }
 
 async function refreshScores(){
@@ -3625,6 +3946,7 @@ async function saveSettings(){
   settings.mpq=parseFloat(document.getElementById('s-mpq').value)||1;
   settings.shuffle=document.getElementById('s-shuf').classList.contains('on');
   settings.showResult=document.getElementById('s-res').classList.contains('on');
+  settings.showLeaderboard=document.getElementById('s-lb').classList.contains('on');
   await fbSet('config/settings',settings);
   negM=settings.negM;updateLandingInfo();
   toast('✅ Settings saved!');
@@ -3695,6 +4017,264 @@ function closeNoticeBoard(){
   document.getElementById('nb-popup').classList.remove('on');
 }
 
+/* ══ LEADERBOARD ══ */
+let _lbData=null; // cached globally
+let _lbTab='week';
+
+async function loadLeaderboard(){
+  const card=document.getElementById('lb-card');
+  const list=document.getElementById('lb-list');
+  if(!list)return;
+  // Respect admin toggle — default ON if setting not yet saved
+  if(settings.showLeaderboard===false){
+    if(card)card.style.display='none';
+    return;
+  }
+  if(card)card.style.display='';
+  list.innerHTML='<div class="lb-empty">⏳ Loading leaderboard…</div>';
+  try{
+    // Read global scores collection — already available via fbGetAll
+    const {collection,getDocs,query,orderBy,limit}=fs();
+    const snap=await getDocs(query(collection(db(),'scores'),orderBy('ts','desc'),limit(200)));
+    _lbData=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderLeaderboard();
+  }catch(e){
+    list.innerHTML='<div class="lb-empty">⚠️ Could not load leaderboard.</div>';
+  }
+}
+
+function setLbTab(tab){
+  _lbTab=tab;
+  document.getElementById('lb-tab-week').classList.toggle('on',tab==='week');
+  document.getElementById('lb-tab-all').classList.toggle('on',tab==='all');
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  const list=document.getElementById('lb-list');
+  if(!list||!_lbData)return;
+
+  let rows=[..._lbData];
+
+  // Filter by week if needed
+  if(_lbTab==='week'){
+    const weekAgo=Date.now()-7*24*60*60*1000;
+    rows=rows.filter(r=>(r.ts||0)>=weekAgo);
+  }
+
+  if(!rows.length){
+    list.innerHTML=`<div class="lb-empty">${_lbTab==='week'?'No attempts this week yet. Be the first! 🚀':'No records yet.'}</div>`;
+    return;
+  }
+
+  // Group by identity key (email if logged-in, else name)
+  const byKey={};
+  rows.forEach(r=>{
+    const key=(r.email&&r.email!=='—'&&r.email)?r.email:(r.name||'Guest');
+    if(!byKey[key]){byKey[key]={name:r.name||key,email:r.email||'',attempts:[]};}
+    byKey[key].attempts.push(r);
+  });
+
+  // Best score per person only
+  let entries=Object.values(byKey).map(u=>{
+    const best=u.attempts.reduce((b,a)=>(a.pct||0)>(b.pct||0)?a:b,u.attempts[0]);
+    return {name:u.name,email:u.email,totalTests:u.attempts.length,
+      bestPct:best.pct||0,bestScore:best.score,bestTotal:best.total,bestBatch:best.batch};
+  });
+
+  // Sort by best pct desc, tiebreak by most tests
+  entries.sort((a,b)=>b.bestPct-a.bestPct||b.totalTests-a.totalTests);
+  entries=entries.slice(0,15);
+
+  const medals=['🥇','🥈','🥉'];
+  const rankClasses=['gold','silver','bronze'];
+  const myEmail=curUser?.email||'';
+
+  list.innerHTML=entries.map((u,i)=>{
+    const rankDisp=medals[i]||`#${i+1}`;
+    const rankCls=rankClasses[i]||'';
+    const isMe=myEmail&&u.email===myEmail;
+    const initials=(u.name||'?').split(' ').map(w=>w[0]||'').slice(0,2).join('').toUpperCase()||'?';
+    const pctCls=u.bestPct>=60?'hi':u.bestPct>=40?'md':'lo';
+    const avColor=isMe?'var(--sf)':'var(--bl)';
+
+    return `<div class="lb-row${isMe?' lb-me':''}">
+      <div class="lb-row-main">
+        <span class="lb-rank ${rankCls}">${rankDisp}</span>
+        <div class="lb-av" style="background:${avColor}">${initials}</div>
+        <div class="lb-info">
+          <div class="lb-name">${esc(u.name)}${isMe?'<span class="lb-you-badge">YOU</span>':''}</div>
+          <div class="lb-sub">${u.totalTests} test${u.totalTests!==1?'s':''} taken${u.bestBatch?' · Best: B'+u.bestBatch:''}</div>
+        </div>
+        <div class="lb-score">
+          <div class="lb-pct ${pctCls}">${u.bestPct}%</div>
+          <div class="lb-att-count">${u.bestScore}/${u.bestTotal}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ══ BATCH PROGRESS BANNER ══ */
+function renderProgressBanner(attempts){
+  const banner=document.getElementById('progress-banner');
+  const inner=document.getElementById('progress-inner');
+  if(!banner||!inner)return;
+
+  const totalBatches=(Q.length>0?1:0)+(Q2.length>0?1:0);
+  if(totalBatches===0){banner.style.display='none';return;}
+  // Always show for logged-in users so they can see which batches are done
+  banner.style.display='';
+
+  const b1attempts=attempts.filter(a=>(!a.batch||a.batch===1));
+  const b2attempts=attempts.filter(a=>a.batch===2);
+  const b1done=b1attempts.length>0;
+  const b2done=b2attempts.length>0;
+  const doneBatches=(b1done?1:0)+(b2done?1:0);
+
+  const allPcts=attempts.map(a=>a.pct||0);
+  const avgPct=allPcts.length?Math.round(allPcts.reduce((s,v)=>s+v,0)/allPcts.length):0;
+  const bestPct=allPcts.length?Math.max(...allPcts):0;
+  // If no attempts yet, show the batch status rows but skip the stats
+  if(doneBatches===0){
+    inner.innerHTML=`
+      <div style="font-size:11px;color:var(--mt);margin-bottom:8px;font-weight:600">BATCH STATUS</div>
+      ${batchChips}
+      <div style="font-size:12px;color:var(--mt);text-align:center;padding:8px 0">Take your first test to unlock progress stats! 🚀</div>`;
+    return;
+  }
+  const b1best=b1attempts.length?Math.max(...b1attempts.map(a=>a.pct||0)):null;
+  const b2best=b2attempts.length?Math.max(...b2attempts.map(a=>a.pct||0)):null;
+
+  const progressPct=Math.round(doneBatches/totalBatches*100);
+  const barColor=avgPct>=60?'var(--gn)':avgPct>=40?'var(--sf)':'var(--c-no)';
+
+  let batchChips='';
+  if(Q.length>0){
+    const b1col=b1best!==null?(b1best>=60?'var(--gn)':b1best>=40?'var(--sf)':'var(--c-no)'):'var(--mt)';
+    const b1txt=b1best!==null?b1best+'% best':'—';
+    batchChips+=`<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:6px;padding:7px 10px;background:var(--bg);border-radius:8px">
+      <span style="font-weight:600">${b1done?'✅':'⬜'} Batch 1</span>
+      <span style="font-weight:700;color:${b1col};font-size:11px">${b1done?b1txt:'Not attempted yet'}</span>
+    </div>`;
+  }
+  if(Q2.length>0){
+    const b2col=b2best!==null?(b2best>=60?'var(--gn)':b2best>=40?'var(--sf)':'var(--c-no)'):'var(--mt)';
+    const b2txt=b2best!==null?b2best+'% best':'—';
+    batchChips+=`<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:10px;padding:7px 10px;background:var(--bg);border-radius:8px">
+      <span style="font-weight:600">${b2done?'✅':'⬜'} Batch 2</span>
+      <span style="font-weight:700;color:${b2col};font-size:11px">${b2done?b2txt:'Not attempted yet'}</span>
+    </div>`;
+  }
+
+  inner.innerHTML=`
+    ${batchChips}
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mt);margin-bottom:4px">
+      <span>Overall Progress</span><span>${doneBatches}/${totalBatches} batches</span>
+    </div>
+    <div style="height:6px;background:var(--bd);border-radius:10px;overflow:hidden;margin-bottom:12px">
+      <div style="height:100%;width:${progressPct}%;background:${barColor};border-radius:10px;transition:width .6s ease"></div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;text-align:center;background:var(--bg);border-radius:10px;padding:8px 4px">
+        <div style="font-family:var(--fh);font-size:18px;font-weight:800;color:${barColor}">${avgPct}%</div>
+        <div style="font-size:10px;color:var(--mt);margin-top:2px">Avg Score</div>
+      </div>
+      <div style="flex:1;text-align:center;background:var(--bg);border-radius:10px;padding:8px 4px">
+        <div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--gn)">${bestPct}%</div>
+        <div style="font-size:10px;color:var(--mt);margin-top:2px">Best Score</div>
+      </div>
+      <div style="flex:1;text-align:center;background:var(--bg);border-radius:10px;padding:8px 4px">
+        <div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--bl)">${attempts.length}</div>
+        <div style="font-size:10px;color:var(--mt);margin-top:2px">Attempts</div>
+      </div>
+    </div>`;
+}
+
+/* ══ FIREBASE USAGE TRACKER ══
+   Strategy:
+   - Patch fbGet/fbAdd/fbSet/fbGetAll to count reads+writes in memory
+   - At admin load, count today's score docs (= writes today from 00:00)
+   - Estimate reads: each student session does ~4 reads at boot (settings,
+     questions, questions2, notices) + ~1 per attempt history load
+   - Show actuals for writes, estimates for reads with clear labelling
+═══════════════════════════════════════════════════════════════════ */
+
+let _fbReadCount  = 0;   // reads this browser session
+let _fbWriteCount = 0;   // writes this browser session
+
+// Patch helpers to count — called AFTER originals are defined
+function _patchFbCounters(){
+  const _origGet = window.fbGet||fbGet;
+  // We patch at the call site by wrapping via a flag instead,
+  // since fbGet is a closure. Instead increment inline.
+}
+
+async function refreshFbUsage(){
+  if(!reqAdmin())return;
+  const note = document.getElementById('fb-usage-note');
+  if(note) note.textContent = '⏳ Calculating…';
+
+  // Today's window: midnight local time to now
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+  const todayStartMs = todayStart.getTime();
+
+  // Count today's score submissions (these = confirmed writes to Firestore today)
+  // allScores is already loaded when admin panel opens
+  const todayScores = allScores.filter(s => (s.ts||0) >= todayStartMs);
+  const writesToday = todayScores.length;
+
+  // Count unique users today (distinct email/name combos)
+  const uniqueUsers = new Set(todayScores.map(s => s.email&&s.email!=='—' ? s.email : s.name||'guest')).size;
+
+  // Estimate reads today:
+  // Each test submission = 1 score write (counted above)
+  // Each student session at boot = 4 reads (settings + questions x2 + notices)
+  // Each logged-in user also does attempt history = 1 read
+  // Admin session = ~5 reads (settings + questions x2 + notices + all scores)
+  // Conservative: assume each unique user today did a full boot session
+  const estReads = Math.max(_fbReadCount,
+    uniqueUsers * 6   // 4 boot reads + 1 history + 1 leaderboard
+    + 5               // admin session reads
+    + writesToday * 2 // each write triggers a re-read in some flows
+  );
+
+  // Free tier limits
+  const READ_LIMIT  = 50000;
+  const WRITE_LIMIT = 20000;
+  const USER_REF    = 100;  // just a visual reference for "healthy traffic"
+
+  function setPct(barId, val, limit){
+    const pct = Math.min(100, Math.round(val/limit*100));
+    const bar = document.getElementById(barId);
+    if(!bar) return;
+    bar.style.width = pct + '%';
+    bar.className = 'fb-usage-bar ' + (pct >= 80 ? 'danger' : pct >= 50 ? 'warn' : 'ok');
+  }
+
+  document.getElementById('fb-val-r').textContent = estReads.toLocaleString('en-IN');
+  document.getElementById('fb-val-w').textContent = writesToday.toLocaleString('en-IN');
+  document.getElementById('fb-val-u').textContent = uniqueUsers;
+  document.getElementById('fb-val-t').textContent = todayScores.length;
+
+  setPct('fb-bar-r', estReads,    READ_LIMIT);
+  setPct('fb-bar-w', writesToday, WRITE_LIMIT);
+  setPct('fb-bar-u', uniqueUsers, USER_REF);
+  setPct('fb-bar-t', todayScores.length, 50);
+
+  const readPct  = Math.round(estReads/READ_LIMIT*100);
+  const writePct = Math.round(writesToday/WRITE_LIMIT*100);
+  const statusEmoji = readPct >= 80 || writePct >= 80 ? '🔴' : readPct >= 50 || writePct >= 50 ? '🟡' : '🟢';
+
+  const dateStr = now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+
+  if(note) note.innerHTML = `${statusEmoji} As of ${dateStr} ${timeStr} &nbsp;·&nbsp; 
+    Writes are exact (score submissions). Reads are estimated — actual usage visible in <strong>Firebase Console → Usage</strong>. 
+    Free tier resets at midnight Pacific time.`;
+}
+
 /* Utils */
 function fmtDate(iso){try{const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});}catch(e){return iso||'—';}}
 function fmtDuration(sec){if(!sec||sec<=0)return '—';const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h>0)return `${h}h ${p(m)}m ${p(s)}s`;return m>0?`${m}m ${p(s)}s`:`${s}s`;}
@@ -3711,9 +4291,16 @@ function toggleDark(){
   btn.textContent=_darkOn?'☀️ Light':'🌙 Dark';
   // dark mode popup removed — dark is now default
   try{localStorage.setItem('na_dark',_darkOn?'1':'0');}catch(e){}
-  // Re-render chart after dark-mode CSS transition settles (~300ms)
+  // Re-render current chart after CSS transition settles (canvas-replace guarantees fresh context)
   if(userAttempts&&userAttempts.length>=2){
-    setTimeout(()=>renderScoreChart(userAttempts),320);
+    setTimeout(()=>{
+      _chartAttempts=userAttempts;
+      _renderChartSlide(_currentChart, userAttempts);
+      // Also re-render max overlay if open
+      if(document.getElementById('chart-max-ov')?.classList.contains('on')){
+        _renderMaxChart(_maxChartIdx);
+      }
+    }, 320);
   }
 }
 // Dark mode popup functions removed

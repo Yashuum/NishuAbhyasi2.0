@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#0a1628"/>
 <meta name="description" content="Free Bihar B.Ed CET Mock Test Portal — Practice 120 questions, track your score, and ace your exam."/>
 <title>NishuAbhyasi – Bihar B.Ed CET</title>
-<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22NishuAbhyasi%20%E2%80%93%20Bihar%20B.Ed%20CET%22%2C%22short_name%22%3A%22NishuAbhyasi%22%2C%22description%22%3A%22Free%20Bihar%20B.Ed%20CET%20Mock%20Test%20Portal%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a1628%22%2C%22theme_color%22%3A%22%230a1628%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527100%2527%2520fill%253D%2527%2523FF6B00%2527%252F%253E%253Ctext%2520y%253D%2527350%2527%2520x%253D%2527256%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%2527320%2527%253E%25F0%259F%2593%259A%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D"/>
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22NishuAbhyasi%20%5Cu2013%20Bihar%20B.Ed%20CET%22%2C%22short_name%22%3A%22NishuAbhyasi%22%2C%22description%22%3A%22Free%20Bihar%20B.Ed%20CET%20Mock%20Test%20Portal%22%2C%22start_url%22%3A%22./%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a1628%22%2C%22theme_color%22%3A%22%230a1628%22%2C%22orientation%22%3A%22any%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527100%2527%2520fill%253D%2527%2523FF6B00%2527%252F%253E%253Ctext%2520y%253D%2527350%2527%2520x%253D%2527256%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%2527320%2527%253E%25F0%259F%2593%259A%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/svg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%2C%22categories%22%3A%5B%22education%22%2C%22productivity%22%5D%2C%22prefer_related_applications%22%3Afalse%7D"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
@@ -430,6 +430,7 @@ body.dark .ld-profile-item:hover{background:#3d1515;color:#f87171}
   /* ld-side children */
   #guest-nudge-card{order:9}
   #hist-section{order:10}
+  #pwa-install-card{order:3}
   #lb-card{order:4}
   #progress-banner{order:6}
   /* The main + side columns themselves need to be transparent containers */
@@ -658,6 +659,11 @@ body.dark .guest-lock-sub{color:#64748b}
 
 /* ── Leaderboard ── */
 .lb-card{background:#fff;border-radius:var(--card-r);padding:18px;box-shadow:var(--sh);border:1px solid var(--bd);margin-bottom:14px}
+.pwa-install-card{background:linear-gradient(135deg,#0a1628,#0d2137)!important;border-color:#1f3a5c!important;margin-bottom:14px}
+.pwa-install-btn{flex:1;background:var(--sf);color:#fff;border:none;border-radius:50px;padding:9px 16px;font-family:var(--fh);font-size:13px;font-weight:800;cursor:pointer;transition:.18s}
+.pwa-install-btn:hover{background:var(--sf-dk);transform:translateY(-1px)}
+.pwa-install-dismiss{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:.18s;font-family:var(--fb);white-space:nowrap}
+.pwa-install-dismiss:hover{background:rgba(255,255,255,.18);color:#fff}
 body.dark .lb-card{background:#161b22;border-color:#21262d}
 .lb-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .lb-title{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:7px}
@@ -1211,6 +1217,26 @@ body.dark .tp-v{color:#e2e8f0}
 .sg-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mt)}
 /* Countdown overlay */
 .countdown-ov{position:fixed;inset:0;background:rgba(10,22,40,.92);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:0;backdrop-filter:blur(6px)}
+
+/* ── Result calculation splash ── */
+.calc-ov{position:fixed;inset:0;z-index:8500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px);background:rgba(10,22,40,.85)}
+.calc-ov.on{display:flex}
+.calc-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:36px 40px;max-width:380px;width:90%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+body.dark .calc-card{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)}
+.calc-title{font-family:var(--fh);font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
+.calc-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:28px}
+.calc-subjects{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.calc-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+.calc-row-icon{font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.calc-row-name{flex:1;font-size:13px;font-weight:600;color:rgba(255,255,255,.8);text-align:left}
+.calc-row-status{font-size:12px;font-weight:700;white-space:nowrap}
+.calc-row-status.pending{color:rgba(255,255,255,.3)}
+.calc-row-status.loading{color:var(--sf);animation:pulse 1s infinite}
+.calc-row-status.done{color:#4ade80}
+.calc-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--sf);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.calc-final{font-size:14px;font-weight:700;color:#4ade80;opacity:0;transition:opacity .4s}
+.calc-final.on{opacity:1}
 .countdown-ov.on{display:flex}
 .countdown-ring{position:relative;width:180px;height:180px;margin-bottom:10px}
 .countdown-svg{width:180px;height:180px;transform:rotate(-90deg)}
@@ -1610,6 +1636,21 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
           </div><!-- /guest-blur-inner -->
         </div><!-- /guest-blur-wrap -->
 
+        <!-- ── PWA Install Card (shown only when installable) ── -->
+        <div class="ld-card pwa-install-card" id="pwa-install-card" style="display:none">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-size:32px;flex-shrink:0">📲</div>
+            <div style="flex:1">
+              <div style="font-family:var(--fh);font-size:14px;font-weight:800;color:var(--tx);margin-bottom:3px">Install App</div>
+              <div style="font-size:11px;color:var(--mt);line-height:1.5">Get NishuAbhyasi on your home screen — works offline, no browser chrome</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="pwa-install-btn" onclick="installPWA()">⚡ Install Now</button>
+            <button class="pwa-install-dismiss" onclick="dismissInstallCard()">Not now</button>
+          </div>
+        </div>
+
         <!-- ── Leaderboard ── -->
         <div class="lb-card" id="lb-card">
           <div class="lb-hd">
@@ -1787,6 +1828,39 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
     </div>
   </div>
   <div class="ap-body">
+    <!-- Security Rules Notice -->
+    <div id="sec-rules-notice" class="ap-card" style="border-left:4px solid var(--c-no);display:none">
+      <div class="ap-card-hd" style="margin-bottom:10px">
+        <div><div class="ap-ct" style="color:var(--c-no)">🔓 Firestore Security Rules — Action Required</div>
+        <div class="ap-cs">Your database may be publicly writable. Apply these rules in Firebase Console.</div></div>
+        <button class="btn b-out" style="font-size:11px;padding:4px 10px" onclick="document.getElementById('sec-rules-notice').style.display='none'">Dismiss</button>
+      </div>
+      <div style="background:#0d1117;border-radius:8px;padding:12px;font-family:monospace;font-size:11px;color:#7ee787;line-height:1.8;overflow-x:auto;margin-bottom:10px">
+rules_version = '2';<br>
+service cloud.firestore {<br>
+&nbsp;&nbsp;match /databases/{db}/documents {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Config readable by all, writable by nobody client-side<br>
+&nbsp;&nbsp;&nbsp;&nbsp;match /config/{doc} {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read: if true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow write: if false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Scores: anyone can add, nobody can edit/delete<br>
+&nbsp;&nbsp;&nbsp;&nbsp;match /scores/{doc} {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read: if true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow create: if request.resource.data.keys().hasAll(['name','score','pct','timestamp']);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow update, delete: if false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// User attempts: only the owner can read/write<br>
+&nbsp;&nbsp;&nbsp;&nbsp;match /users/{uid}/attempts/{doc} {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if request.auth != null &amp;&amp; request.auth.uid == uid;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;match /{doc=**} { allow read, write: if false; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+      </div>
+      <a href="https://console.firebase.google.com/project/nishuabhyasi-v2/firestore/rules" target="_blank" class="btn b-prim" style="font-size:12px;display:inline-block;padding:8px 16px;text-decoration:none">Open Firebase Rules Console →</a>
+    </div>
+
     <!-- Stats -->
     <div class="ap-grid">
       <div class="ap-stat">  <div class="ap-sv" id="ap-nq">—</div><div class="ap-sl">📝 Questions</div></div>
@@ -1828,6 +1902,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <div><div class="ap-ct">👩‍🎓 Student Records</div><div class="ap-cs">Browse by student or view all attempts</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="exportCSV()">⬇️ CSV</button>
+          <span id="ap-record-count" style="font-size:11px;color:var(--mt);align-self:center"></span>
           <button class="btn b-blue" style="font-size:12px;padding:6px 12px" onclick="refreshScores()">↺ Refresh</button>
           <button class="btn b-danger" style="font-size:12px;padding:6px 12px" onclick="clearScores()">🗑 Clear All</button>
         </div>
@@ -1843,6 +1918,8 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
           <input class="srch" id="srch-user" placeholder="🔍 Search student name / email…" oninput="renderUserView()"/>
         </div>
         <div class="usr-list" id="usr-list"><div class="usr-empty">Loading…</div></div>
+        <button id="admin-load-more" onclick="loadMoreScores()" style="display:none;width:100%;margin-top:10px;padding:10px;background:none;border:1.5px dashed var(--bd);border-radius:10px;font-family:var(--fb);font-size:13px;font-weight:700;color:var(--bl);cursor:pointer">⇩ Load More Records (200 at a time)</button>
+        <button id="admin-load-more" onclick="loadMoreScores()" style="display:none;width:100%;margin-top:10px;padding:10px;background:none;border:1.5px dashed var(--bd);border-radius:10px;font-family:var(--fb);font-size:13px;font-weight:700;color:var(--bl);cursor:pointer">⇩ Load More Records (200 at a time)</button>
       </div>
       <!-- All Attempts flat table -->
       <div id="view-all" style="display:none">
@@ -2118,6 +2195,13 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <button class="rc-btn rcb-rv" onclick="reviewTest()">🔍 Review Answers</button>
         <button class="rc-btn rcb-rs" onclick="doFresh()">🔄 New Test</button>
       </div>
+      <!-- Guest CTA — only shown for guests -->
+      <div id="guest-result-cta" style="display:none;margin:16px 20px 0;background:linear-gradient(135deg,#0057A8,#003d7a);border-radius:14px;padding:16px 18px;color:#fff;text-align:center">
+        <div style="font-size:20px;margin-bottom:6px">🎯</div>
+        <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:4px">Save This Result!</div>
+        <div style="font-size:12px;opacity:.8;line-height:1.6;margin-bottom:12px">Create a free account to save your score, track progress across all attempts, and access review mode anytime.</div>
+        <button onclick="showScreen('auth')" style="background:#fff;color:#0057A8;border:none;border-radius:50px;padding:9px 24px;font-family:var(--fh);font-size:13px;font-weight:800;cursor:pointer;transition:.18s">Create Free Account →</button>
+      </div>
     </div>
     <div class="sg-wrap" id="sg-wrap" style="display:none">
       <div class="sg-hd"><h3>📊 Subject-wise Analysis</h3><p>Your preparation strength across each subject</p></div>
@@ -2132,6 +2216,19 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
       <span class="ft-br">Nishu<em>Abhyasi</em></span>
       An app by <strong style="color:#fff">Yashwant</strong> &nbsp;|&nbsp; © 2025
     </footer>
+  </div>
+</div>
+
+<!-- Result Calculation Splash -->
+<div class="calc-ov" id="calc-ov">
+  <div class="calc-card">
+    <div class="calc-spinner" id="calc-spinner"></div>
+    <div class="calc-title">Calculating Results</div>
+    <div class="calc-sub">Analysing your answers across all sections…</div>
+    <div class="calc-subjects" id="calc-subjects">
+      <!-- populated dynamically from secs[] -->
+    </div>
+    <div class="calc-final" id="calc-final">✅ Results Ready!</div>
   </div>
 </div>
 
@@ -2190,9 +2287,11 @@ async function fbAdd(col,data){
   const {collection,addDoc}=fs();
   await addDoc(collection(db(),col),{...data,ts:Date.now()});
 }
-async function fbGetAll(col){
-  const {collection,getDocs,query,orderBy}=fs();
-  const s=await getDocs(query(collection(db(),col),orderBy('ts','desc')));
+async function fbGetAll(col,pageLimit=200){
+  // Paginated — default 200 for admin scores (enough for most use cases)
+  // Prevents catastrophic reads as score collection grows
+  const {collection,getDocs,query,orderBy,limit}=fs();
+  const s=await getDocs(query(collection(db(),col),orderBy('ts','desc'),limit(pageLimit)));
   return s.docs.map(d=>({id:d.id,...d.data()}));
 }
 async function fbDelAll(col){
@@ -2212,7 +2311,9 @@ async function fbAddUserAttempt(uid,data){
 
 /* ══ SHA-256 ══ */
 async function sha256(s){
-  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  // Salt added v2 — prevents rainbow table attacks on stored hash
+  const SALT='NishuAbhyasi_2025_$ecure#Salt!';
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(SALT+s+SALT));
   return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 
@@ -2312,12 +2413,24 @@ if(window._dbReadyFired){
 }
 
 function finishBoot(){
+  // If already installed as PWA, hide install card
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+  if(isStandalone){
+    const card=document.getElementById('pwa-install-card');
+    if(card)card.style.display='none';
+  }
   try{
     const saved=JSON.parse(sessionStorage.getItem(SS));
-    if(saved&&saved.ans&&Q.length&&saved.ans.length===Q.length){
-      restoreSessionState(saved);
-      setupAuthListener(true);
-      return;
+    if(saved&&saved.ans){
+      if(Q.length&&saved.ans.length===Q.length){
+        restoreSessionState(saved);
+        setupAuthListener(true);
+        return;
+      } else if(Q.length&&saved.ans.length!==Q.length){
+        // Question count changed since session was saved — warn user
+        clearSess();
+        sessionStorage.setItem('na_sess_expired','1');
+      }
     }
   }catch(e){}
   setupAuthListener(false);
@@ -2354,6 +2467,16 @@ function showScreen(id){
   if(id!=='test')window.scrollTo(0,0);
   const dmBtn=document.getElementById('dm-tog');
   if(dmBtn)dmBtn.style.display=(id==='test'||id==='admin-panel'||id==='admin-login')?'none':'flex';
+  // Screen orientation: lock portrait during test, unlock everywhere else
+  try{
+    if(screen.orientation&&screen.orientation.lock){
+      if(id==='test'){
+        screen.orientation.lock('portrait').catch(()=>{});
+      } else {
+        screen.orientation.unlock();
+      }
+    }
+  }catch(e){}
 }
 
 /* ══ AUTH ══ */
@@ -2434,6 +2557,11 @@ function toggleEyeId(id){const i=document.getElementById(id);i.type=i.type==='pa
 async function showLanding(){
   updateLandingInfo();
   refreshBatchCards();
+  // Show session expiry notice if questions changed mid-session
+  if(sessionStorage.getItem('na_sess_expired')){
+    sessionStorage.removeItem('na_sess_expired');
+    setTimeout(()=>toast('⚠️ Question bank was updated — your previous session was reset.'),800);
+  }
 
   if(curUser){
     document.getElementById('user-badge').style.display='flex';
@@ -3230,6 +3358,8 @@ function _launchTest(batch){
   if(negM>0){document.getElementById('mk-no').classList.add('on');document.getElementById('neg-v').textContent=negM;}
   else{document.getElementById('mk-no').classList.remove('on');}
   setHdr();showScreen('test');buildTabs();buildGrid();renderQ(0);startTimer();saveSession();
+  // Push history state so Android back button fires popstate instead of navigating away
+  history.pushState({page:'test'},'','');
 }
 function setHdr(){
   document.getElementById('hdr-name').textContent=cName;
@@ -3398,6 +3528,44 @@ function closeM(){document.getElementById('mo').classList.remove('on');}
 
 async function doSubmit(){
   closeM();clearInterval(tInt);active=false;clearSess();
+
+  // ── Show calculation splash ──
+  const calcOv=document.getElementById('calc-ov');
+  const calcSubjects=document.getElementById('calc-subjects');
+  const calcFinal=document.getElementById('calc-final');
+  const calcSpinner=document.getElementById('calc-spinner');
+  const ICONS={'General Knowledge':'📚','Teaching Aptitude':'🧑‍🏫','Mental Ability':'🧠',
+               'Language & Literature':'📝','English':'📖','Hindi':'🇮🇳'};
+  if(calcSubjects&&secs.length){
+    calcSubjects.innerHTML=secs.map((s,i)=>`
+      <div class="calc-row" id="calc-row-${i}">
+        <span class="calc-row-icon">${ICONS[s.n]||'📋'}</span>
+        <span class="calc-row-name">${s.n}</span>
+        <span class="calc-row-status pending" id="calc-st-${i}">Pending…</span>
+      </div>`).join('');
+  }
+  if(calcFinal)calcFinal.classList.remove('on');
+  if(calcSpinner)calcSpinner.style.opacity='1';
+  if(calcOv)calcOv.classList.add('on');
+
+  const delay=ms=>new Promise(r=>setTimeout(r,ms));
+  for(let i=0;i<secs.length;i++){
+    const st=document.getElementById('calc-st-'+i);
+    if(st){st.className='calc-row-status loading';st.textContent='Fetching…';}
+    await delay(380);
+    if(st){
+      let cor=0,tot2=0;
+      secs[i].ix.forEach(qi=>{tot2++;if(ans[qi]!==null&&ans[qi]===Q[qi].correct)cor++;});
+      st.className='calc-row-status done';
+      st.textContent=`✓ ${cor}/${tot2}`;
+    }
+  }
+  await delay(300);
+  if(calcFinal)calcFinal.classList.add('on');
+  if(calcSpinner)calcSpinner.style.opacity='0';
+  await delay(750);
+
+  // ── Score calculation ──
   let c=0,w=0,sk=0;
   Q.forEach((q,i)=>{if(ans[i]===null)sk++;else if(ans[i]===q.correct)c++;else w++;});
   const attempted=c+w;
@@ -3410,21 +3578,18 @@ async function doSubmit(){
 
   const record={name:cName,roll:cRoll,email:cEmail||curUser?.email||'—',score:net,total:tot,
     pct,correct:c,wrong:w,skipped:sk,attempted,accuracy,timeTaken:elapsedSec,timestamp:nowIso,batch:currentBatch,
-    answers:[...ans]};  // store answers for per-attempt review (no extra Firebase read needed)
+    answers:ans.join(',')};
 
-  try{await fbAdd('scores',record);}catch(e){console.warn('Global score save failed:',e.message);}
+  try{await fbAdd('scores',record);_lbCacheTime=0;}catch(e){console.warn('Global score save failed:',e.message);}
   if(curUser){
     try{await fbAddUserAttempt(curUser.uid,record);}catch(e){console.warn('User attempt save failed:',e.message);}
   }
-
-  // Mark batch as persistently completed
   _markBatchDone(currentBatch);
-  if(currentBatch===1 && Q2.length>0 && !_batchDoneDate(2)){
-    if(settings.showResult){
-      setTimeout(()=>toast('🎉 Batch 2 is now available! Head back to the portal.'),1800);
-    }
+  if(currentBatch===1&&Q2.length>0&&!_batchDoneDate(2)){
+    if(settings.showResult)setTimeout(()=>toast('🎉 Batch 2 is now available! Head back to the portal.'),1800);
   }
 
+  if(calcOv)calcOv.classList.remove('on');
   if(!settings.showResult){doFresh();return;}
 
   const passed=pct>=PASS_PCT;
@@ -3452,13 +3617,15 @@ async function doSubmit(){
   document.getElementById('res-att').textContent=attempted+' / '+tot;
   document.getElementById('res-acc').textContent=accuracy+'%';
   const msg=pct>=80?'🌟 Outstanding! You are well-prepared for Bihar B.Ed CET.':
-            pct>=60?'👍 Good performance! A bit more practice and you\'re there.':
+            pct>=60?'👍 Good performance! A bit more practice and you are there.':
             pct>=PASS_PCT?'✅ You passed the cutoff. Keep pushing for a higher score!':
             pct>=30?'💪 Almost there! Revise weak subjects and attempt again.':
             '📚 Needs more practice. Focus on subject-wise weak areas below.';
   document.getElementById('res-msg').textContent=msg;
   renderSubjectGraph();
   showScreen('result');
+  const guestCta=document.getElementById('guest-result-cta');
+  if(guestCta)guestCta.style.display=isGuest?'block':'none';
 }
 
 function reviewTest(){
@@ -3533,6 +3700,20 @@ function togSB(){document.getElementById('sidebar').classList.toggle('open');doc
 function toggleFS(){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{});}
 
 window.addEventListener('beforeunload',e=>{if(active){saveSession();e.preventDefault();e.returnValue='';}});
+
+// Android back button intercept during test (History API trick)
+window.addEventListener('popstate',e=>{
+  const testScreen=document.getElementById('test');
+  if(testScreen&&testScreen.classList.contains('active')&&active&&!isRev){
+    // Re-push the state so back doesn't actually navigate
+    history.pushState({page:'test'},'','');
+    // Show a confirmation — use the existing submit modal as confirm dialog
+    if(confirm('\u26a0\ufe0f Leaving will end your test. All answers will be saved.\n\nAre you sure you want to exit?')){
+      saveSession();
+      doFresh();
+    }
+  }
+});
 document.addEventListener('keydown',e=>{
   if(!document.getElementById('test').classList.contains('active')||isRev)return;
   if(e.key==='ArrowRight'||e.key==='Enter')saveNxt();
@@ -3549,14 +3730,19 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 function reviewFromHistory(idx){
   const a=userAttempts[idx];
   if(!a){toast('⚠️ Attempt data not found.');return;}
-  if(!a.answers||!a.answers.length){toast('⚠️ This attempt was saved before review was supported. Retake to enable review.');return;}
+  // Support both legacy array and new CSV string format
+  const rawAns=a.answers;
+  const parsedAns=typeof rawAns==='string'
+    ? rawAns.split(',').map(v=>v==='null'?null:+v)
+    : (Array.isArray(rawAns)?rawAns:null);
+  if(!parsedAns||!parsedAns.length){toast('⚠️ This attempt was saved before review was supported. Retake to enable review.');return;}
   // Reconstruct the Q set for that batch
   const QSet=a.batch===2?Q2:Q;
   if(!QSet.length){toast('⚠️ Questions not loaded for this batch.');return;}
   if(a.answers.length!==QSet.length){toast('⚠️ Question set has changed since this attempt. Review unavailable.');return;}
   // Set up review mode state
   Q=[...QSet];
-  ans=[...a.answers];
+  ans=[...parsedAns];
   vis=Array(Q.length).fill(true);
   mkd=Array(Q.length).fill(false);
   cName=a.name||'—';
@@ -3593,6 +3779,11 @@ async function goAdmin(){
   document.getElementById('al-pw').value='';
   setTimeout(()=>document.getElementById('al-pw').focus(),200);
 }
+async function sha256_legacy(s){
+  // Old unsalted hash — used only for migration check
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
 async function doAdminLogin(){
   const pw=document.getElementById('al-pw').value;
   const errEl=document.getElementById('al-err'),btn=document.getElementById('al-btn');
@@ -3600,23 +3791,58 @@ async function doAdminLogin(){
   if(pw.length<6){errEl.textContent='Password must be at least 6 characters.';return;}
   btn.disabled=true;btn.textContent='Verifying…';
   try{
-    const hash=await sha256(pw);
+    const saltedHash=await sha256(pw);
     const pwDoc=await fbGet('config/admin');
     if(!pwDoc||!pwDoc.hash){
-      await fbSet('config/admin',{hash,createdAt:new Date().toISOString()});
+      // First time setup — save with new salted hash
+      await fbSet('config/admin',{hash:saltedHash,createdAt:new Date().toISOString()});
       adminIn=true;btn.disabled=false;toast('✅ Admin password created!');openAdmin();
-    }else if(hash===pwDoc.hash){
+    } else if(saltedHash===pwDoc.hash){
+      // Salted hash matches — normal login
       adminIn=true;btn.disabled=false;openAdmin();
-    }else{
-      btn.disabled=false;btn.textContent='🔓 Login to Admin Panel';
-      errEl.textContent='❌ Incorrect password.';
-      document.getElementById('al-pw').value='';
+    } else {
+      // Try legacy unsalted hash (migration path for existing passwords)
+      const legacyHash=await sha256_legacy(pw);
+      if(legacyHash===pwDoc.hash){
+        // Match! Silently upgrade to salted hash
+        await fbSet('config/admin',{hash:saltedHash,updatedAt:new Date().toISOString()});
+        adminIn=true;btn.disabled=false;
+        toast('✅ Password verified & security upgraded!');
+        openAdmin();
+      } else {
+        btn.disabled=false;btn.textContent='🔓 Login to Admin Panel';
+        errEl.textContent='❌ Incorrect password.';
+        document.getElementById('al-pw').value='';
+      }
     }
   }catch(e){btn.disabled=false;btn.textContent='🔓 Login';errEl.textContent='Error: '+e.message;}
 }
 async function openAdmin(){
   showScreen('admin-panel');
   await loadAdminData();
+  // Test if Firestore rules are open (security check)
+  _checkFirestoreRules();
+}
+async function _checkFirestoreRules(){
+  try{
+    const {doc,setDoc}=fs();
+    // Try writing to a path that SHOULD be blocked by rules
+    // If rules are set correctly this will throw with permission-denied
+    await Promise.race([
+      setDoc(doc(db(),'_sec_probe','test'),{ts:Date.now()}),
+      new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),3000))
+    ]);
+    // If we reach here, write SUCCEEDED — rules are open!
+    document.getElementById('sec-rules-notice').style.display='';
+    // Clean up the probe doc
+    try{const {deleteDoc,doc:d}=fs();await deleteDoc(d(db(),'_sec_probe','test'));}catch(e){}
+  }catch(e){
+    // Permission denied = rules are set correctly — good!
+    if(e.code==='permission-denied'||e.message.includes('Missing or insufficient')){
+      document.getElementById('sec-rules-notice').style.display='none';
+    }
+    // timeout or other error = likely rules are set, don't show banner
+  }
 }
 function adminOut(){adminIn=false;showLanding();toast('Logged out.');}
 function reqAdmin(){if(!adminIn){showScreen('admin-login');return false;}return true;}
@@ -3654,6 +3880,8 @@ async function refreshScores(){
   try{
     allScores=await fbGetAll('scores');
     document.getElementById('ap-na').textContent=allScores.length;
+    const rc=document.getElementById('ap-record-count');
+    if(rc)rc.textContent=allScores.length>=200?`Showing ${allScores.length} (use Load More for full list)`:allScores.length+' total records';
     if(allScores.length){
       const avg=allScores.reduce((s,r)=>s+(r.pct||0),0)/allScores.length;
       const top=Math.max(...allScores.map(r=>r.pct||0));
@@ -3662,7 +3890,32 @@ async function refreshScores(){
     }else{document.getElementById('ap-av').textContent='—';document.getElementById('ap-tp').textContent='—';}
     renderUserView();
     renderTbl();
-  }catch(e){toast('Error loading scores: '+e.message);}
+    // Show load-more if result was exactly 200 (may be more records)
+    const lm=document.getElementById('admin-load-more');
+    if(lm)lm.style.display=allScores.length>=200?'block':'none';
+  }catch(e){
+    if(e.message&&(e.message.includes('index')||e.message.includes('Index'))){
+      toast('⚠️ Missing Firestore index — check Firebase Console → Indexes');
+    }else{
+      toast('Error loading scores: '+e.message);
+    }
+  }
+}
+async function loadMoreScores(){
+  try{
+    const {collection,getDocs,query,orderBy,limit,startAfter}=fs();
+    const lastTs=allScores.length?allScores[allScores.length-1].ts:Date.now();
+    const s=await getDocs(query(
+      collection(db(),'scores'),orderBy('ts','desc'),
+      startAfter(lastTs),limit(200)
+    ));
+    const more=s.docs.map(d=>({id:d.id,...d.data()}));
+    allScores=[...allScores,...more];
+    renderUserView();renderTbl();
+    const lm=document.getElementById('admin-load-more');
+    if(lm)lm.style.display=more.length>=200?'block':'none';
+    toast(`✅ Loaded ${more.length} more records`);
+  }catch(e){toast('Error: '+e.message);}
 }
 
 /* Records view toggle */
@@ -4021,6 +4274,9 @@ function closeNoticeBoard(){
 let _lbData=null; // cached globally
 let _lbTab='week';
 
+let _lbCacheTime=0;  // timestamp of last leaderboard fetch
+const LB_CACHE_TTL=5*60*1000;  // 5 minutes in ms
+
 async function loadLeaderboard(){
   const card=document.getElementById('lb-card');
   const list=document.getElementById('lb-list');
@@ -4031,15 +4287,33 @@ async function loadLeaderboard(){
     return;
   }
   if(card)card.style.display='';
+
+  // Use cached data if fresh (< 5 min old) — saves 200 Firestore reads per visit
+  const now=Date.now();
+  if(_lbData&&(now-_lbCacheTime)<LB_CACHE_TTL){
+    renderLeaderboard();
+    return;
+  }
+
   list.innerHTML='<div class="lb-empty">⏳ Loading leaderboard…</div>';
   try{
-    // Read global scores collection — already available via fbGetAll
     const {collection,getDocs,query,orderBy,limit}=fs();
+    // Limit to 200 most recent — sufficient for top-15 leaderboard calculation
     const snap=await getDocs(query(collection(db(),'scores'),orderBy('ts','desc'),limit(200)));
     _lbData=snap.docs.map(d=>({id:d.id,...d.data()}));
+    _lbCacheTime=now;  // stamp the cache
     renderLeaderboard();
   }catch(e){
-    list.innerHTML='<div class="lb-empty">⚠️ Could not load leaderboard.</div>';
+    // Detect missing Firestore index error and show fix link
+    if(e.message&&(e.message.includes('index')||e.message.includes('Index'))){
+      list.innerHTML=`<div class="lb-empty" style="font-size:12px;line-height:1.6">
+        ⚠️ Missing Firestore index.<br>
+        <a href="https://console.firebase.google.com/project/nishuabhyasi-v2/firestore/indexes" 
+           target="_blank" style="color:var(--bl);font-weight:700">Create Index in Firebase Console →</a>
+      </div>`;
+    } else {
+      list.innerHTML='<div class="lb-empty">⚠️ Could not load leaderboard.</div>';
+    }
   }
 }
 
@@ -4308,25 +4582,50 @@ function toggleDark(){
 (function(){
   if(!('serviceWorker' in navigator))return;
   // Inline service worker as a Blob — caches the app shell for offline use
+  // Cache version — change this string on every publish to bust stale cache
+  const SW_VERSION = '20260319_0629';
   const swCode=`
-const CACHE='nishuabhyasi-v1';
-const SHELL=['./']; // cache self only — Firebase calls need network
+const CACHE='nishuabhyasi-'+self.SW_VERSION;
+const CACHE_NAME='nishuabhyasi-${SW_VERSION}';
+self.SW_VERSION='${SW_VERSION}';
+
 self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)));
-  self.skipWaiting();
+  // Cache the app shell for offline fallback only
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(cache=>cache.addAll(['./'])).catch(()=>{})
+  );
+  // DO NOT skipWaiting — let old SW finish serving active tabs (mid-test safety)
+  // New SW waits until ALL tabs close before activating
 });
+
 self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
+  // Delete ALL old caches — ensures stale code is never served after update
+  e.waitUntil(
+    caches.keys().then(keys=>
+      Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))
+    )
+  );
   self.clients.claim();
 });
+
 self.addEventListener('fetch',e=>{
-  // Only cache-first for same-origin navigations; pass through Firebase/CDN
+  // Navigation requests: Network-FIRST, cache as fallback (always fresh code)
   if(e.request.mode==='navigate'){
-    e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+    e.respondWith(
+      fetch(e.request)
+        .then(r=>{
+          // Cache the fresh response for offline fallback
+          const clone=r.clone();
+          caches.open(CACHE_NAME).then(cache=>cache.put(e.request,clone));
+          return r;
+        })
+        .catch(()=>caches.match(e.request)) // offline fallback
+    );
+    return;
   }
-  // Everything else: network-first
+  // Firebase, fonts, CDN — always network, never cache
 });
-`;
+`.replace(/\$\{SW_VERSION\}/g, SW_VERSION);
   try{
     const blob=new Blob([swCode],{type:'application/javascript'});
     const url=URL.createObjectURL(blob);
@@ -4339,16 +4638,21 @@ let _deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();
   _deferredInstallPrompt=e;
-  // Show install banner after landing screen loads, only if not already installed
-  setTimeout(()=>{
-    const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
-    if(!isStandalone&&_deferredInstallPrompt){
-      try{
-        if(localStorage.getItem('na_pwa_dismissed'))return;
-      }catch(e){}
-      showPWABanner();
-    }
-  },4000);
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+  if(isStandalone)return;
+  try{ if(localStorage.getItem('na_pwa_dismissed'))return; }catch(e){}
+  // Show sidebar install card immediately (no delay needed)
+  const card=document.getElementById('pwa-install-card');
+  if(card)card.style.display='';
+  // Also show floating banner after 6s if still on landing
+  setTimeout(()=>showPWABanner(),6000);
+});
+// Hide install card if already installed (standalone mode)
+window.addEventListener('appinstalled',()=>{
+  const card=document.getElementById('pwa-install-card');
+  if(card)card.style.display='none';
+  _deferredInstallPrompt=null;
+  toast('✅ App installed! Open from your home screen.');
 });
 function showPWABanner(){
   const screen=document.getElementById('landing');
@@ -4376,6 +4680,11 @@ function installPWA(){
 function dismissPWABanner(){
   const b=document.getElementById('pwa-banner');
   if(b)b.remove();
+  try{localStorage.setItem('na_pwa_dismissed','1');}catch(e){}
+}
+function dismissInstallCard(){
+  const card=document.getElementById('pwa-install-card');
+  if(card)card.style.display='none';
   try{localStorage.setItem('na_pwa_dismissed','1');}catch(e){}
 }
 

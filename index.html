@@ -145,6 +145,18 @@ body.dark .rg-c,body.dark .md{background:#161b22;color:#e2e8f0;border:1px solid 
 body.dark .md h3{color:#58a6ff}
 body.dark .md-st{background:#0d1117;border:1px solid #21262d}
 body.dark .al-card,body.dark .dbs-card{background:#161b22;color:#e2e8f0;border:1px solid #21262d}
+body.dark .al-title{color:#e2e8f0}
+body.dark .al-sub{color:#8b98a9}
+body.dark .al-hint{background:#0f2644;border-color:#1f6feb;color:#58a6ff}
+body.dark .setup-box{background:#0c2218;border-color:#238636;color:#3fb950}
+body.dark .al-pw-wrap input{background:#0d1117;border-color:#30363d;color:#e2e8f0}
+body.dark .al-pw-wrap input:focus{border-color:#58a6ff}
+body.dark .al-pw-wrap .pw-eye{color:#8b98a9}
+body.dark .al-captcha-box{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.15)}
+body.dark .al-captcha-input{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#e2e8f0}
+body.dark .al-captcha-input:focus{border-color:#58a6ff;background:rgba(255,255,255,.1)}
+body.dark .al-back{color:#64748b}
+body.dark .al-back:hover{color:#e2e8f0}
 body.dark .rg-si{background:#0d1117;border:1px solid #21262d}
 body.dark .rg-sv{color:#58a6ff}
 
@@ -561,7 +573,7 @@ body.dark .bc-badge.locked{background:#1e293b;color:#64748b}
 .bc-meta{font-size:11px;color:var(--mt);display:flex;flex-wrap:wrap;gap:6px;align-items:center;line-height:1.5}
 .bc-meta span{display:flex;align-items:center;gap:3px}
 .bc-meta .sep{color:var(--bd);font-size:10px}
-.bc-btn{width:100%;padding:12px 16px;border:none;border-radius:10px;font-family:var(--fh);font-size:15px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px}
+.bc-btn{width:100%;padding:10px 14px;border:none;border-radius:10px;font-family:var(--fh);font-size:14px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .bc-btn.start{background:linear-gradient(135deg,var(--sf),var(--sf-dk));color:#fff}
 .bc-btn.start:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,107,0,.35)}
 .bc-btn.start2{background:linear-gradient(135deg,var(--bl),var(--bl-dk));color:#fff}
@@ -591,6 +603,38 @@ body.dark .bc-btn.retake{background:#1e293b;border-color:#334155}
 .nb-textarea{width:100%;min-height:100px;padding:12px;border:2px solid var(--bd);border-radius:10px;font-family:var(--fb);font-size:13px;line-height:1.6;outline:none;resize:vertical;transition:.2s;background:#fafafa;color:var(--tx)}
 .nb-textarea:focus{border-color:var(--bl);background:#fff}
 body.dark .nb-textarea{background:#0f172a;color:#e2e8f0;border-color:#334155}
+/* Admin dark mode coverage — table rows, msgs, inputs */
+body.dark .tbl-head{background:#161b22;color:#8b98a9}
+body.dark tbody tr{background:#0d1117;border-color:#21262d}
+body.dark tbody tr:hover{background:#161b22}
+body.dark tbody td{color:#e2e8f0;border-color:#21262d}
+body.dark .sb{color:#e2e8f0}
+body.dark .tbl-empty{color:#8b98a9}
+body.dark .q-msg{border-color:#30363d}
+body.dark .q-status{background:#0d1117;border-color:#21262d}
+body.dark .qs-item{color:#8b98a9;border-color:#21262d}
+body.dark .qs-item.ok{color:#3fb950}
+body.dark .q-batch-tabs{background:#161b22;border-color:#21262d}
+body.dark .q-batch-tab{color:#8b98a9}
+body.dark .q-batch-tab.on{background:#0057A8;color:#fff}
+body.dark .q-acts{border-color:#21262d}
+body.dark .last-upd{color:#3fb950}
+body.dark .att-row{background:#161b22;border-color:#21262d}
+body.dark .att-row-del{background:#3d1515;color:#f87171}
+body.dark .usr-del-all{border-color:#3d1515;color:#f87171}
+body.dark .ap-records-view-toggle{background:#0d1117;border-color:#21262d}
+body.dark .ap-rv-btn{color:#8b98a9}
+body.dark .ap-rv-btn.on{background:#161b22;color:#58a6ff}
+body.dark .set-inp{background:#0d1117;color:#e2e8f0;border-color:#30363d}
+body.dark .pw-change-row input{background:#0d1117;color:#e2e8f0;border-color:#30363d}
+body.dark .tog{background:#21262d;border-color:#30363d}
+body.dark .tog::after{background:#8b98a9}
+body.dark .tog.on{background:#0057A8;border-color:#0057A8}
+body.dark .tog.on::after{background:#fff}
+body.dark .fb-usage-item{background:#0d1117;border-color:#21262d}
+body.dark .fb-usage-label{color:#8b98a9}
+body.dark .fb-usage-limit{color:#64748b}
+body.dark .fb-usage-note{background:#0d1117;border-color:#30363d;color:#8b98a9}
 .nb-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);gap:10px}
 .nb-row:last-child{border-bottom:none}
 
@@ -728,6 +772,15 @@ body.dark .lb-hist-row{background:#0d1117}
 .al-pw-wrap input{width:100%;padding:13px 44px 13px 14px;border:2px solid var(--bd);border-radius:10px;font-family:var(--fb);font-size:16px;outline:none;transition:.2s;background:#fff;letter-spacing:2px}
 .al-pw-wrap input:focus{border-color:var(--bl)}
 .al-pw-wrap .pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:var(--mt);padding:4px}
+.al-captcha-wrap{margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.al-captcha-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
+.al-captcha-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.1)}
+.al-captcha-code{font-family:'Courier New',monospace;font-size:22px;font-weight:800;letter-spacing:8px;color:#fff;user-select:none;flex:1;text-align:left}
+.al-captcha-refresh{background:none;border:none;color:rgba(255,255,255,.45);font-size:18px;cursor:pointer;transition:transform .25s,color .15s;line-height:1;flex-shrink:0}
+.al-captcha-refresh:hover{color:#fff;transform:rotate(180deg)}
+.al-captcha-input{width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;color:#fff;font-size:16px;font-family:'Courier New',monospace;letter-spacing:5px;outline:none;transition:.2s;text-align:center}
+.al-captcha-input:focus{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+.al-captcha-input::placeholder{letter-spacing:normal;font-size:12px;font-family:var(--fb);color:rgba(255,255,255,.3)}
 .al-back{margin-top:14px;font-size:13px;color:var(--mt);cursor:pointer;transition:.2s}
 .al-back:hover{color:var(--bl)}
 
@@ -1576,26 +1629,28 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
           <!-- Batch Cards -->
           <div style="margin-top:20px;border-top:1px solid var(--bd);padding-top:16px">
             <div class="ld-card-title" style="margin-bottom:14px"><span>🎯</span> Choose Your Test</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="batch-grid">
 
               <!-- Batch 1 Card -->
               <div class="batch-card bc-available" id="bc1">
                 <div class="bc-top">
-                  <div class="bc-title">📦 Batch 1 — Bihar B.Ed CET</div>
+                  <span class="bc-icon">📦</span>
                   <div class="bc-badge locked" id="bc1-badge">Loading…</div>
                 </div>
+                <div class="bc-title">Batch 1</div>
                 <div class="bc-meta" id="bc1-meta"><span>⏳ Loading…</span></div>
-                <button class="bc-btn start" id="btn-st" onclick="startTest(1)">▶ Start Batch 1</button>
+                <button class="bc-btn start" id="btn-st" onclick="startTest(1)">▶ Start</button>
               </div>
 
               <!-- Batch 2 Card -->
               <div class="batch-card bc-locked" id="bc2">
                 <div class="bc-top">
-                  <div class="bc-title">📦 Batch 2 — Second Set</div>
+                  <span class="bc-icon">📦</span>
                   <div class="bc-badge locked" id="bc2-badge">Loading…</div>
                 </div>
+                <div class="bc-title">Batch 2</div>
                 <div class="bc-meta" id="bc2-meta"><span>⏳ Loading…</span></div>
-                <button class="bc-btn start2" id="btn-st2" onclick="startTest(2)" disabled>▶ Start Batch 2</button>
+                <button class="bc-btn start2" id="btn-st2" onclick="startTest(2)" disabled>▶ Start</button>
               </div>
 
             </div>
@@ -1807,6 +1862,15 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
         <input type="password" id="al-pw" placeholder="Admin password" onkeydown="if(event.key==='Enter')doAdminLogin()"/>
         <button class="pw-eye" onclick="toggleEyeId('al-pw')">👁</button>
       </div>
+      <!-- CAPTCHA -->
+      <div class="al-captcha-wrap">
+        <div class="al-captcha-label">Enter the code shown below</div>
+        <div class="al-captcha-box">
+          <span class="al-captcha-code" id="al-captcha-display"></span>
+          <button class="al-captcha-refresh" onclick="genCaptcha()" title="New code">↺</button>
+        </div>
+        <input class="al-captcha-input" type="text" id="al-captcha-input" placeholder="Type the code exactly" maxlength="5" autocomplete="off" spellcheck="false"/>
+      </div>
       <div class="al-err" id="al-err"></div>
       <button class="btn-al" id="al-btn" onclick="doAdminLogin()">🔓 Login to Admin Panel</button>
       <div class="al-back" onclick="showScreen(_adminOrigin||'auth')">← Back</div>
@@ -1823,6 +1887,7 @@ body.dark .bc-btn:disabled{background:#21262d;color:#8b98a9}
   <div class="ap-hdr">
     <div class="ap-logo">Nishu<em>Abhyasi</em> <span>Admin</span></div>
     <div class="ap-hdr-rt">
+      <button id="ap-dm-tog" onclick="toggleDark()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;transition:.2s" title="Toggle dark/light mode">🌙</button>
       <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="showScreen(_adminOrigin||'auth')">← Portal</button>
       <button class="btn b-danger" style="font-size:12px;padding:6px 12px" onclick="adminOut()">Logout</button>
     </div>
@@ -3737,11 +3802,14 @@ function reviewFromHistory(idx){
     : (Array.isArray(rawAns)?rawAns:null);
   if(!parsedAns||!parsedAns.length){toast('⚠️ This attempt was saved before review was supported. Retake to enable review.');return;}
   // Reconstruct the Q set for that batch
+  // IMPORTANT: use the ORIGINAL unsorted question order for review
+  // If shuffle=true the live Q array may be in a different order than when the student took the test
+  // We stored answers by original index (before shuffle), so we must use original order
   const QSet=a.batch===2?Q2:Q;
   if(!QSet.length){toast('⚠️ Questions not loaded for this batch.');return;}
-  if(a.answers.length!==QSet.length){toast('⚠️ Question set has changed since this attempt. Review unavailable.');return;}
-  // Set up review mode state
-  Q=[...QSet];
+  if(parsedAns.length!==QSet.length){toast('⚠️ Question set has changed since this attempt. Review unavailable.');return;}
+  // Set up review mode state — preserve original (non-shuffled) order
+  Q=[...QSet]; // QSet already contains original order loaded from Firestore
   ans=[...parsedAns];
   vis=Array(Q.length).fill(true);
   mkd=Array(Q.length).fill(false);
@@ -3760,6 +3828,17 @@ function reviewFromHistory(idx){
 
 /* ══ ADMIN ══ */
 let _adminOrigin = 'auth'; // track where admin was opened from
+/* ══ CAPTCHA ══ */
+let _captchaCode='';
+function genCaptcha(){
+  const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  _captchaCode=Array.from({length:5},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  const el=document.getElementById('al-captcha-display');
+  if(el)el.textContent=_captchaCode;
+  const inp=document.getElementById('al-captcha-input');
+  if(inp)inp.value='';
+}
+
 async function goAdmin(){
   // Remember which screen we came from so Back works correctly
   const activeScreen = document.querySelector('.screen.active');
@@ -3777,6 +3856,7 @@ async function goAdmin(){
   }
   document.getElementById('al-err').textContent='';
   document.getElementById('al-pw').value='';
+  genCaptcha();
   setTimeout(()=>document.getElementById('al-pw').focus(),200);
 }
 async function sha256_legacy(s){
@@ -3789,6 +3869,14 @@ async function doAdminLogin(){
   const errEl=document.getElementById('al-err'),btn=document.getElementById('al-btn');
   if(!pw){errEl.textContent='Please enter a password.';return;}
   if(pw.length<6){errEl.textContent='Password must be at least 6 characters.';return;}
+  // Validate CAPTCHA first
+  const captchaInput=(document.getElementById('al-captcha-input')?.value||'').trim();
+  if(captchaInput!==_captchaCode){
+    errEl.textContent='❌ Incorrect CAPTCHA. Please try again.';
+    genCaptcha();
+    document.getElementById('al-captcha-input').value='';
+    return;
+  }
   btn.disabled=true;btn.textContent='Verifying…';
   try{
     const saltedHash=await sha256(pw);
@@ -3813,6 +3901,7 @@ async function doAdminLogin(){
         btn.disabled=false;btn.textContent='🔓 Login to Admin Panel';
         errEl.textContent='❌ Incorrect password.';
         document.getElementById('al-pw').value='';
+        genCaptcha(); // fresh CAPTCHA on every failed attempt
       }
     }
   }catch(e){btn.disabled=false;btn.textContent='🔓 Login';errEl.textContent='Error: '+e.message;}
@@ -4563,6 +4652,9 @@ function toggleDark(){
   document.body.classList.toggle('dark',_darkOn);
   const btn=document.getElementById('dm-tog');
   btn.textContent=_darkOn?'☀️ Light':'🌙 Dark';
+  // Sync admin header toggle button
+  const apBtn=document.getElementById('ap-dm-tog');
+  if(apBtn)apBtn.textContent=_darkOn?'☀️':'🌙';
   // dark mode popup removed — dark is now default
   try{localStorage.setItem('na_dark',_darkOn?'1':'0');}catch(e){}
   // Re-render current chart after CSS transition settles (canvas-replace guarantees fresh context)

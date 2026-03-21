@@ -2256,9 +2256,19 @@ service cloud.firestore {<br>
         <div class="ri" style="border-right:none"><div class="ri-lbl">🎯 Accuracy</div><div class="ri-val" id="res-acc">—</div></div>
       </div>
       <div class="rc-msg" id="res-msg"></div>
-      <div class="rc-act">
-        <button class="rc-btn rcb-rv" onclick="reviewTest()">🔍 Review Answers</button>
-        <button class="rc-btn rcb-rs" onclick="doFresh()">🔄 New Test</button>
+      <!-- Compact result actions — review nudge inline -->
+      <div id="result-actions-wrap" style="padding:0 20px 20px">
+        <!-- Review nudge chip — shown after test, hidden after review starts -->
+        <div id="review-nudge" style="display:none;font-size:11px;color:var(--sf);text-align:center;margin-bottom:8px;padding:6px 10px;background:rgba(255,107,0,.08);border-radius:8px;border:1px solid rgba(255,107,0,.2)">
+          ⚡ Review closes once you leave this page
+        </div>
+        <!-- Main action row: Review + Go Home side by side -->
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <button class="rc-btn rcb-rv" style="flex:1" onclick="reviewTest()">🔍 Review</button>
+          <button class="rc-btn" id="go-home-btn" style="flex:1;background:#21262d;color:#e2e8f0;border:1.5px solid #30363d" onclick="doFresh()">🏠 Go Home</button>
+        </div>
+        <!-- Smart next batch strip -->
+        <div id="result-next-action"></div>
       </div>
       <!-- Guest CTA — only shown for guests -->
       <div id="guest-result-cta" style="display:none;margin:16px 20px 0;background:linear-gradient(135deg,#0057A8,#003d7a);border-radius:14px;padding:16px 18px;color:#fff;text-align:center">
@@ -2743,7 +2753,7 @@ function _renderAttemptList(attempts,list,showCount){
       <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:2px;flex-shrink:0">
         <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
         <div class="att-pct ${pctCls}">${pct}%</div>
-        ${a.answers&&a.answers.length?`<button class="att-review-btn" onclick="reviewFromHistory(${i})" title="Review this attempt">🔍 Review</button>`:''}
+
       </div>
     </div>`;
   }).join('');
@@ -2793,7 +2803,7 @@ function _loadMoreAttempts(){
       <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:2px;flex-shrink:0">
         <div class="att-score" style="color:${col}">${a.score}/${a.total}</div>
         <div class="att-pct ${pctCls}">${pct}%</div>
-        ${a.answers&&a.answers.length?`<button class="att-review-btn" onclick="reviewFromHistory(${i})" title="Review this attempt">🔍 Review</button>`:''}
+
       </div>`;
     list.appendChild(div);
     // Trigger animation
@@ -3223,6 +3233,11 @@ function doFresh(){
   document.getElementById('rg').classList.remove('on');
   document.getElementById('rv-ban').classList.remove('on');
   document.querySelectorAll('.ab .btn').forEach(b=>b.style.display='');
+  // Clear result screen dynamic content
+  const nudge=document.getElementById('review-nudge');
+  if(nudge)nudge.style.display='none';
+  const rna=document.getElementById('result-next-action');
+  if(rna)rna.innerHTML='';
   showLanding();
 }
 
@@ -3238,82 +3253,83 @@ function refreshBatchCards(){
   const meta2=document.getElementById('bc2-meta');
   if(!bc1||!bc2)return;
 
-  // -- Batch 1 --
-  const b1done=_batchDoneDate(1);
-  const b1hasQ=Q.length>0;
-  // Check if questions were updated AFTER last completion (NEW badge)
-  let b1isNew=false;
+  _renderBatchCard({
+    card:bc1, btn:btn1, badge:badge1, meta:meta1,
+    batchNum:1, hasQ:Q.length>0, qCount:Q.length,
+    updatedAt:settings._q1updatedAt, btnClass:'start', btnClass2:'start'
+  });
+  _renderBatchCard({
+    card:bc2, btn:btn2, badge:badge2, meta:meta2,
+    batchNum:2, hasQ:Q2.length>0, qCount:Q2.length,
+    updatedAt:settings._q2updatedAt, btnClass:'start2', btnClass2:'start2'
+  });
+}
+
+function _renderBatchCard({card,btn,badge,meta,batchNum,hasQ,qCount,updatedAt,btnClass,btnClass2}){
+  const doneDate = _batchDoneDate(batchNum);
+  const mpq = settings.mpq||1;
+  const mins = Math.ceil(qCount*mpq);
+
+  // Has admin uploaded new questions AFTER the student last attempted?
+  let newQsAfterAttempt = false;
   try{
-    if(b1done&&settings._q1updatedAt&&new Date(settings._q1updatedAt)>new Date(b1done))b1isNew=true;
+    if(doneDate&&updatedAt&&new Date(updatedAt)>new Date(doneDate)) newQsAfterAttempt=true;
   }catch(e){}
 
-  if(!b1hasQ){
-    bc1.className='batch-card bc-locked';
-    badge1.className='bc-badge locked';badge1.textContent='No Questions';
-    meta1.innerHTML='<span>⚠️ Admin has not uploaded questions yet</span>';
-    btn1.disabled=true;btn1.textContent='▶ Start Batch 1';
-  }else if(b1done){
-    if(b1isNew){
-      // Questions updated after last attempt → treat as fresh start
-      bc1.className='batch-card bc-available';
-      badge1.className='bc-badge new';badge1.textContent='✨ UPDATED';
-      meta1.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
-      btn1.disabled=false;btn1.textContent='▶ Start Batch 1';
-      btn1.className='bc-btn start';
-    }else{
-      bc1.className='batch-card bc-done';
-      badge1.className='bc-badge done';badge1.textContent='✅ Completed';
-      meta1.innerHTML=`<span>✅ Completed on ${fmtDateShort(b1done)}</span><span class="sep">·</span><span>${Q.length} Qs</span>`;
-      btn1.disabled=false;btn1.textContent='↺ Retake Batch 1';
-      btn1.className='bc-btn retake';
-    }
-  }else{
-    bc1.className='batch-card bc-available';
-    badge1.className='bc-badge locked';badge1.textContent='Available';
-    badge1.style.background='var(--gn-lt)';badge1.style.color='var(--gn)';
-    meta1.innerHTML=`<span>${Q.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q.length*(settings.mpq||1))} mins</span>${settings._q1updatedAt?`<span class="sep">·</span><span style="color:var(--mt);font-size:10px">🗓 Updated ${fmtDateShort(settings._q1updatedAt)}</span>`:''}`;
-    btn1.disabled=false;btn1.textContent='▶ Start Batch 1';
-    btn1.className='bc-btn start';
-  }
+  if(!hasQ){
+    // No questions uploaded yet
+    card.className='batch-card bc-locked';
+    badge.className='bc-badge locked';
+    badge.textContent='Coming Soon';
+    badge.style.background='';badge.style.color='';
+    meta.innerHTML='<span>Admin is preparing this batch</span>';
+    btn.disabled=true;
+    btn.textContent=`▶ Start Set ${batchNum}`;
+    btn.className=`bc-btn ${btnClass}`;
 
-  // -- Batch 2 --
-  const b2done=_batchDoneDate(2);
-  const b2hasQ=Q2.length>0;
-  let b2isNew=false;
-  try{
-    if(b2done&&settings._q2updatedAt&&new Date(settings._q2updatedAt)>new Date(b2done))b2isNew=true;
-  }catch(e){}
+  } else if(!doneDate){
+    // Never attempted — fresh, ready to go
+    card.className='batch-card bc-available';
+    badge.className='bc-badge';
+    badge.style.background='var(--gn-lt)';badge.style.color='var(--gn)';
+    badge.textContent='Not Started';
+    const upd = updatedAt ? `<span class="sep">·</span><span>Added ${fmtDateShort(updatedAt)}</span>` : '';
+    meta.innerHTML=`<span>${qCount} Questions</span><span class="sep">·</span><span>${mins} mins</span>${upd}`;
+    btn.disabled=false;
+    btn.textContent=`▶ Start Set ${batchNum}`;
+    btn.className=`bc-btn ${btnClass}`;
 
-  if(!b2hasQ){
-    bc2.className='batch-card bc-locked';
-    badge2.className='bc-badge locked';badge2.textContent='Coming Soon';
-    meta2.innerHTML='<span>🔒 Admin is preparing Batch 2 questions</span>';
-    btn2.disabled=true;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
-  }else if(b2done){
-    if(b2isNew){
-      // Questions updated after last attempt → treat as fresh start
-      bc2.className='batch-card bc-available';
-      badge2.className='bc-badge new';badge2.textContent='✨ UPDATED';
-      meta2.innerHTML=`<span>🔄 New questions uploaded!</span><span class="sep">·</span><span>Last attempt: ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
-      btn2.disabled=false;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
-    }else{
-      bc2.className='batch-card bc-done';
-      badge2.className='bc-badge done';badge2.textContent='✅ Completed';
-      meta2.innerHTML=`<span>✅ Completed on ${fmtDateShort(b2done)}</span><span class="sep">·</span><span>${Q2.length} Qs</span>`;
-      btn2.disabled=false;btn2.textContent='↺ Retake Batch 2';btn2.className='bc-btn retake';
-    }
-  }else{
-    bc2.className='batch-card bc-available';
-    badge2.className='bc-badge locked';badge2.textContent='Available';
-    badge2.style.background='var(--bl-lt)';badge2.style.color='var(--bl)';
-    meta2.innerHTML=`<span>${Q2.length} Questions</span><span class="sep">·</span><span>${Math.ceil(Q2.length*(settings.mpq||1))} mins</span>${settings._q2updatedAt?`<span class="sep">·</span><span style="color:var(--mt);font-size:10px">🗓 Updated ${fmtDateShort(settings._q2updatedAt)}</span>`:''}`;
-    btn2.disabled=false;btn2.textContent='▶ Start Batch 2';btn2.className='bc-btn start2';
+  } else if(newQsAfterAttempt){
+    // Student attempted before, but admin uploaded fresh questions after that
+    card.className='batch-card bc-available';
+    badge.className='bc-badge';
+    badge.style.background='#fff3cd';badge.style.color='#856404';
+    badge.textContent='New Questions Added';
+    meta.innerHTML=`<span>New questions added on ${fmtDateShort(updatedAt)}</span><span class="sep">·</span><span>Your last attempt: ${fmtDateShort(doneDate)}</span><span class="sep">·</span><span>${qCount} Qs</span>`;
+    btn.disabled=false;
+    btn.textContent=`▶ Start Set ${batchNum}`;
+    btn.className=`bc-btn ${btnClass}`;
+
+  } else {
+    // Attempted and no new questions since
+    card.className='batch-card bc-done';
+    badge.className='bc-badge done';
+    badge.style.background='';badge.style.color='';
+    badge.textContent='Attempted';
+    meta.innerHTML=`<span>Last attempt: ${fmtDateShort(doneDate)}</span><span class="sep">·</span><span>${qCount} Qs</span>`;
+    btn.disabled=false;
+    btn.textContent=`↺ Attempt Again`;
+    btn.className=`bc-btn retake`;
   }
 }
 
 function fmtDateShort(iso){
-  try{const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
-  catch(e){return '—';}
+  // Date + time — e.g. "15 Mar 2026, 2:30 PM"
+  try{
+    const d=new Date(iso);
+    return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})
+      +', '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+  }catch(e){return '—';}
 }
 
 /* ══ START TEST — open access, no batch-order restriction ══ */
@@ -3691,6 +3707,49 @@ async function doSubmit(){
   showScreen('result');
   const guestCta=document.getElementById('guest-result-cta');
   if(guestCta)guestCta.style.display=isGuest?'block':'none';
+  // Show review nudge and smart next action
+  const nudge=document.getElementById('review-nudge');
+  if(nudge)nudge.style.display='block';
+  renderResultNextAction();
+}
+
+function renderResultNextAction(){
+  const wrap=document.getElementById('result-next-action');
+  if(!wrap){wrap&&(wrap.innerHTML='');return;}
+
+  // currentBatch = the batch just completed (set in _launchTest, never mutated)
+  // Q  = current batch questions (mutated — don't use for "other batch" check)
+  // Q2 = always Batch 2 questions (safe to check)
+  const otherBatch = currentBatch===1 ? 2 : 1;
+
+  // Safe check: use Q2.length for B2, and settings._q1updatedAt existence for B1
+  // (if B1 questions were loaded at boot, settings._q1updatedAt is set)
+  const otherHasQ = otherBatch===2 ? Q2.length>0 : (settings._q1updatedAt!=null || Q.length>0);
+  const otherDoneDate = _batchDoneDate(otherBatch);
+  const otherDone = !!otherDoneDate;
+
+  let msg='', sub='', btnHtml='';
+
+  if(otherHasQ && !otherDone){
+    msg=`Set ${otherBatch} is ready for you`;
+    sub=`You have not attempted Set ${otherBatch} yet. Start it now to continue your preparation.`;
+    btnHtml=`<button style="background:linear-gradient(135deg,var(--sf),var(--sf-dk));color:#fff;border:none;border-radius:10px;padding:10px 18px;font-family:var(--fh);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0" onclick="doFresh();setTimeout(()=>startTest(${otherBatch}),400)">▶ Set ${otherBatch}</button>`;
+  } else if(otherHasQ && otherDone){
+    msg='Both sets attempted';
+    sub=`Set 1: ${_batchDoneDate(1)?fmtDateShort(_batchDoneDate(1)):'—'} · Set 2: ${_batchDoneDate(2)?fmtDateShort(_batchDoneDate(2)):'—'}. Check back for new batches.`;
+  } else {
+    // Only one batch exists — nothing to show
+    wrap.innerHTML='';return;
+  }
+
+  wrap.innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(0,0,0,.15);border:1px solid var(--bd);border-radius:10px;flex-wrap:wrap;margin-top:2px">
+      <div style="flex:1;min-width:140px">
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">📦 ${msg}</div>
+        <div style="font-size:11px;color:var(--mt);margin-top:2px;line-height:1.5">${sub}</div>
+      </div>
+      ${btnHtml}
+    </div>`;
 }
 
 function reviewTest(){
@@ -3698,6 +3757,9 @@ function reviewTest(){
   document.getElementById('timer').textContent='00:00:00';
   _applyReviewButtons();
   renderQ(0);
+  // Hide nudge once they start reviewing
+  const nudge=document.getElementById('review-nudge');
+  if(nudge)nudge.style.display='none';
 }
 function backToResult(){showScreen('result');}
 function _applyReviewButtons(){

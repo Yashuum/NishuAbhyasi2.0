@@ -2154,15 +2154,7 @@ service cloud.firestore {<br>
         <div class="q-tx" id="q-tx">Loading…</div>
         <img id="q-im" class="q-im" src="" alt="" style="display:none"/>
         <div class="opts" id="opts"></div>
-        <!-- Solution panel — only visible in review mode -->
-        <div class="sol-panel" id="sol-panel" style="display:none">
-          <div class="sol-hd">
-            <span class="sol-icon">💡</span>
-            <span class="sol-title">Solution</span>
-            <span class="sol-ans-badge" id="sol-ans-badge">Correct: A</span>
-          </div>
-          <div class="sol-body" id="sol-body">No explanation available for this question.</div>
-        </div>
+        <!-- Solution panel removed — explanations not available -->
       </div>
     </div>
     <div class="sidebar" id="sidebar">
@@ -2406,17 +2398,58 @@ let currentBatch=1;
 let Q2=[];
 let _activeQBatch=1;
 
+// Sync batch-done state FROM Firestore attempts INTO localStorage.
+// This ensures the batch cards show the correct "Attempted" state on ANY device
+// (including fresh logins, other devices, or after clearing local storage).
+// Called after loadAttemptHistory fetches from Firestore.
+function _syncBatchDoneFromAttempts(attempts){
+  if(!attempts||!attempts.length)return;
+  [1,2].forEach(b=>{
+    // Find the most recent attempt for this batch
+    const bAttempts=attempts.filter(a=>(!a.batch&&b===1)||a.batch===b);
+    if(!bAttempts.length)return;
+    // Sort by timestamp descending, pick latest
+    const latest=bAttempts.sort((x,y)=>new Date(y.timestamp)-new Date(x.timestamp))[0];
+    if(!latest||!latest.timestamp)return;
+    // Only update localStorage if it's missing or older than what Firestore has
+    const existing=_batchDoneData(b);
+    const serverTs=new Date(latest.timestamp).getTime();
+    const localTs=existing?new Date(existing.ts).getTime():0;
+    if(serverTs>localTs){
+      // Overwrite with the authoritative Firestore data
+      const qCount=b===2?Q2.length:Q.length;
+      try{localStorage.setItem(_batchKey(b),JSON.stringify({ts:latest.timestamp,qCount}));}catch(e){}
+    }
+  });
+}
+
+
 // Persistent batch completion — stored in localStorage so it survives browser close
 // Key includes UID so guest/user don't share state
 function _batchKey(b){
   const uid=curUser?curUser.uid:'guest';
   return `na_batch${b}_done_${uid}`;
 }
+function _batchDoneData(b){
+  // Returns {ts, qCount} or null. Backward compat: old format = plain ISO string
+  try{
+    const raw=localStorage.getItem(_batchKey(b));
+    if(!raw)return null;
+    try{
+      const parsed=JSON.parse(raw);
+      if(parsed&&parsed.ts)return parsed; // new format
+    }catch(e){}
+    return {ts:raw,qCount:null}; // old format — no qCount stored
+  }catch(e){return null;}
+}
 function _batchDoneDate(b){
-  try{return localStorage.getItem(_batchKey(b))||null;}catch(e){return null;}
+  const d=_batchDoneData(b);
+  return d?d.ts:null;
 }
 function _markBatchDone(b){
-  try{localStorage.setItem(_batchKey(b),new Date().toISOString());}catch(e){}
+  // Store timestamp AND question count so we can detect genuine question changes
+  const qCount=b===2?Q2.length:Q.length;
+  try{localStorage.setItem(_batchKey(b),JSON.stringify({ts:new Date().toISOString(),qCount}));}catch(e){}
 }
 
 const SS='na_v5';
@@ -2714,8 +2747,12 @@ async function loadAttemptHistory(){
   try{
     const attempts=await fbGetUserAttempts(curUser.uid);
     userAttempts=attempts;
+    // Sync localStorage batch-done flags from Firestore so they're accurate on any device
+    _syncBatchDoneFromAttempts(attempts);
     updateStats(attempts);
     renderProgressBanner(attempts);
+    // Re-render batch cards now that Firestore data is loaded (fixes cross-device & re-login state)
+    refreshBatchCards();
     // Defer chart render so DOM has finished painting the card first
     requestAnimationFrame(()=>renderScoreChart(attempts));
     if(!attempts.length){
@@ -3270,10 +3307,22 @@ function _renderBatchCard({card,btn,badge,meta,batchNum,hasQ,qCount,updatedAt,bt
   const mpq = settings.mpq||1;
   const mins = Math.ceil(qCount*mpq);
 
-  // Has admin uploaded new questions AFTER the student last attempted?
+  // Has admin uploaded genuinely NEW questions since last attempt?
+  // Check 1: timestamp of questions must be after attempt timestamp
+  // Check 2: question COUNT must have changed (re-saving same Qs = no change)
+  // Check 3: if old format (no qCount stored) - fall back to timestamp only
   let newQsAfterAttempt = false;
   try{
-    if(doneDate&&updatedAt&&new Date(updatedAt)>new Date(doneDate)) newQsAfterAttempt=true;
+    if(doneDate && updatedAt && new Date(updatedAt) > new Date(doneDate)){
+      const doneData = _batchDoneData(batchNum);
+      if(doneData && doneData.qCount !== null){
+        // New format: only flag if question COUNT actually changed
+        newQsAfterAttempt = (doneData.qCount !== qCount);
+      } else {
+        // Old format: can't compare counts, use timestamp (may show false positive once)
+        newQsAfterAttempt = true;
+      }
+    }
   }catch(e){}
 
   if(!hasQ){
@@ -3539,23 +3588,8 @@ function renderQ(idx){
     if(!isRev)b.onclick=()=>selOpt(i);
     ol.appendChild(b);
   });
-  // Solution panel — only in review mode
-  const solPanel=document.getElementById('sol-panel');
-  const solBody=document.getElementById('sol-body');
-  const solBadge=document.getElementById('sol-ans-badge');
-  if(solPanel){
-    if(isRev){
-      const ks=['A','B','C','D','E'];
-      const correctIdx=q.correct;
-      const correctLetter=ks[correctIdx]||String(correctIdx+1);
-      const correctText=q.options?q.options[correctIdx]||'':correctLetter;
-      solBadge.textContent='✅ Correct: '+correctLetter+' — '+correctText;
-      solBody.textContent=q.explanation||q.solution||q.logic||'No explanation available for this question.';
-      solPanel.style.display='block';
-    }else{
-      solPanel.style.display='none';
-    }
-  }
+  // Solution panel removed — no explanation card to update
+
   refGrid();
   const gb=document.getElementById('qb'+idx);if(gb)gb.scrollIntoView({block:'nearest',behavior:'smooth'});
   saveSession();
@@ -4869,4 +4903,4 @@ function dismissInstallCard(){
 
 </script>
 </body>
-</html> 
+</html>

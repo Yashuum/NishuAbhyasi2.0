@@ -3390,12 +3390,9 @@ function _renderBatchCard({card,btn,badge,meta,batchNum,hasQ,qCount,updatedAt,bt
   if(doneDate&&updatedAt){
     const uploadedMs=new Date(updatedAt).getTime();
     const attemptMs=new Date(doneDate).getTime();
-    if(uploadedMs>attemptMs){
-      if(doneQCount!==null){
-        isNewQuestions=(doneQCount!==qCount)||(uploadedMs-attemptMs>3600000);
-      }else{
-        isNewQuestions=true;
-      }
+    const gapMs=uploadedMs-attemptMs;
+    if(gapMs>300000){
+      isNewQuestions=true;
     }
   }
   badge.style.background='';badge.style.color='';

@@ -21,7 +21,8 @@ import { getFirestore, doc, getDoc, setDoc, addDoc, collection,
          getDocs, deleteDoc, query, orderBy, limit, where }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-         signOut, onAuthStateChanged, updateProfile }
+         signOut, onAuthStateChanged, updateProfile,
+         EmailAuthProvider, reauthenticateWithCredential, updatePassword }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const FIREBASE_CONFIG = {
@@ -41,7 +42,7 @@ try {
   auth = getAuth(app);
   window._db = db; window._auth = auth; window._dbReady = true;
   window._fs   = { doc, getDoc, setDoc, addDoc, collection, getDocs, deleteDoc, query, orderBy, limit, where };
-  window._fauth = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile };
+  window._fauth = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, EmailAuthProvider, reauthenticateWithCredential, updatePassword };
 } catch(e) { window._dbReady = false; window._dbError = e.message; }
 window._dbReadyFired = true;          // flag for classic script to check
 window.dispatchEvent(new Event('dbready'));
@@ -2031,6 +2032,10 @@ service cloud.firestore {<br>
           <button class="btn b-out" style="font-size:12px;padding:6px 12px" onclick="exportFeedbackPDF()">⬇ Export PDF</button>
         </div>
       </div>
+      <div style="font-size:11px;background:#0f2644;border:1px solid #1f6feb;border-radius:8px;padding:8px 12px;color:#58a6ff;margin-bottom:10px;line-height:1.6">
+        ⚠️ <strong>Firestore Rules needed:</strong> Add this rule so students can submit feedback:<br/>
+        <code style="font-size:10px;color:#79c0ff">match /feedback/{doc} { allow create: if true; allow read,delete: if false; }</code>
+      </div>
       <div id="feedback-list" style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
         <div style="font-size:13px;color:var(--mt);padding:8px 0">Click Refresh to load messages.</div>
       </div>
@@ -3282,8 +3287,10 @@ async function sendContactForm(){
     toast('✅ Message sent! We will get back to you soon.');
   }catch(e){
     const statusEl=document.getElementById('ct-status');
-    if(statusEl)statusEl.innerHTML='<span style="color:var(--c-no)">⚠️ Could not send. Check your connection.</span>';
+    const errMsg=e.code==='permission-denied'?'⚠️ Permission denied — admin needs to update Firestore rules to allow feedback collection writes.':'⚠️ Error: '+e.message;
+    if(statusEl)statusEl.innerHTML=`<span style="color:var(--c-no);font-size:11px">${errMsg}</span>`;
     if(btn){btn.disabled=false;btn.textContent='📨 Send Message';}
+    console.error('Feedback save error:',e.code,e.message);
   }
 }
 

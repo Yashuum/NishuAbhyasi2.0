@@ -3439,6 +3439,7 @@ function fmtDateShort(iso){
 /* ══ START TEST — open access, no batch-order restriction ══ */
 let _pendingBatch=1; // stores batch during countdown
 function startTest(batch){
+  if(window.FlutterAds){try{FlutterAds.postMessage('start_test');}catch(e){}}
   batch=batch||1;
   const QSet=batch===2?Q2:Q;
   if(!QSet.length){
@@ -3688,6 +3689,7 @@ function showTimer(){
 const p=n=>String(n).padStart(2,'0');
 
 function confirmSub(){
+  if(window.FlutterAds){try{FlutterAds.postMessage('submit_test');}catch(e){}}
   const a=ans.filter(x=>x!==null).length;
   document.getElementById('md-st').innerHTML=`
     <div class="ms">Total: <span>${Q.length}</span></div><div class="ms">Answered: <span>${a}</span></div>

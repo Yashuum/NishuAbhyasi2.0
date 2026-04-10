@@ -202,6 +202,60 @@ body.dark .ap-rv-btn{background:#161b22;color:#8b98a9;border-color:#21262d}
 /* Notice board admin */
 body.dark .nb-guest-txt,body.dark .nb-reg-txt{background:#21262d;color:#e2e8f0;border-color:#30363d}
 
+/* ── Admin Notes ── */
+.notes-list{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.note-card{border:1.5px solid var(--bd);border-radius:12px;padding:14px 16px;background:var(--bg);position:relative;transition:.2s}
+.note-card:hover{border-color:var(--bl);box-shadow:0 2px 12px rgba(0,87,168,.08)}
+body.dark .note-card{background:#0d1117;border-color:#21262d}
+body.dark .note-card:hover{border-color:#1f6feb;box-shadow:0 2px 12px rgba(0,87,168,.22)}
+.note-card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.note-tag{font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.3px;flex-shrink:0;margin-top:2px}
+.note-tag.questions{background:#e3f0ff;color:#0057A8}
+.note-tag.important{background:#FFF3E8;color:#C94E00}
+.note-tag.general{background:#f1f5f9;color:#475569}
+.note-tag.reminder{background:#f0fdf4;color:#166534}
+body.dark .note-tag.questions{background:#0f2644;color:#58a6ff}
+body.dark .note-tag.important{background:#2a1500;color:#fb923c}
+body.dark .note-tag.general{background:#1e293b;color:#94a3b8}
+body.dark .note-tag.reminder{background:#0c2218;color:#4ade80}
+.note-title{font-family:var(--fh);font-size:14px;font-weight:800;color:var(--tx);flex:1;line-height:1.35}
+body.dark .note-title{color:#e2e8f0}
+.note-body{font-size:13px;color:var(--mt);line-height:1.7;white-space:pre-wrap;word-break:break-word}
+body.dark .note-body{color:#8b98a9}
+.note-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:8px}
+.note-ts{font-size:10.5px;color:var(--mt);opacity:.7}
+.note-actions{display:flex;gap:6px}
+.note-del-btn{background:#fee2e2;border:none;border-radius:7px;padding:4px 10px;font-size:11px;font-weight:700;color:#b91c1c;cursor:pointer;transition:.15s;font-family:var(--fb)}
+.note-del-btn:hover{background:#fca5a5;color:#7f1d1d}
+body.dark .note-del-btn{background:#2a0a0a;color:#f87171}
+body.dark .note-del-btn:hover{background:#450a0a;color:#fca5a5}
+.note-edit-btn{background:var(--bl-lt);border:none;border-radius:7px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--bl);cursor:pointer;transition:.15s;font-family:var(--fb)}
+.note-edit-btn:hover{background:var(--bl);color:#fff}
+body.dark .note-edit-btn{background:#0f2644;color:#58a6ff}
+body.dark .note-edit-btn:hover{background:#1f6feb;color:#fff}
+.note-empty{text-align:center;padding:24px 0;color:var(--mt);font-size:13px}
+.note-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;background:var(--bl-lt);border:1.5px solid var(--bl);border-radius:14px;padding:16px}
+body.dark .note-form{background:#0f2644;border-color:#1f6feb}
+.note-form-row{display:flex;gap:10px;flex-wrap:wrap}
+.note-form-inp{flex:1;min-width:160px;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font-family:var(--fb);font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.15s}
+.note-form-inp:focus{border-color:var(--bl);background:#f0f6ff}
+body.dark .note-form-inp{background:#161b22;border-color:#30363d;color:#e2e8f0}
+body.dark .note-form-inp:focus{border-color:#58a6ff;background:#0d1f3c}
+.note-form-sel{padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font-family:var(--fb);font-size:13px;color:var(--tx);background:#fff;outline:none;cursor:pointer}
+body.dark .note-form-sel{background:#161b22;border-color:#30363d;color:#e2e8f0}
+.note-form-ta{width:100%;padding:10px 12px;border:1.5px solid var(--bd);border-radius:9px;font-family:var(--fb);font-size:13px;color:var(--tx);background:#fff;outline:none;resize:vertical;min-height:90px;line-height:1.65;transition:.15s}
+.note-form-ta:focus{border-color:var(--bl);background:#f0f6ff}
+body.dark .note-form-ta{background:#161b22;border-color:#30363d;color:#e2e8f0}
+body.dark .note-form-ta:focus{border-color:#58a6ff;background:#0d1f3c}
+.note-form-acts{display:flex;gap:8px}
+.notes-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.nf-filter-btn{padding:5px 13px;border-radius:20px;border:1.5px solid var(--bd);background:none;font-family:var(--fb);font-size:11px;font-weight:700;color:var(--mt);cursor:pointer;transition:.15s}
+.nf-filter-btn.on{background:var(--bl);color:#fff;border-color:var(--bl)}
+body.dark .nf-filter-btn{border-color:#30363d;color:#8b98a9}
+body.dark .nf-filter-btn.on{background:#0057A8;color:#fff;border-color:#0057A8}
+.notes-count-badge{font-size:11px;font-weight:700;background:var(--bl-lt);color:var(--bl);padding:3px 10px;border-radius:20px;margin-left:auto}
+body.dark .notes-count-badge{background:#0f2644;color:#58a6ff}
+
 /* ── Result screen ── */
 body.dark #result{background:#0d1117}
 body.dark .rc{background:#161b22}
@@ -1997,11 +2051,50 @@ service cloud.firestore {<br>
       </div>
     </div>
 
+    <!-- Admin Notes -->
+    <div class="ap-card" id="admin-notes-card">
+      <div class="ap-card-hd">
+        <div><div class="ap-ct">&#x1F4DD; Admin Notes</div><div class="ap-cs">Save private notes, question sets, or anything important</div></div>
+        <button class="btn b-prim" onclick="toggleNoteForm()">&#xFF0B; New Note</button>
+      </div>
+      <!-- New Note Form (hidden by default) -->
+      <div class="note-form" id="note-form" style="display:none">
+        <div class="note-form-row">
+          <input class="note-form-inp" id="note-inp-title" placeholder="Note title (e.g. GK Questions Set 3, Reminder...)" maxlength="120"/>
+          <select class="note-form-sel" id="note-inp-tag">
+            <option value="general">General</option>
+            <option value="questions">Questions Set</option>
+            <option value="important">Important</option>
+            <option value="reminder">Reminder</option>
+          </select>
+        </div>
+        <textarea class="note-form-ta" id="note-inp-body" placeholder="Write anything — a new set of questions (paste JSON), an important reminder, notes for yourself, etc."></textarea>
+        <div class="note-form-acts">
+          <button class="btn b-prim" id="note-save-btn" onclick="saveNote()">Save Note</button>
+          <button class="btn b-out" onclick="cancelNoteForm()">Cancel</button>
+        </div>
+        <div id="note-form-msg" style="font-size:12px;font-weight:600;min-height:16px;margin-top:2px"></div>
+      </div>
+      <!-- Filter bar -->
+      <div class="notes-filter-bar" id="notes-filter-bar" style="display:none">
+        <button class="nf-filter-btn on" id="nff-all"      onclick="setNoteFilter('all')">All</button>
+        <button class="nf-filter-btn"   id="nff-questions" onclick="setNoteFilter('questions')">Questions Set</button>
+        <button class="nf-filter-btn"   id="nff-important" onclick="setNoteFilter('important')">Important</button>
+        <button class="nf-filter-btn"   id="nff-reminder"  onclick="setNoteFilter('reminder')">Reminder</button>
+        <button class="nf-filter-btn"   id="nff-general"   onclick="setNoteFilter('general')">General</button>
+        <span class="notes-count-badge" id="notes-count-badge">0 notes</span>
+      </div>
+      <!-- Notes list -->
+      <div class="notes-list" id="notes-list">
+        <div class="note-empty">Click &quot;+ New Note&quot; to add your first note.</div>
+      </div>
+    </div>
+
     <!-- Notice Board -->
     <div class="ap-card">
       <div class="ap-card-hd">
-        <div><div class="ap-ct">📢 Notice Board</div><div class="ap-cs">Broadcast notices to students on landing page</div></div>
-        <button class="btn b-prim" onclick="saveNotices()">💾 Save</button>
+        <div><div class="ap-ct">&#x1F4E2; Notice Board</div><div class="ap-cs">Broadcast notices to students on landing page</div></div>
+        <button class="btn b-prim" onclick="saveNotices()">&#x1F4BE; Save</button>
       </div>
       <!-- Guest notice -->
       <div class="nb-row">
@@ -4159,6 +4252,7 @@ async function loadAdminData(){
   if(settings.showResult!==false)document.getElementById('s-res').classList.add('on');else document.getElementById('s-res').classList.remove('on');
   if(settings.showLeaderboard!==false)document.getElementById('s-lb').classList.add('on');else document.getElementById('s-lb').classList.remove('on');
   await loadNoticesAdmin();
+  await loadAdminNotes();
   refreshFbUsage();
 }
 
@@ -4498,6 +4592,175 @@ async function changePw(){
   await fbSet('config/admin',{hash,updatedAt:new Date().toISOString()});
   document.getElementById('s-npw').value='';
   toast('✅ Admin password updated!');
+}
+
+/* ══ ADMIN NOTES ══ */
+let _adminNotes = [];
+let _noteFilter = 'all';
+let _editingNoteId = null;
+
+function toggleNoteForm(){
+  const form = document.getElementById('note-form');
+  const isHidden = form.style.display === 'none';
+  form.style.display = isHidden ? '' : 'none';
+  if(isHidden){
+    // Reset form for a new note
+    _editingNoteId = null;
+    document.getElementById('note-inp-title').value = '';
+    document.getElementById('note-inp-body').value = '';
+    document.getElementById('note-inp-tag').value = 'general';
+    document.getElementById('note-save-btn').textContent = 'Save Note';
+    document.getElementById('note-form-msg').textContent = '';
+    document.getElementById('note-inp-title').focus();
+  }
+}
+
+function cancelNoteForm(){
+  document.getElementById('note-form').style.display = 'none';
+  _editingNoteId = null;
+}
+
+async function saveNote(){
+  if(!reqAdmin()) return;
+  const title  = (document.getElementById('note-inp-title').value || '').trim();
+  const body   = (document.getElementById('note-inp-body').value  || '').trim();
+  const tag    = document.getElementById('note-inp-tag').value || 'general';
+  const msgEl  = document.getElementById('note-form-msg');
+  const saveBtn= document.getElementById('note-save-btn');
+
+  if(!title && !body){ msgEl.style.color='var(--c-no)'; msgEl.textContent='Please enter a title or content.'; return; }
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving…';
+  msgEl.textContent = '';
+
+  try{
+    const now = new Date().toISOString();
+    if(_editingNoteId){
+      // Update existing note
+      const existing = _adminNotes.find(n => n.id === _editingNoteId);
+      if(existing){
+        existing.title = title;
+        existing.body  = body;
+        existing.tag   = tag;
+        existing.updatedAt = now;
+      }
+      await fbSet('config/notes', { notes: _adminNotes, updatedAt: now });
+      toast('Note updated!');
+    } else {
+      // Add new note
+      const note = { id: 'n_' + Date.now(), title, body, tag, createdAt: now, updatedAt: now };
+      _adminNotes.unshift(note);
+      await fbSet('config/notes', { notes: _adminNotes, updatedAt: now });
+      toast('Note saved!');
+    }
+    cancelNoteForm();
+    renderNotes();
+  } catch(e){
+    msgEl.style.color = 'var(--c-no)';
+    msgEl.textContent = 'Error saving note: ' + e.message;
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = _editingNoteId ? 'Update Note' : 'Save Note';
+  }
+}
+
+function editNote(id){
+  const note = _adminNotes.find(n => n.id === id);
+  if(!note) return;
+  _editingNoteId = id;
+  document.getElementById('note-inp-title').value = note.title || '';
+  document.getElementById('note-inp-body').value  = note.body  || '';
+  document.getElementById('note-inp-tag').value   = note.tag   || 'general';
+  document.getElementById('note-save-btn').textContent = 'Update Note';
+  document.getElementById('note-form').style.display = '';
+  document.getElementById('note-form-msg').textContent = '';
+  document.getElementById('note-inp-title').focus();
+  document.getElementById('note-form').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+async function deleteNote(id){
+  if(!reqAdmin()) return;
+  if(!confirm('Delete this note?')) return;
+  _adminNotes = _adminNotes.filter(n => n.id !== id);
+  try{
+    await fbSet('config/notes', { notes: _adminNotes, updatedAt: new Date().toISOString() });
+    renderNotes();
+    toast('Note deleted.');
+  } catch(e){ toast('Error: ' + e.message); }
+}
+
+function setNoteFilter(f){
+  _noteFilter = f;
+  ['all','questions','important','reminder','general'].forEach(k => {
+    const el = document.getElementById('nff-' + k);
+    if(el) el.classList.toggle('on', k === f);
+  });
+  renderNotes();
+}
+
+async function loadAdminNotes(){
+  if(!reqAdmin()) return;
+  try{
+    const data = await fbGet('config/notes');
+    _adminNotes = (data && Array.isArray(data.notes)) ? data.notes : [];
+    renderNotes();
+  } catch(e){
+    _adminNotes = [];
+    renderNotes();
+  }
+}
+
+const _NOTE_TAG_LABELS = { questions:'Questions Set', important:'Important', reminder:'Reminder', general:'General' };
+const _NOTE_TAG_ICONS  = { questions:'📋', important:'🔥', reminder:'✅', general:'📌' };
+
+function renderNotes(){
+  const container = document.getElementById('notes-list');
+  const filterBar  = document.getElementById('notes-filter-bar');
+  if(!container) return;
+
+  let notes = [..._adminNotes];
+  if(_noteFilter !== 'all') notes = notes.filter(n => n.tag === _noteFilter);
+
+  // Show filter bar only if there are notes
+  if(filterBar) filterBar.style.display = _adminNotes.length > 0 ? '' : 'none';
+  const badge = document.getElementById('notes-count-badge');
+  if(badge) badge.textContent = _adminNotes.length + ' note' + (_adminNotes.length !== 1 ? 's' : '');
+
+  if(!notes.length){
+    container.innerHTML = '<div class="note-empty">' +
+      (_adminNotes.length === 0 ? 'No notes yet. Click &quot;+ New Note&quot; to get started.' : 'No notes in this category.') +
+    '</div>';
+    return;
+  }
+
+  container.innerHTML = notes.map(note => {
+    const tag   = note.tag || 'general';
+    const icon  = _NOTE_TAG_ICONS[tag]  || '📌';
+    const label = _NOTE_TAG_LABELS[tag] || 'General';
+    const dateStr = note.updatedAt
+      ? fmtDateShort(note.updatedAt)
+      : (note.createdAt ? fmtDateShort(note.createdAt) : '');
+    const wasEdited = note.updatedAt && note.createdAt && note.updatedAt !== note.createdAt;
+    // Truncate body preview if long
+    const preview = (note.body || '').length > 360
+      ? (note.body || '').slice(0, 360) + '…'
+      : (note.body || '');
+    return `<div class="note-card">
+      <div class="note-card-top">
+        <span class="note-tag ${esc(tag)}">${icon} ${esc(label)}</span>
+        ${note.title ? `<div class="note-title">${esc(note.title)}</div>` : ''}
+      </div>
+      ${preview ? `<div class="note-body">${esc(preview)}</div>` : ''}
+      <div class="note-footer">
+        <span class="note-ts">${dateStr}${wasEdited ? ' (edited)' : ''}</span>
+        <div class="note-actions">
+          <button class="note-edit-btn" onclick="editNote('${note.id}')">Edit</button>
+          <button class="note-del-btn"  onclick="deleteNote('${note.id}')">Delete</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 /* ══ NOTICE BOARD ══ */
